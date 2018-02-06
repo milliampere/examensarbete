@@ -1,7 +1,6 @@
-import { compose, lifecycle, withProps } from 'recompose';
+import React, { Component } from 'react';
+import ReactTable from 'react-table';
 import {parseString} from 'xml2js';
-
-import NutritionCalculator from "./NutritionCalculator";
 
 // Mock data
 const xml = `
@@ -1400,6 +1399,7 @@ function convertData() {
         array.push({ 
           lmvId: foods[food]['Nummer'][0], 
           name: foods[food]['Namn'][0],
+          amount: foods[food]['ViktGram'][0],
           nutrition: foods[food]['Naringsvarden'][0]['Naringsvarde']
         })
       }
@@ -1410,78 +1410,190 @@ function convertData() {
 
 };
 
-// Mock column headers
-const columns = [
-  {
-    Header: "Generellt",
-    columns: [
-      {
-        Header: "Namn",
-        accessor: "name"
-      },
-      {
-        Header: "Id",
-        accessor: 'lmvId'
-      },
-      {
-        Header: 'Energi (kcal)',
-        accessor: 'nutrition[22].Varde[0]'
-      }
-    ]
-  },
-  {
-    Header: "Makromolekyler",
-    columns: [
-      {
-        Header: 'Kolhydrater (g)',
-        accessor: 'nutrition[25].Varde[0]'
-      }, {
-        Header: 'Protein (g)',
-        accessor: 'nutrition[26].Varde[0]'
-      }, {
-        Header: 'Fett (g)',
-        accessor: 'nutrition[29].Varde[0]'
-      }, {
-        Header: 'Fibrer (g)',
-        accessor: 'nutrition[28].Varde[0]'
-      }
-    ]
-  }, 
-  {
-    Header: "Vitaminer",
-    columns: [
-      {
-        Header: 'Vitamin B12 (µg)',
-        accessor: 'nutrition[49].Varde[0]'
-      },
-      {
-        Header: 'Vitamin B6 (mg)',
-        accessor: 'nutrition[50].Varde[0]'
-      },
-      {
-        Header: 'Vitamin C (mg)',
-        accessor: 'nutrition[46].Varde[0]'
-      },
-      {
-        Header: 'Riboflavin (mg)',
-        accessor: 'nutrition[45].Varde[0]'
-      },
-      {
-        Header: 'Tiamin (mg)',
-        accessor: 'nutrition[44].Varde[0]'
-      }
-    ]
+class componentName extends Component {
+
+  state = {
+    foods: []
   }
 
-];
+  componentDidMount() {
+    convertData().then((data) =>
+    this.setState({ foods: data }));
+  }
 
-export default compose(
-  lifecycle({
-    state: { foods: [] },
-    componentDidMount() {
-      convertData().then((data) =>
-        this.setState({ foods: data }));
-    }
-  }),
-  withProps({columns})
-)(NutritionCalculator);
+  getSum = (total, num) => {
+    return total + num;
+  };
+
+  roundUp = (num, precision) => {
+    precision = Math.pow(10, precision)
+    return Math.ceil(num * precision) / precision
+  }
+  
+  renderEditable(cellInfo) {
+    return (
+      <div
+        style={{ backgroundColor: "#fafafa" }}
+        contentEditable
+        suppressContentEditableWarning
+        onBlur={e => {
+          const foods = [...this.state.foods];
+          foods[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
+          this.setState({ foods });
+        }}
+/*         dangerouslySetInnerHTML={{
+          __html: this.state.foods[cellInfo.index][cellInfo.column.id]
+        }} */
+      />
+    );
+  }
+
+  render() {
+    return (
+      <div className="container">
+        
+        <h1>Näringsinnehåll</h1>
+  
+        <ReactTable
+            data={this.state.foods}
+            columns={[
+              {
+                Header: "Generellt",
+                columns: [
+                  {
+                    Header: "Namn",
+                    accessor: "name"
+                  },
+                  {
+                    Header: "Mängd",
+                    accessor: "amount"/* ,
+                    Cell: this.renderEditable */
+                  },
+                  {
+                    Header: "Id",
+                    accessor: 'lmvId'
+                  },
+                  {
+                    Header: 'Energi (kcal)',
+                    accessor: 'nutrition[22].Varde[0]'
+                  }
+                ]
+              },
+              {
+                Header: "Makromolekyler",
+                columns: [
+                  {
+                    Header: 'Kolhydrater (g)',
+                    accessor: 'nutrition[25].Varde[0]',
+                    Footer: (
+                      <span>
+                        <strong> 
+                        {  
+                          this.roundUp(this.state.foods.map((food) => {
+                            return Number(food.nutrition[25].Varde[0].replace(',', '.'));
+                        }).reduce(this.getSum, 0), 2)
+                        }
+                        </strong>
+                      </span>
+                    )
+                  }, {
+                    Header: 'Protein (g)',
+                    accessor: 'nutrition[26].Varde[0]',
+                    Footer: (
+                      <span>
+                        <strong> 
+                        {  
+                          this.roundUp(this.state.foods.map((food) => {
+                            return Number(food.nutrition[26].Varde[0].replace(',', '.'));
+                        }).reduce(this.getSum, 0), 2)
+                        }
+                        </strong>
+                      </span>
+                    )
+                  }, {
+                    Header: 'Fett (g)',
+                    accessor: 'nutrition[29].Varde[0]',
+                    Footer: (
+                      <span>
+                        <strong> 
+                        {  
+                          this.roundUp(this.state.foods.map((food) => {
+                            return Number(food.nutrition[29].Varde[0].replace(',', '.'));
+                        }).reduce(this.getSum, 0), 2)
+                        }
+                        </strong>
+                      </span>
+                    )
+                  }, {
+                    Header: 'Fibrer (g)',
+                    accessor: 'nutrition[28].Varde[0]',
+                    Footer: (
+                            <div
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: '#dadada',
+                                borderRadius: '2px'
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: `${
+                                    ((this.roundUp(this.state.foods.map((food) => {
+                                      return Number(food.nutrition[28].Varde[0].replace(',', '.'));
+                                    }).reduce(this.getSum, 0), 2))/25*100)
+                                  }%`,
+                                  height: '60%',
+                                  backgroundColor: this.roundUp(this.state.foods.map((food) => {
+                                    return Number(food.nutrition[28].Varde[0].replace(',', '.'));
+                                  }).reduce(this.getSum, 0), 2) > 66 ? '#85cc00'
+                                    : this.roundUp(this.state.foods.map((food) => {
+                                      return Number(food.nutrition[28].Varde[0].replace(',', '.'));
+                                    }).reduce(this.getSum, 0), 2) > 33 ? '#ffbf00'
+                                    : '#ff2e00',
+                                  borderRadius: '2px',
+                                  transition: 'all .2s ease-out'
+                                }}
+                              />
+                              <div>10 %</div>
+                            </div>
+                    )
+                  }
+                ]
+              }, 
+              {
+                Header: "Vitaminer",
+                columns: [
+                  {
+                    Header: 'Vitamin B12 (µg)',
+                    accessor: 'nutrition[49].Varde[0]'
+                  },
+                  {
+                    Header: 'Vitamin B6 (mg)',
+                    accessor: 'nutrition[50].Varde[0]'
+                  },
+                  {
+                    Header: 'Vitamin C (mg)',
+                    accessor: 'nutrition[46].Varde[0]'
+                  },
+                  {
+                    Header: 'Riboflavin (mg)',
+                    accessor: 'nutrition[45].Varde[0]'
+                  },
+                  {
+                    Header: 'Tiamin (mg)',
+                    accessor: 'nutrition[44].Varde[0]'
+                  }
+                ]
+              }
+            
+            ]}
+            defaultPageSize={5}
+        /> 
+  
+      </div>
+    );
+  }
+}
+
+export default componentName;
