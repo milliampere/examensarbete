@@ -1,0 +1,275 @@
+{
+    "foodInfo": [
+        {
+            "livsmedelsverketId": 1,
+            "name": "Talg nöt",
+            "nutrition": [
+                {
+                    "name": "Summa mättade fettsyror",
+                    "value": "35,80",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Summa enkelomättade fettsyror",
+                    "value": "28,80",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Summa fleromättade fettsyror",
+                    "value": "2,76",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Fettsyra 4:0-10:0",
+                    "value": "0,00",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Fettsyra 12:0",
+                    "value": "0,07",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Fettsyra 14:0",
+                    "value": "3,17",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Fettsyra 16:0",
+                    "value": "20,20",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Fettsyra 18:0",
+                    "value": "10,80",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Fettsyra 20:0",
+                    "value": "0,47",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Fettsyra 16:1",
+                    "value": "2,56",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Fettsyra 18:1",
+                    "value": "25,30",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Fettsyra 18:2",
+                    "value": "2,43",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Fettsyra 18:3",
+                    "value": "0,27",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Fettsyra 20:4",
+                    "value": "0,00",
+                    "enhet": "g"
+                },
+                {
+                    "name": "EPA (Fettsyra 20:5)",
+                    "value": "0,00",
+                    "enhet": "g"
+                },
+                {
+                    "name": "DPA (Fettsyra 22:5)",
+                    "value": "0,00",
+                    "enhet": "g"
+                },
+                {
+                    "name": "DHA (Fettsyra 22:6)",
+                    "value": "0,00",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Kolesterol",
+                    "value": "109,00",
+                    "enhet": "mg"
+                },
+                {
+                    "name": "Monosackarider",
+                    "value": "0,00",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Disackarider",
+                    "value": "0,00",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Sackaros",
+                    "value": "0,00",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Energi (kJ)",
+                    "value": "2 746,0",
+                    "enhet": "kJ"
+                },
+                {
+                    "name": "Energi (kcal)",
+                    "value": "656,3",
+                    "enhet": "kcal"
+                },
+                {
+                    "name": "Aska",
+                    "value": "0,30",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Vatten",
+                    "value": "21,70",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Kolhydrater",
+                    "value": "0,00",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Protein",
+                    "value": "7,00",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Alkohol",
+                    "value": "0,00",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Fibrer",
+                    "value": "0,00",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Fett",
+                    "value": "71,00",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Fosfor",
+                    "value": "7,0",
+                    "enhet": "mg"
+                },
+                {
+                    "name": "Järn",
+                    "value": "0,300",
+                    "enhet": "mg"
+                },
+                {
+                    "name": "Kalcium",
+                    "value": "0,0",
+                    "enhet": "mg"
+                },
+                {
+                    "name": "Kalium",
+                    "value": "6,0",
+                    "enhet": "mg"
+                },
+                {
+                    "name": "Magnesium",
+                    "value": "3,0",
+                    "enhet": "mg"
+                },
+                {
+                    "name": "Natrium",
+                    "value": "10,5",
+                    "enhet": "mg"
+                },
+                {
+                    "name": "Selen",
+                    "value": "1,00",
+                    "enhet": "µg"
+                },
+                {
+                    "name": "Zink",
+                    "value": "0,100",
+                    "enhet": "mg"
+                },
+                {
+                    "name": "Vitamin A",
+                    "value": "22,0",
+                    "enhet": "µg"
+                },
+                {
+                    "name": "Retinol",
+                    "value": "19,0",
+                    "enhet": "µg"
+                },
+                {
+                    "name": "Vitamin D",
+                    "value": "0,100",
+                    "enhet": "µg"
+                },
+                {
+                    "name": "Vitamin E",
+                    "value": "0,60",
+                    "enhet": "mg"
+                },
+                {
+                    "name": "β-Karoten",
+                    "value": "36",
+                    "enhet": "µg"
+                },
+                {
+                    "name": "Tiamin",
+                    "value": "0,000",
+                    "enhet": "mg"
+                },
+                {
+                    "name": "Riboflavin",
+                    "value": "0,000",
+                    "enhet": "mg"
+                },
+                {
+                    "name": "Vitamin C",
+                    "value": "0,0",
+                    "enhet": "mg"
+                },
+                {
+                    "name": "Niacin",
+                    "value": "0,00",
+                    "enhet": "mg"
+                },
+                {
+                    "name": "Niacinekvivalenter",
+                    "value": "1,28",
+                    "enhet": "mg"
+                },
+                {
+                    "name": "Vitamin B12",
+                    "value": "0,000",
+                    "enhet": "µg"
+                },
+                {
+                    "name": "Vitamin B6",
+                    "value": "0,000",
+                    "enhet": "mg"
+                },
+                {
+                    "name": "Folat",
+                    "value": "1,0",
+                    "enhet": "µg"
+                },
+                {
+                    "name": "Fullkorn totalt",
+                    "value": "0",
+                    "enhet": "g"
+                },
+                {
+                    "name": "Salt",
+                    "value": "0,03",
+                    "enhet": "g"
+                }
+            ]
+        }
+    ]
+}
