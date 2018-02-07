@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 import NutritionCalculator from './components/NutritionCalculator';
+import Home from './components/Home';
 
 class App extends Component {
 
@@ -38,7 +39,10 @@ class App extends Component {
 
         <main>
 
-        {activeItem === 'home' && <div style={{padding: '1rem'}}>Hem</div>}
+        {activeItem === 'home' && <div style={{padding: '1rem'}}>
+        Hem
+        <Home />
+        </div>}
 
         {activeItem === 'nutrition' && <NutritionCalculator />}
 
