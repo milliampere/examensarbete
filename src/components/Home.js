@@ -5,12 +5,12 @@ import db from '../db.json'
 import Post from './Post.js'
 
 
-const Home = ({ data: { loading, error, allFoods, _allFoodsMeta } }) => {
+const Home = ({ data: { loading, error, Food, } }) => {
   if (error) return <h1>Error fetching Foods!</h1>
   if (!loading) {
     return (
       <div>
-        <div>{allFoods[0].name}</div>
+        {Food.nutritions[0].name}
         <Post />
       </div>
     )
@@ -27,4 +27,15 @@ export const allFoods = gql`
   }
 `
 
-export default graphql(allFoods)(Home)
+export const kokosfett = gql`
+query Food {
+  Food(livsmedelsverketId: 4) {
+    id
+    livsmedelsverketId
+    name
+    nutritions
+  }
+}
+`
+
+export default graphql(kokosfett)(Home)
