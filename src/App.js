@@ -1,56 +1,45 @@
 import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
 import NutritionCalculator from './components/NutritionCalculator';
-import Home from './components/Home';
+import Navigation from './components/Navigation'
+import Table from './components/Table';
+import TextArea from './components/TextArea';
+import Credits from './components/Credits';
 
 class App extends Component {
 
   state = {
-    activeItem: 'home'
+    selectedType: 'standard',
+    selectedFoodNames: []
   }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   render() {
-    const { activeItem } = this.state
+
+    const { loading, error, allFoods } = this.props.data;
+
 
     return (
       <div className="App">
-
-        <Menu pointing>
-             
-          <Menu.Item
-              name='home'
-              active={activeItem === 'home'}
-              onClick={this.handleItemClick}
-            >
-            Hem
-          </Menu.Item>
-          
-          <Menu.Item
-            name='nutrition'
-            active={activeItem === 'nutrition'}
-            onClick={this.handleItemClick}
-          >
-            Näringsinnehåll
-          </Menu.Item>
-
-        </Menu>
-
-        <main>
-
-        {activeItem === 'home' && <div style={{padding: '1rem'}}>
-        Hem
-        <Home />
-        </div>}
-
-        {activeItem === 'nutrition' && <NutritionCalculator />}
-
-
-        </main>
+        <Navigation selectedType={this.state.selectedType} />
+        <Table selectedType={this.state.selectedType} selectedFoodNames={this.props.selectedFoodNames}/>
+        <TextArea selectedFoodNames={this.props.selectedFoodNames} allFoods={allFoods}/>
+        <Credits />
       </div>
     );
   }
 }
 
-export default App;
+
+//Get this list of foodnames and id:s when the plugin is activated (called when open)
+export const allFoods = gql`
+  query allFoods {
+    allFoods {
+      id
+      name
+    }
+  }
+`
+
+export default graphql(allFoods)(App)
