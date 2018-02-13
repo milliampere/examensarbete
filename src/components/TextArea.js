@@ -1,29 +1,44 @@
 import React, { Component } from 'react';
 import Fuse from 'fuse.js';
+import { clearTimeout, setTimeout } from 'timers';
+
+let timeout;
 
 class TextArea extends Component {
 
     state = {
         input: '',
-        foodArray: []
+        ingredients: []
     }
 
 
     handleChange = (event) => {
         this.setState({input: event.target.value});
-        this.separateRows();
+    }
 
-        this.state.foodArray.map((row) => {
-            const name = this.identifyName(row);
-            this.search(name);
-            return row
-        })
+
+    handle = () => {
+
+        clearTimeout(timeout);
+            
+        timeout = setTimeout(() => {   
+                
+            console.log("Tiden är inne");
+            const arrayOfFoods = this.separateRows(this.state.input);
+
+                arrayOfFoods.map((row) => {
+                    const name = this.identifyName(row);
+                    this.search(name);
+                    return row
+                })   
+
+        }, 3000);
         
     }
 
     separateRows = () => {
         const arrayOfFoods = this.state.input.split("\n");
-        this.setState({foodArray: arrayOfFoods});
+        return arrayOfFoods;
     }
 
     identifyName = (string) => {
@@ -75,7 +90,7 @@ class TextArea extends Component {
 
         return (
             <div>
-                <textarea rows="4" cols="50" onChange={this.handleChange} placeholder="Ingredienser" value={this.state.foods}  className="textarea"></textarea>
+                <textarea rows="4" cols="50" onChange={this.handleChange} onKeyUp={this.handle} placeholder="Ingredienser" value={this.state.foods}  className="textarea"></textarea>
             </div>
         );
     }
