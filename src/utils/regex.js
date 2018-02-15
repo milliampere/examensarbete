@@ -4,25 +4,35 @@ const re1 = /(\d+)\s*(kilo|kg|gram|g|milligram|mg|liter|l|deciliter|dl|centilite
 const re2 = /\d+\s+\w+/;
 const re3 = /^\w+/;
 
-let ingredient = [];
+let ingredientArray = [];
+let ingredientObject = {
+    amount: 0,
+    type: '',
+    name: ''
+};
 
 if(inputString.match(re1)){
-    //separate amount, unit and ingredient 
-    ingredient = inputString.split(/\s(kilo|kg|gram|g|milligram|mg|liter|l|deciliter|dl|centiliter|cl|milliliter|ml|matsked|msk|tesked|tsk|kryddmått|krm|blad|krukor|kruka|koppar|kopp|nypor|nypa|stycken|st|förpackning|förpackningar|förp|klyftor|klyfta)\s/);
+    //separate amount, type and name 
+    ingredientArray = inputString.split(/\s(kilo|kg|gram|g|milligram|mg|liter|l|deciliter|dl|centiliter|cl|milliliter|ml|matsked|msk|tesked|tsk|kryddmått|krm|blad|krukor|kruka|koppar|kopp|nypor|nypa|stycken|st|förpackning|förpackningar|förp|klyftor|klyfta)\s/);
+    ingredientObject.amount = ingredientArray[0];
+    ingredientObject.type = ingredientArray[1];
+    ingredientObject.name = ingredientArray[2];
 
 } else if (inputString.match(re2)) {
-    //separate amount and ingredient 
+    //separate amount and name 
     index = inputString.search(/\d\s+\w/);
-    ingredient.push(inputString.substring(0,index+1));
-    ingredient.push(inputString.slice(index+2));
+    ingredientObject.amount = inputString.substring(0,index+1);
+    ingredientObject.name = inputString.slice(index+2);
 
 } else if (inputString.match(re3)) {
     // don't separate
-    ingredient.push(inputString); 
+    ingredientObject.name = inputString; 
 }
 
 // ta bort whitespace
-ingredient = ingredient.map(i => i.trim());
+for (let property in ingredientObject){
+    ingredientObject[property] = ingredientObject[property].trim();
+} 
 
-console.log(ingredient);
+console.log(ingredientObject);
 
