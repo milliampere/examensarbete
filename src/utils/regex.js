@@ -1,8 +1,8 @@
-let inputString = "3 msk vaniljsocker".trim();
+let inputString = "1 msk vaniljsocker".trim();
 
-const re1 = /(\d+)\s*(kilo|kg|gram|g|milligram|mg|liter|l|deciliter|dl|centiliter|cl|milliliter|ml|matsked|msk|tesked|tsk|kryddmått|krm|blad|krukor|kruka|koppar|kopp|nypor|nypa|stycken|st|förpackning|förpackningar|förp|klyftor|klyfta)\s*(\w+)/;
-const re2 = /\d+\s+\w+/;
-const re3 = /^\w+/;
+const re1 = /(\d+)\s*(kilo|kg|gram|g|milligram|mg|liter|l|deciliter|dl|centiliter|cl|milliliter|ml|matsked|msk|tesked|tsk|kryddmått|krm|blad|krukor|kruka|koppar|kopp|nypor|nypa|stycken|st|förpackning|förpackningar|förp|klyftor|klyfta)\s*(\D+)/;
+const re2 = /\d+\s+\D+/;
+const re3 = /^\D+/;   // \D is "not digit"
 
 let ingredientArray = [];
 let ingredientObject = {
@@ -20,7 +20,7 @@ if(inputString.match(re1)){
 
 } else if (inputString.match(re2)) {
     //separate amount and name 
-    index = inputString.search(/\d\s+\w/);
+    index = inputString.search(/\d\s+\D/);
     ingredientObject.amount = inputString.substring(0,index+1);
     ingredientObject.name = inputString.slice(index+2);
 
@@ -30,9 +30,9 @@ if(inputString.match(re1)){
 }
 
 // ta bort whitespace
-for (let property in ingredientObject){
+/* for (let property in ingredientObject){
     ingredientObject[property] = ingredientObject[property].trim();
-} 
+}  */
 
 console.log(ingredientObject);
 
