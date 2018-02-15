@@ -1,7 +1,7 @@
-let inputString = "1 msk vaniljsocker".trim();
+let inputString = "1,5 msk vaniljpulver".trim();
 
-const re1 = /(\d+)\s*(kilo|kg|gram|g|milligram|mg|liter|l|deciliter|dl|centiliter|cl|milliliter|ml|matsked|msk|tesked|tsk|kryddmått|krm|blad|krukor|kruka|koppar|kopp|nypor|nypa|stycken|st|förpackning|förpackningar|förp|klyftor|klyfta)\s*(\D+)/;
-const re2 = /\d+\s+\D+/;
+const re1 = /(\d+)\s+(kilo|kg|gram|g|milligram|mg|liter|l|deciliter|dl|centiliter|cl|milliliter|ml|matsked|msk|tesked|tsk|kryddmått|krm|blad|krukor|kruka|koppar|kopp|nypor|nypa|stycken|st|förpackning|förpackningar|förp|klyftor|klyfta)\s(\D+)/;
+const re2 = /\d+\s+\D/;
 const re3 = /^\D+/;   // \D is "not digit"
 
 let ingredientArray = [];
@@ -29,10 +29,24 @@ if(inputString.match(re1)){
     ingredientObject.name = inputString; 
 }
 
-// ta bort whitespace
-/* for (let property in ingredientObject){
-    ingredientObject[property] = ingredientObject[property].trim();
-}  */
+for (let property in ingredientObject){
+    if(typeof ingredientObject[property] === 'string'){
+        // remove whitespace
+        ingredientObject[property] = ingredientObject[property].trim();
+
+        // change amount to number
+        if(property === 'amount'){
+            if(ingredientObject[property].match(/\d+/)){
+                ingredientObject[property] = ingredientObject[property].replace(',','.');
+                ingredientObject[property] = Number(ingredientObject[property])   
+            }  
+        }
+
+    } else if(typeof ingredientObject[property] === 'undefined') {
+        // reset if undefined
+        ingredientObject[property] = '';
+    }
+}  
 
 console.log(ingredientObject);
 
