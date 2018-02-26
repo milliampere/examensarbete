@@ -6,55 +6,70 @@ import Table from './components/Table';
 //import TextArea from './components/TextArea';
 import Credits from './components/Credits';
 //import { debug } from 'util';
-import allFoods from './nameList.json'
+import allFoods from './list.json'
 import searchData from './utils/searchData';
 
 
 
-const foodArray = [{ amount: "800", type: "g", name: "frysta potatisklyftor" },
-	{ amount: "200", type: "g", name: "halloumiost" },
-	{ amount: "2", name: "tomater" },
-	{ amount: "4", name: "champinjonburgare" },
-	{ amount: "4", name: "hamburgerbröd av surdeg" },
-	{ amount: "2", type: "dl", name: "lätt crème fraiche med tacosmak" },
-	{ amount: "2", type: "tsk", name: "olja" },
-	{ name: "salt" },
-	{ name: "peppar" }
+const foodArray = [{ amount: "800", type: "g", name: "potatis", group: "potatis" },
+{ amount: "200", type: "g", name: "halloumiost", group: "ost" },
+{ amount: "2", name: "tomater", group: "grönsaker" },
+{ amount: "4", name: "champinjonburgare", group: "färdigmat" },
+{ amount: "4", name: "hamburgerbröd av surdeg", group: "bröd" },
+{ amount: "2", type: "dl", name: "lätt crème fraiche med tacosmak", group: "crème fraiche" },
+{ amount: "2", type: "tsk", name: "olja", group: "olja" },
+{ name: "salt", group: "kryddor"  },
+{ name: "peppar", group: "kryddor" }
 ]
 
 
 class App extends Component {
 
 	state = {
-		ingredients: []
+		ingredients: [],
+		resultArray: [],
+		active: false
 	}
 
 	componentDidMount() { //stoppa sen in datan från chorme.onmessage... kolla pluginet
 		this.setState({ ingredients: foodArray })
-		//searchIngredientsFromDb(foodArray);
+		this.setState({resultArray: this.searchIngredientsFromDb(foodArray)});
 	}
 
-	handleChange = (event, index, column) => {
-		const currentState = [...this.state.ingredients];
-		currentState[index][column] = event.target.value;
-		this.setState({ ingredients: currentState })
-		//searchIngredientsFromDb(event.target.value); <-- här gäller det ju bara en produkt! fixa funktionen så det passar båda
+	handleChange = (event, index, column, newValue) => {
+		console.log('kolla', newValue);
+		if(newValue){
+			const currentState = [...this.state.ingredients];
+			currentState[index][column] = newValue;
+			this.setState({ ingredients: currentState })
+		}
+		else if(!newValue){
+			const currentState = [...this.state.ingredients];
+			currentState[index][column] = event.target.value;
+			this.setState({ ingredients: currentState })
+			//this.searchIngredientsFromDb(event.target.value); <-- här gäller det ju bara en produkt! fixa funktionen så det passar båda
+		}
 	}
 
 	searchIngredientsFromDb = (foodArray) => {
+		let resultArray = [];
 		for (let i of foodArray) {
-			console.log(i.name + searchData(i.name, allFoods));
+			resultArray.push(searchData(i.name, allFoods));
 		}
+		return(resultArray);
 	}
 
 
 
 	render() {
 
+		//console.log(this.state.resultArray);
+
+
 		return (
 			<div className="App">
 				<Navigation selectedType={this.state.selectedType} />
-				<Table foodArray={this.state.ingredients} allFoods={allFoods} handleChange={this.handleChange} />
+				{this.state.resultArray.length && <Table foodArray={this.state.ingredients} allFoods={allFoods} resultArray={this.state.resultArray} handleChange={this.handleChange} />}
 				<Credits />
 			</div>
 		);

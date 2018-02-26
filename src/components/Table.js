@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 // import db from '../db.json'
 // import Post from './Post.js'
 import TableRow from './TableRow';
+import Button from './Button';
 
 
 class Table extends Component {
@@ -11,13 +12,49 @@ class Table extends Component {
 	state = {
 		selectedFoodNames: [],
 		selectedFood: [],
+		activeIndex: -1,
 	}
+
+	handleClick = (event) => {
+		console.log(event.target.name)
+	}
+
+	onFocus = (event, index, column) => {
+		console.log('Focus', index);
+		if(this.state.activeIndex !== index) {
+			this.setState({activeIndex: index});
+		}
+		else{
+			this.setState({activeIndex: -1});
+		}
+	}
+
+	exitFocus = () => {
+		this.setState({activeIndex: -1});
+	}
+
+	onClick = (event) => {
+		//console.log('denna är klickad', event.target.innerHTML);
+
+	}
+
 
 	render() {
 
 		const foods = this.props.foodArray.map((item, index) => {
-			//let searchAnswer = searchData(item.name, this.props.allFoods);
-			return <TableRow key={index} index={index} amount={item.amount} type={item.type} name={item.name} handleChange={this.props.handleChange} ingredients={this.props.foodArray} />
+			return <TableRow
+				key={index}
+				index={index}
+				amount={item.amount}
+				type={item.type}
+				name={item.name}
+				handleChange={this.props.handleChange}
+				onClick={this.onClick}
+				onFocus={this.onFocus}
+				ingredients={this.props.foodArray}
+				result={this.props.resultArray[index]}
+				activeIndex={this.state.activeIndex}
+			/>
 		})
 
 
@@ -35,6 +72,7 @@ class Table extends Component {
 						{foods}
 					</tbody>
 				</table>
+				<Button name="visa innehåll" handleClick={this.handleClick}/>
 			</div>
 		)
 	}
