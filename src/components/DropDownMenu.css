@@ -1,0 +1,23 @@
+.dropdown-content {
+    position: absolute;
+    z-index: 10;
+    background-color: white;
+    border: 1px solid lightgrey;
+    list-style: none;
+    width: 230px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-item{
+    list-style: none;
+    padding: 5px 10px;
+}
+
+.dropdown-item:hover {
+    background-color: aquamarine;
+    cursor: pointer;
+}

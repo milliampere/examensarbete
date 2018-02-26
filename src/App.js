@@ -28,7 +28,7 @@ class App extends Component {
 	state = {
 		ingredients: [],
 		resultArray: [],
-		active: false
+		activeIndex: -1,
 	}
 
 	componentDidMount() { //stoppa sen in datan från chorme.onmessage... kolla pluginet
@@ -37,7 +37,6 @@ class App extends Component {
 	}
 
 	handleChange = (event, index, column, newValue) => {
-		console.log('kolla', newValue);
 		if(newValue){
 			const currentState = [...this.state.ingredients];
 			currentState[index][column] = newValue;
@@ -49,6 +48,7 @@ class App extends Component {
 			this.setState({ ingredients: currentState })
 			//this.searchIngredientsFromDb(event.target.value); <-- här gäller det ju bara en produkt! fixa funktionen så det passar båda
 		}
+		this.setState({activeIndex: -1});
 	}
 
 	searchIngredientsFromDb = (foodArray) => {
@@ -59,17 +59,30 @@ class App extends Component {
 		return(resultArray);
 	}
 
-
+	onFocus = (event, index, column) => {
+		if(this.state.activeIndex !== index) {
+			this.setState({activeIndex: index});
+		}
+		else{
+			this.setState({activeIndex: -1});
+		}
+	}
 
 	render() {
-
-		//console.log(this.state.resultArray);
-
 
 		return (
 			<div className="App">
 				<Navigation selectedType={this.state.selectedType} />
-				{this.state.resultArray.length && <Table foodArray={this.state.ingredients} allFoods={allFoods} resultArray={this.state.resultArray} handleChange={this.handleChange} />}
+				{this.state.resultArray.length &&
+					<Table
+						foodArray={this.state.ingredients}
+						allFoods={allFoods}
+						resultArray={this.state.resultArray}
+						handleChange={this.handleChange}
+						onFocus={this.onFocus}
+						activeIndex={this.state.activeIndex}
+					/>
+				}
 				<Credits />
 			</div>
 		);

@@ -1,7 +1,9 @@
 .input-small {
     width: 45px;
+    padding-left: 5px;
 }
 
 .input-large {
     width: 230px;
+    padding-left: 5px;
 }
