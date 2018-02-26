@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+//import React, { Component } from 'react';
 import Fuse from 'fuse.js';
 //import allFoods from '../../nameList.json'
 
@@ -21,6 +21,7 @@ export default function search(name, allFoods){
 
     var fuse = new Fuse(allFoods, options); // "allFoods" is the item array
     var result = fuse.search(name);
+    console.log('from search', name, result)
     return result;
 }
 

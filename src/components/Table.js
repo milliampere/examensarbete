@@ -1,48 +1,55 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
-import db from '../db.json'
-import Post from './Post.js'
+// import { graphql } from 'react-apollo'
+// import gql from 'graphql-tag'
+// import db from '../db.json'
+// import Post from './Post.js'
 import TableRow from './TableRow';
-import searchData from '../utils/searchData';
 
 
-class Table extends Component  {
+class Table extends Component {
 
-  state = {
-    selectedFoodNames: [],
-    selectedFood: [],
-  }
+	state = {
+		selectedFoodNames: [],
+		selectedFood: [],
+	}
 
-  render () {
+	render() {
 
-    const foods = this.props.foodArray.map((item, index) => {
-      //let searchAnswer = searchData(item.name, this.props.allFoods);
-      return <TableRow index={index} amount={item.amount} type={item.type} name={item.name} handleChange={this.props.handleChange} ingredients={this.props.foodArray}/>
-    })
+		const foods = this.props.foodArray.map((item, index) => {
+			//let searchAnswer = searchData(item.name, this.props.allFoods);
+			return <TableRow key={index} index={index} amount={item.amount} type={item.type} name={item.name} handleChange={this.props.handleChange} ingredients={this.props.foodArray} />
+		})
 
 
-    return (
-      <div>
-          <table>
-            {foods}
-          </table>
-
-      </div>
-    )
-  }
+		return (
+			<div>
+				<table>
+					<thead>
+						<tr>
+							<th>Volym</th>
+							<th>Mått</th>
+							<th>Ingredienser</th>
+						</tr>
+					</thead>
+					<tbody>
+						{foods}
+					</tbody>
+				</table>
+			</div>
+		)
+	}
 }
 
 
-export const foodListNutritions = gql`
-query Food {
-  Food(livsmedelsverketId: 4) {
-    id
-    livsmedelsverketId
-    name
-    nutritions
-  }
-}
-`
+// export const foodListNutritions = gql`
+// query Food {
+//   Food(livsmedelsverketId: 4) {
+//     id
+//     livsmedelsverketId
+//     name
+//     nutritions
+//   }
+// }
+//`
 
 export default Table

@@ -15,14 +15,14 @@ const GRAPHCMS_API = apiKey();
 
 
 const client = new ApolloClient({
-  link: new HttpLink({ uri: GRAPHCMS_API }),
-  cache: new InMemoryCache()
+	link: new HttpLink({ uri: GRAPHCMS_API }),
+	cache: new InMemoryCache()
 })
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>,
-  document.getElementById('root')
+	<ApolloProvider client={client}>
+		<App />
+	</ApolloProvider>,
+	document.getElementById('root')
 )
 registerServiceWorker();
