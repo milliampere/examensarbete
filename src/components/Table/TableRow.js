@@ -1,29 +1,18 @@
 import React from 'react';
 import './TableRow.css';
-import DropDownMenu from './DropDownMenu.js';
-
-
+import DropDownMenu from '../DropDownMenu/DropDownMenu.js';
 
 const TableRow = (props) => {
 
     const { ingredients, index, handleChange, result, onClick, onFocus, activeIndex, onBlur, nutritionValues, activeSetOfNutrients } = props;
 
-    //console.log('#', result);
-
-    let p;
     const getNutritionalValue = (abbr) => {
         const nutrition = nutritionValues.find((nutrient) => { return nutrient.abbreviation === abbr});
         if(nutrition) {
-            //console.log(nutrition.name);
-            if(abbr === 'Fe'){
-                //console.log('value', nutrition.value)
-                p = nutrition.value;
-            }
             return nutrition.value
         }
         else { return 0 }
     };
-    //console.log('P', p)
 
     return (
         <tr>
@@ -41,6 +30,8 @@ const TableRow = (props) => {
                     onBlur={onBlur}
                 />
             </td>
+            {/*GÖR EN KOMPONEN SOM SKAPAR TABLE DATA TB SÅ VI SLIPPER SKRIVA UT ALLA SÅHÄR?
+            mappa och filtrera listan med näringsämnen och returnera en const med <TableRow />*/}
             <td className='input-large' type='text'>{result && result[0]['item'].name}</td>
             <td>{getNutritionalValue('P')}</td>
             <td>{getNutritionalValue('I')}</td>

@@ -2,16 +2,26 @@ import React, { Component } from 'react';
 // import { graphql } from 'react-apollo'
 // import gql from 'graphql-tag'
 import TableRow from './TableRow';
-import Button from './Button';
-import fakeProps1 from '../data/nutritionForOneFood';
-import fakeProps2 from '../data/woman31-60';
-import fakeProps3 from '../data/nutritionFor8Foods';
+import TableHeader from './TableHeader';
+import Button from '../Button/Button';
+import fakeProps1 from '../../data/nutritionForOneFood';
+import fakeProps2 from '../../data/woman31-60';
+import fakeProps3 from '../../data/nutritionFor8Foods';
+import './Table.css'
 
 class Table extends Component {
 
 	render() {
 
-		const { handleChange, onClick, onFocus, foodArray, resultArray, activeIndex, onBlur } = this.props;
+		const { handleChange, onFocus, foodArray, resultArray, activeIndex, onBlur } = this.props;
+
+		const headButtons = ['standard', 'fettsyror', 'vitaminer (vattenlösliga)', 'vitaminer (fettlösliga)', 'mineraler'].map((item, index) => {
+			return <Button key={index} name={item} handleClick={this.handleClick}/>
+		})
+
+		const headers = ['Volym', 'Mått', 'Ingredienser', 'Sökresultat'].map((item, index) => {
+			return <TableHeader key={index} data={item}/>
+		})
 
 		const foods = this.props.foodArray.map((item, index) => {
 			return <TableRow
@@ -21,7 +31,7 @@ class Table extends Component {
 				type={item.type}
 				name={item.name}
 				handleChange={handleChange}
-				onFocus={onClick}
+				onFocus={onFocus}
 				ingredients={foodArray}
 				result={resultArray[index]}
 				activeIndex={activeIndex}
@@ -43,31 +53,25 @@ class Table extends Component {
 		};
 
 		const totalNutritionalValue = (abbr) => {
-
-			console.log(fakeProps3);
-
 			const total = fakeProps3.data.allFoods.map((food)=>{
 				const nutrition = food.nutritions.find((nutrient) => { return nutrient.abbreviation === abbr});
-				if(nutrition) { return nutrition.value } 
+				if(nutrition) { return nutrition.value }
 				else { return 0 }
 			});
-
-			console.log(total);
 			total.reduce((total, num) => {return total + num});
-
 		};
-
 
 
 		return (
 			<div>
+				<div className="button-menu">
+					{headButtons}
+				</div>
 				<table>
 					<thead>
 						<tr>
-							<th>Volym</th>
-							<th>Mått</th>
-							<th>Ingredienser</th>
-							<th>Sökresultat</th>
+							{headers}
+							{/* mappa och filtrera listan med namn och returnera en const med <TableRow /> ?? isf nedan*/}
 							<th>{getNutritionNameAndUnit('P')}</th>
 							<th>{getNutritionNameAndUnit('I')}</th>
 							<th>{getNutritionNameAndUnit('Fe')}</th>
@@ -82,6 +86,8 @@ class Table extends Component {
 					<tbody>
 						{foods}
 						<tr>
+							{/*GÖR EN KOMPONEN SOM SKAPAR TABLE DATA TB SÅ VI SLIPPER SKRIVA UT ALLA SÅHÄR?
+							mappa och filtrera listan med rek och returnera en const <TableRow />*/}
 							<td></td>
 							<td></td>
 							<td></td>

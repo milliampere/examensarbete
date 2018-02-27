@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //import { graphql } from 'react-apollo'
 //import gql from 'graphql-tag'
 import Navigation from './components/Navigation'
-import Table from './components/Table';
+import Table from './components/Table/Table.js';
 import Credits from './components/Credits';
 import allFoods from './data/list.json'
 import searchData from './utils/searchData';
@@ -18,25 +18,26 @@ class App extends Component {
 
 	componentDidMount() { //stoppa sen in datan från chorme.onmessage... kolla pluginet
 		this.setState({ ingredients: foodArray })
+		//SKULLE VI KUNNA SPARA BARA NAMNEN FRÅN RESULTATEN HÄR??
 		this.setState({resultArray: this.searchIngredientsFromDb(foodArray)});
 	}
 
-	handleChange = (event, index, column, newValue) => {
-		// newValue means that the value comes from one option in the dropdownmenu
-		if(newValue){
-			const currentState = [...this.state.ingredients];
-			currentState[index][column] = newValue;
-			this.setState({ ingredients: currentState })
+	handleChange = (value, index, column, type) => {
+		const currentState = [...this.state.ingredients];
+		currentState[index][column] = value;
+		this.setState({ ingredients: currentState });
+		const currentResultState = [...this.state.resultArray];
+		//if new value is selected from dropdown menu:
+		if(type === 'selected'){
+			//SKULLE VI KUNNA SPARA BARA NAMNEN FRÅN RESULTATEN HÄR?? SÅ KAN VI BARA STOPPA IN NYA VALUE ISF ATT SÖKA IGEN I DATABASEN FÖR ATT FÅ IN ALL INFO?
+			const newResult = this.searchIngredientsFromDb(value);
+			currentResultState[index] = newResult[0];
+			this.setState({resultArray: currentResultState});
 			this.setState({activeIndex: -1});
 		}
-		// !newValue means that the value comes from the inputfield onChange, new input has been written and can be found in event.target.value
-		else if(!newValue){
-			const currentState = [...this.state.ingredients];
-			currentState[index][column] = event.target.value;
-			this.setState({ ingredients: currentState })
-
-			const currentResultState = [...this.state.resultArray];
-			const newResult = this.searchIngredientsFromDb(event.target.value);
+		//if new value is typed in by user:
+		else if(type === 'newInput'){
+			const newResult = this.searchIngredientsFromDb(value);
 			currentResultState[index] = newResult[0];
 			this.setState({resultArray: currentResultState});
 		}
@@ -48,15 +49,16 @@ class App extends Component {
 			for( let i of foodArray ) {
 				results.push(searchData(i.name, allFoods));
 			}
+			console.log('resultat!!!!!!!!!!', results);
 			return(results);
 		}else if( typeof foodArray === 'string' ) {
 			results.push(searchData(foodArray, allFoods));
+			console.log('resultat!!!!!!!!!!', results);
 			return(results);
 		}
 	}
 
 	onFocus = (event, index, column) => {
-		console.log('fokus')
 		if(this.state.activeIndex !== index) {
 			this.setState({activeIndex: index});
 		}
@@ -76,9 +78,8 @@ class App extends Component {
 						allFoods={allFoods}
 						resultArray={this.state.resultArray}
 						handleChange={this.handleChange}
-						onClick={this.onFocus}
+						onFocus={this.onFocus}
 						activeIndex={this.state.activeIndex}
-						onBlur={this.onFocus}
 					/>
 				}
 				<Credits />
