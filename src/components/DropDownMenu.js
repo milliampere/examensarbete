@@ -6,7 +6,6 @@ const DropDownMenu = (props) => {
 
 	const { indexInput, name, result, onChange, onFocus, activeIndex, onBlur } = props;
 
-	console.log('KOlla på RESULT!!', result)
 	let results = '';
 	if(result) {
 		results = result.map((item, index) => {

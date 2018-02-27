@@ -22,32 +22,27 @@ class App extends Component {
 	}
 
 	handleChange = (event, index, column, newValue) => {
+		// newValue means that the value comes from one option in the dropdownmenu
 		if(newValue){
 			const currentState = [...this.state.ingredients];
 			currentState[index][column] = newValue;
 			this.setState({ ingredients: currentState })
+			this.setState({activeIndex: -1});
 		}
+		// !newValue means that the value comes from the inputfield onChange, new input has been written and can be found in event.target.value
 		else if(!newValue){
-			console.log(index);
-			console.log(event.target.value);
 			const currentState = [...this.state.ingredients];
 			currentState[index][column] = event.target.value;
 			this.setState({ ingredients: currentState })
 
 			const currentResultState = [...this.state.resultArray];
 			const newResult = this.searchIngredientsFromDb(event.target.value);
-			console.log('NEW RESULT', newResult)
-			currentResultState[index].push(newResult);
-			console.log('NEW STATE???', currentResultState)
+			currentResultState[index] = newResult[0];
 			this.setState({resultArray: currentResultState});
 		}
-		this.setState({activeIndex: -1});
-		console.log('ING', this.state.ingredients)
-		console.log('RES', this.state.resultArray)
 	}
 
 	searchIngredientsFromDb = (foodArray) => {
-		console.log('Torsk???', typeof foodArray);
 		let results = [];
 		if( typeof foodArray === 'object' ) {
 			for( let i of foodArray ) {
@@ -55,12 +50,10 @@ class App extends Component {
 			}
 			return(results);
 		}else if( typeof foodArray === 'string' ) {
-			console.log('TORSKAR', searchData(foodArray, allFoods));
 			results.push(searchData(foodArray, allFoods));
 			return(results);
 		}
 	}
-
 
 	onFocus = (event, index, column) => {
 		console.log('fokus')
@@ -73,8 +66,6 @@ class App extends Component {
 	}
 
 	render() {
-
-		console.log('#########update');
 
 		return (
 			<div className="App">
