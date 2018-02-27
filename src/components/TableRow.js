@@ -8,12 +8,22 @@ const TableRow = (props) => {
 
     const { ingredients, index, handleChange, result, onClick, onFocus, activeIndex, onBlur, nutritionValues, activeSetOfNutrients } = props;
 
+    //console.log('#', result);
+
+    let p;
     const getNutritionalValue = (abbr) => {
         const nutrition = nutritionValues.find((nutrient) => { return nutrient.abbreviation === abbr});
-
-        if(nutrition) { return nutrition.value }
+        if(nutrition) {
+            //console.log(nutrition.name);
+            if(abbr === 'Fe'){
+                //console.log('value', nutrition.value)
+                p = nutrition.value;
+            }
+            return nutrition.value
+        }
         else { return 0 }
     };
+    //console.log('P', p)
 
     return (
         <tr>

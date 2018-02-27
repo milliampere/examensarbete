@@ -6,10 +6,12 @@ const DropDownMenu = (props) => {
 
 	const { indexInput, name, result, onChange, onFocus, activeIndex, onBlur } = props;
 
+	console.log('KOlla på RESULT!!', result)
 	let results = '';
 	if(result) {
 		results = result.map((item, index) => {
 			if(index < 10) {
+				//console.log('#########################item from dropdownname', item)
 				return <li className="dropdown-item" key={index} onClick={(e) => onChange(e, indexInput, 'name', item['item'].name)}>{item['item'].name}</li>
 			}else { return null }
 		})
@@ -17,7 +19,7 @@ const DropDownMenu = (props) => {
 
 	return (
 		<div className="dropdown" onFocus={(e) => onFocus(e, indexInput, 'type')}>
-			<input className='input-large' type='text' value={name} onChange={(e) => onChange(e, indexInput, 'name')}></input>
+			<input className='input-large' type='text' value={name} onChange={(e) => onChange(e, indexInput, 'name')} ></input>
 			{activeIndex === indexInput &&
 				<div id="myDropdown" className="dropdown-content">
 					<ul>

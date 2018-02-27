@@ -17,7 +17,7 @@ const foodArray = [{ amount: "800", type: "g", name: "potatis", group: "potatis"
 { amount: "4", name: "champinjonburgare", group: "färdigmat" },
 { amount: "4", name: "hamburgerbröd av surdeg", group: "bröd" },
 { amount: "2", type: "dl", name: "lätt crème fraiche med tacosmak", group: "crème fraiche" },
-{ amount: "2", type: "tsk", name: "olja", group: "olja" },
+{ amount: "2", type: "tsk", name: "o", group: "olja" },
 { name: "salt", group: "kryddor"  },
 { name: "peppar", group: "kryddor" }
 ]
@@ -34,7 +34,6 @@ class App extends Component {
 	componentDidMount() { //stoppa sen in datan från chorme.onmessage... kolla pluginet
 		this.setState({ ingredients: foodArray })
 		this.setState({resultArray: this.searchIngredientsFromDb(foodArray)});
-		console.log(this.state.resultArray);
 	}
 
 	handleChange = (event, index, column, newValue) => {
@@ -44,36 +43,39 @@ class App extends Component {
 			this.setState({ ingredients: currentState })
 		}
 		else if(!newValue){
+			console.log(index);
+			console.log(event.target.value);
 			const currentState = [...this.state.ingredients];
 			currentState[index][column] = event.target.value;
 			this.setState({ ingredients: currentState })
 
 			const currentResultState = [...this.state.resultArray];
 			const newResult = this.searchIngredientsFromDb(event.target.value);
-			console.log('nytt sök',newResult);
-			console.log('index', index, 'column', column)
-			console.log(this.state.resultArray);
-			//currentResultState[index] = newResult;
-			//this.setState({resultArray: currentResultState});
+			console.log('NEW RESULT', newResult)
+			currentResultState[index].push(newResult);
+			console.log('NEW STATE???', currentResultState)
+			this.setState({resultArray: currentResultState});
 		}
 		this.setState({activeIndex: -1});
-		console.log(this.state.resultArray);
+		console.log('ING', this.state.ingredients)
+		console.log('RES', this.state.resultArray)
 	}
 
 	searchIngredientsFromDb = (foodArray) => {
+		console.log('Torsk???', typeof foodArray);
 		let results = [];
-		console.log('typeOF!!!', typeof foodArray)
 		if( typeof foodArray === 'object' ) {
-			console.log('hej');
 			for( let i of foodArray ) {
 				results.push(searchData(i.name, allFoods));
 			}
 			return(results);
 		}else if( typeof foodArray === 'string' ) {
+			console.log('TORSKAR', searchData(foodArray, allFoods));
 			results.push(searchData(foodArray, allFoods));
 			return(results);
 		}
 	}
+
 
 	onFocus = (event, index, column) => {
 		console.log('fokus')
@@ -87,7 +89,7 @@ class App extends Component {
 
 	render() {
 
-		//console.log('Result State', this.statet.resultArray);
+		console.log('#########update');
 
 		return (
 			<div className="App">
