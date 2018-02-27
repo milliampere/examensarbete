@@ -1,14 +1,14 @@
 import React from 'react'
-import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
-import classificationAndIdList from '../classificationAndIdList.json'
+//import { graphql } from 'react-apollo'
+//import gql from 'graphql-tag'
+//import classificationAndIdList from '../classificationAndIdList.json'
 
 const Mutate = ({ mutate }) => {
 
   return (
     <button onClick={() => {
 
-       classificationAndIdList.map(food => { 
+/*        classificationAndIdList.map(food => { 
 
         mutate({
             variables: { id: food.id, group: food.group, euroFirName: food.euroFirName, euroFirCode: food.euroFirCode}
@@ -17,9 +17,9 @@ const Mutate = ({ mutate }) => {
                 console.log('got data', data);
             }).catch((error) => {
                 console.log('there was an error sending the query', error);
-            })
+            }) 
 
-        })  
+        })  */
 
     }}>Change food items</button>
   )
@@ -33,5 +33,5 @@ const change = gql`
    }
  }`;
 
-export default graphql(change)(Mutate)
+//export default graphql(change)(Mutate)
 //export default Mutate;

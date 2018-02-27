@@ -3,25 +3,10 @@ import React, { Component } from 'react';
 //import gql from 'graphql-tag'
 import Navigation from './components/Navigation'
 import Table from './components/Table';
-//import TextArea from './components/TextArea';
 import Credits from './components/Credits';
-//import { debug } from 'util';
-import allFoods from './list.json'
+import allFoods from './data/list.json'
 import searchData from './utils/searchData';
-
-
-
-const foodArray = [{ amount: "800", type: "g", name: "potatis", group: "potatis" },
-{ amount: "200", type: "g", name: "halloumiost", group: "ost" },
-{ amount: "2", name: "tomater", group: "grönsaker" },
-{ amount: "4", name: "champinjonburgare", group: "färdigmat" },
-{ amount: "4", name: "hamburgerbröd av surdeg", group: "bröd" },
-{ amount: "2", type: "dl", name: "lätt crème fraiche med tacosmak", group: "crème fraiche" },
-{ amount: "2", type: "tsk", name: "o", group: "olja" },
-{ name: "salt", group: "kryddor"  },
-{ name: "peppar", group: "kryddor" }
-]
-
+import foodArray from './data/input'
 
 class App extends Component {
 
