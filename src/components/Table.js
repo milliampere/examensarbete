@@ -5,6 +5,7 @@ import TableRow from './TableRow';
 import Button from './Button';
 import fakeProps1 from '../data/nutritionForOneFood';
 import fakeProps2 from '../data/woman31-60';
+import fakeProps3 from '../data/nutritionFor8Foods';
 
 class Table extends Component {
 
@@ -43,6 +44,23 @@ class Table extends Component {
 			else { return '' }
 		};
 
+		const totalNutritionalValue = (abbr) => {
+
+			console.log(fakeProps3);
+
+			const total = fakeProps3.data.allFoods.map((food)=>{
+				const nutrition = food.nutritions.find((nutrient) => { return nutrient.abbreviation === abbr});
+				if(nutrition) { return nutrition.value } 
+				else { return 0 }
+			});
+
+			console.log(total);
+			total.reduce((total, num) => {return total + num});
+
+		};
+
+
+
 		return (
 			<div>
 				<table>
@@ -70,7 +88,7 @@ class Table extends Component {
 							<td></td>
 							<td></td>
 							<td></td>
-							<td>{getRecommendedValue('P')}</td>
+							<td>{totalNutritionalValue('P')}</td>
 							<td>{getRecommendedValue('I')}</td>
 							<td>{getRecommendedValue('Fe')}</td>
 							<td>{getRecommendedValue('Ca')}</td>
@@ -80,6 +98,7 @@ class Table extends Component {
 							<td>{getRecommendedValue('Se')}</td>
 							<td>{getRecommendedValue('Zn')}</td>
 						</tr>
+
 					</tbody>
 				</table>
 				<Button name="visa innehåll" handleClick={this.handleClick}/>
