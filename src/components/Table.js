@@ -11,10 +11,7 @@ class Table extends Component {
 
 	render() {
 
-		//console.log(fakeProps1.data);
-		//console.log(fakeProps2.data);
-
-		const { handleChange, onFocus, foodArray, resultArray, activeIndex } = this.props;
+		const { handleChange, onClick, onFocus, foodArray, resultArray, activeIndex, onBlur } = this.props;
 
 		const foods = this.props.foodArray.map((item, index) => {
 			return <TableRow
@@ -24,23 +21,24 @@ class Table extends Component {
 				type={item.type}
 				name={item.name}
 				handleChange={handleChange}
-				onFocus={onFocus}
+				onFocus={onClick}
 				ingredients={foodArray}
 				result={resultArray[index]}
 				activeIndex={activeIndex}
+				onBlur={onBlur}
 				nutritionValues={fakeProps1.data.Food.nutritions}
 			/>
 		})
 
 		const getRecommendedValue = (abbr) => {
 			const nutrition = fakeProps2.data.allNutrients.find((nutrient) => { return nutrient.abbreviation === abbr});
-			if(nutrition) { return nutrition.woman3160 } 
+			if(nutrition) { return nutrition.woman3160 }
 			else { return 0 }
 		};
 
 		const getNutritionNameAndUnit = (abbr) => {
 			const nutrition = fakeProps2.data.allNutrients.find((nutrient) => { return nutrient.abbreviation === abbr});
-			if(nutrition) { return `${nutrition.name} (${nutrition.unitforRI}) ` } 
+			if(nutrition) { return `${nutrition.name} (${nutrition.unitforRI}) ` }
 			else { return '' }
 		};
 
