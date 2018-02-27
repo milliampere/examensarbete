@@ -2,9 +2,18 @@ import React from 'react';
 import './TableRow.css';
 import DropDownMenu from './DropDownMenu.js';
 
+
+
 const TableRow = (props) => {
 
-    const { ingredients, index, handleChange, result, onClick, onFocus, activeIndex, onBlur } = props;
+    const { ingredients, index, handleChange, result, onClick, onFocus, activeIndex, onBlur, nutritionValues, activeSetOfNutrients } = props;
+
+    const getNutritionalValue = (abbr) => {
+        const nutrition = nutritionValues.find((nutrient) => { return nutrient.abbreviation === abbr});
+
+        if(nutrition) { return nutrition.value }
+        else { return 0 }
+    };
 
     return (
         <tr>
@@ -23,6 +32,15 @@ const TableRow = (props) => {
                 />
             </td>
             <td className='input-large' type='text'>{result && result[0]['item'].name}</td>
+            <td>{getNutritionalValue('P')}</td>
+            <td>{getNutritionalValue('I')}</td>
+            <td>{getNutritionalValue('Fe')}</td>
+            <td>{getNutritionalValue('Ca')}</td>
+            <td>{getNutritionalValue('K')}</td>
+            <td>{getNutritionalValue('Cu')}</td>
+            <td>{getNutritionalValue('Mg')}</td>
+            <td>{getNutritionalValue('Se')}</td>
+            <td>{getNutritionalValue('Zn')}</td>
         </tr>
     );
 }

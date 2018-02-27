@@ -1,0 +1,195 @@
+{
+  "data": {
+    "allNutrients": [
+      {
+        "name": "Vitamin B12",
+        "unitforRI": "µg",
+        "typeOfNutrient": "Vitamin",
+        "woman3160": 2,
+        "abbreviation": "VitB12"
+      },
+      {
+        "name": "Natrium",
+        "unitforRI": "",
+        "typeOfNutrient": "Mineral",
+        "woman3160": null,
+        "abbreviation": "Na"
+      },
+      {
+        "name": "Vitamin C",
+        "unitforRI": "mg",
+        "typeOfNutrient": "Vitamin",
+        "woman3160": 75,
+        "abbreviation": "VitC"
+      },
+      {
+        "name": "Folat",
+        "unitforRI": "µg",
+        "typeOfNutrient": "Vitamin",
+        "woman3160": 300,
+        "abbreviation": "Folat"
+      },
+      {
+        "name": "Niacin",
+        "unitforRI": "NE",
+        "typeOfNutrient": "Vitamin",
+        "woman3160": 14,
+        "abbreviation": "Niek"
+      },
+      {
+        "name": "Riboflavin",
+        "unitforRI": "mg",
+        "typeOfNutrient": "Vitamin",
+        "woman3160": 1.2,
+        "abbreviation": "Ribo"
+      },
+      {
+        "name": "Tiamin",
+        "unitforRI": "mg",
+        "typeOfNutrient": "Vitamin",
+        "woman3160": 1.1,
+        "abbreviation": "Tiam"
+      },
+      {
+        "name": "Vitamin A",
+        "unitforRI": "RE",
+        "typeOfNutrient": "Vitamin",
+        "woman3160": 700,
+        "abbreviation": "VitA"
+      },
+      {
+        "name": "Vitamin B6",
+        "unitforRI": "mg",
+        "typeOfNutrient": "Vitamin",
+        "woman3160": 1.2,
+        "abbreviation": "VitB6"
+      },
+      {
+        "name": "Vitamin D",
+        "unitforRI": "µg",
+        "typeOfNutrient": "Vitamin",
+        "woman3160": 10,
+        "abbreviation": "VitD"
+      },
+      {
+        "name": "Vitamin E",
+        "unitforRI": "alfa-TE",
+        "typeOfNutrient": "Vitamin",
+        "woman3160": 8,
+        "abbreviation": "VitE"
+      },
+      {
+        "name": "Järn",
+        "unitforRI": "mg",
+        "typeOfNutrient": "Mineral",
+        "woman3160": 15,
+        "abbreviation": "Fe"
+      },
+      {
+        "name": "Kalcium",
+        "unitforRI": "mg",
+        "typeOfNutrient": "Mineral",
+        "woman3160": 800,
+        "abbreviation": "Ca"
+      },
+      {
+        "name": "Kalium",
+        "unitforRI": "g",
+        "typeOfNutrient": "Mineral",
+        "woman3160": 3.1,
+        "abbreviation": "K"
+      },
+      {
+        "name": "Magnesium",
+        "unitforRI": "mg",
+        "typeOfNutrient": "Mineral",
+        "woman3160": 280,
+        "abbreviation": "Mg"
+      },
+      {
+        "name": "Selen",
+        "unitforRI": "µg",
+        "typeOfNutrient": "Mineral",
+        "woman3160": 50,
+        "abbreviation": "Se"
+      },
+      {
+        "name": "Zink",
+        "unitforRI": "mg ",
+        "typeOfNutrient": "Mineral",
+        "woman3160": 7,
+        "abbreviation": "Zn"
+      },
+      {
+        "name": "Fosfor",
+        "unitforRI": "mg",
+        "typeOfNutrient": "Mineral",
+        "woman3160": 600,
+        "abbreviation": "P"
+      },
+      {
+        "name": "Koppar",
+        "unitforRI": "mg",
+        "typeOfNutrient": "Mineral",
+        "woman3160": 0.9,
+        "abbreviation": "Cu"
+      },
+      {
+        "name": "Protein",
+        "unitforRI": "",
+        "typeOfNutrient": "Makro",
+        "woman3160": null,
+        "abbreviation": ""
+      },
+      {
+        "name": "Jod",
+        "unitforRI": "µg",
+        "typeOfNutrient": "Mineral",
+        "woman3160": 150,
+        "abbreviation": "I"
+      },
+      {
+        "name": "Kolhydrater",
+        "unitforRI": "g",
+        "typeOfNutrient": "Makro",
+        "woman3160": null,
+        "abbreviation": "Kolh"
+      },
+      {
+        "name": "Fett",
+        "unitforRI": "g",
+        "typeOfNutrient": "Makro",
+        "woman3160": null,
+        "abbreviation": "Fett"
+      },
+      {
+        "name": "Fibrer",
+        "unitforRI": "g",
+        "typeOfNutrient": "Makro",
+        "woman3160": null,
+        "abbreviation": "Fibe"
+      },
+      {
+        "name": "Socker",
+        "unitforRI": "g",
+        "typeOfNutrient": "Makro",
+        "woman3160": null,
+        "abbreviation": "Mono/disack"
+      },
+      {
+        "name": "Kolesterol",
+        "unitforRI": "",
+        "typeOfNutrient": "Makro",
+        "woman3160": null,
+        "abbreviation": "Kole"
+      },
+      {
+        "name": "Fullkorn",
+        "unitforRI": "g",
+        "typeOfNutrient": "Makro",
+        "woman3160": null,
+        "abbreviation": "Fullk/tot"
+      }
+    ]
+  }
+}
