@@ -34,6 +34,7 @@ class App extends Component {
 	componentDidMount() { //stoppa sen in datan från chorme.onmessage... kolla pluginet
 		this.setState({ ingredients: foodArray })
 		this.setState({resultArray: this.searchIngredientsFromDb(foodArray)});
+		console.log(this.state.resultArray);
 	}
 
 	handleChange = (event, index, column, newValue) => {
@@ -46,20 +47,36 @@ class App extends Component {
 			const currentState = [...this.state.ingredients];
 			currentState[index][column] = event.target.value;
 			this.setState({ ingredients: currentState })
-			//this.searchIngredientsFromDb(event.target.value); <-- här gäller det ju bara en produkt! fixa funktionen så det passar båda
+
+			const currentResultState = [...this.state.resultArray];
+			const newResult = this.searchIngredientsFromDb(event.target.value);
+			console.log('nytt sök',newResult);
+			console.log('index', index, 'column', column)
+			console.log(this.state.resultArray);
+			//currentResultState[index] = newResult;
+			//this.setState({resultArray: currentResultState});
 		}
 		this.setState({activeIndex: -1});
+		console.log(this.state.resultArray);
 	}
 
 	searchIngredientsFromDb = (foodArray) => {
-		let resultArray = [];
-		for (let i of foodArray) {
-			resultArray.push(searchData(i.name, allFoods));
+		let results = [];
+		console.log('typeOF!!!', typeof foodArray)
+		if( typeof foodArray === 'object' ) {
+			console.log('hej');
+			for( let i of foodArray ) {
+				results.push(searchData(i.name, allFoods));
+			}
+			return(results);
+		}else if( typeof foodArray === 'string' ) {
+			results.push(searchData(foodArray, allFoods));
+			return(results);
 		}
-		return(resultArray);
 	}
 
 	onFocus = (event, index, column) => {
+		console.log('fokus')
 		if(this.state.activeIndex !== index) {
 			this.setState({activeIndex: index});
 		}
@@ -70,6 +87,8 @@ class App extends Component {
 
 	render() {
 
+		//console.log('Result State', this.statet.resultArray);
+
 		return (
 			<div className="App">
 				<Navigation selectedType={this.state.selectedType} />
@@ -79,8 +98,9 @@ class App extends Component {
 						allFoods={allFoods}
 						resultArray={this.state.resultArray}
 						handleChange={this.handleChange}
-						onFocus={this.onFocus}
+						onClick={this.onFocus}
 						activeIndex={this.state.activeIndex}
+						onBlur={this.onFocus}
 					/>
 				}
 				<Credits />

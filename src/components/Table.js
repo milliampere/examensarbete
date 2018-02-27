@@ -9,7 +9,7 @@ class Table extends Component {
 
 	render() {
 
-		const { handleChange, onFocus, foodArray, resultArray, activeIndex } = this.props;
+		const { handleChange, onClick, foodArray, resultArray, activeIndex, onBlur } = this.props;
 
 		const foods = this.props.foodArray.map((item, index) => {
 			return <TableRow
@@ -19,10 +19,11 @@ class Table extends Component {
 				type={item.type}
 				name={item.name}
 				handleChange={handleChange}
-				onFocus={onFocus}
+				onFocus={onClick}
 				ingredients={foodArray}
 				result={resultArray[index]}
 				activeIndex={activeIndex}
+				onBlur={onBlur}
 			/>
 		})
 

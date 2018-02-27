@@ -21,3 +21,8 @@ ul {
     background-color: aquamarine;
     cursor: pointer;
 }
+
+.dropdown-no-item {
+    padding: 5px 10px;
+    background-color: lightgrey;
+}
