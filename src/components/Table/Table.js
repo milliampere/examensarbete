@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
+import TableHeader from './TableHeader.js';
 import TableRow from './TableRow';
-//import Button from './Button';
+import Button from '.././Button/Button.js';
+import './Table.css';
 
 class Table extends Component {
 
 	render() {
 
-		const { 
-			rawInputArray, 
-			allFoods,
+		const {
+			rawInputArray,
+			//allFoods,
 			changableInputArray,
-			handleChange, 
+			handleChange,
 			activeIndex,
 			handleFocus,
 			handleBlur
 		} = this.props;
+
+		const headButtons = ['standard', 'fettsyror', 'vitaminer (vattenlösliga)', 'vitaminer (fettlösliga)', 'mineraler'].map((item, index) => {
+			return <Button key={index} name={item} handleClick={this.handleClick}/>
+		})
+
+		const headers = ['Från receptet', 'Mängd', 'Mått', 'Livsmedel'].map((item, index) => {
+			return <TableHeader key={index} data={item}/>
+		})
 
 		const rows = rawInputArray.map((rawInput, index) => {
 			return <TableRow
@@ -26,18 +36,18 @@ class Table extends Component {
 				activeIndex={activeIndex}
 				handleFocus={handleFocus}
 				handleBlur={handleBlur}
-			/> 
+			/>
 		})
 
 		return (
 			<div>
+				<div className="button-menu">
+					{headButtons}
+				</div>
 				<table>
 					<thead>
 						<tr>
-							<th>Från receptet</th>
-							<th>Mängd</th>
-							<th>Mått</th>
-							<th>Livsmedel</th>
+							{headers}
 							<th></th>
 						</tr>
 					</thead>
@@ -58,7 +68,7 @@ export default Table;
 //import fakeProps2 from '../data/woman31-60';
 //import fakeProps3 from '../data/nutritionFor8Foods';
 
-/* 
+/*
 	<th>{getNutritionNameAndUnit('P')}</th>
 	<th>{getNutritionNameAndUnit('I')}</th>
 	<th>{getNutritionNameAndUnit('Fe')}</th>
@@ -69,7 +79,7 @@ export default Table;
 	<th>{getNutritionNameAndUnit('Se')}</th>
 	<th>{getNutritionNameAndUnit('Zn')}</th> */
 
-/* 
+/*
 	<td>{totalNutritionalValue('P')}</td>
 	<td>{getRecommendedValue('I')}</td>
 	<td>{getRecommendedValue('Fe')}</td>
