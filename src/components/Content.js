@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Table from './Table';
+import Table from './Table/Table';
 import search from '../utils/searchData';
 import propsdataallFoods from '../data/list.json'; /* change to db when finished (props.data.allFoods) */
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //import { graphql } from 'react-apollo'
 //import gql from 'graphql-tag'
 import Navigation from './components/Navigation'
-import Table from './components/Table';
+import Table from './components/Table/Table.js';
 import Credits from './components/Credits';
 //import allFoods from './data/list.json'
 //import searchData from './utils/searchData';
@@ -31,8 +31,8 @@ class App extends Component {
 				<Navigation activeTab={this.state.activeTab} />
 				<Content 
         			rawInputArray={rawInputArray}
-							allFoods={propsdataallFoods} 
-							portions={this.state.portions}
+					allFoods={propsdataallFoods} 
+					portions={this.state.portions}
     			/> 
 				<Credits />
 			</div>
