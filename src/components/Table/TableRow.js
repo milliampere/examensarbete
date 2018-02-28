@@ -2,7 +2,7 @@ import React from 'react';
 // import { graphql } from 'react-apollo'
 // import gql from 'graphql-tag'
 import './TableRow.css';
-//import DropDownMenu from './DropDownMenu.js';
+import DropDownMenu from '../DropDownMenu/DropDownMenu';
 
 const TableRow = (props) => {
 
@@ -19,7 +19,7 @@ const TableRow = (props) => {
     let html = '';
 
     // render input fields if active
-    if(index === activeIndex){
+/*     if(index === activeIndex){
         html = (
         <tr>
             <td style={{fontSize: '10px'}}>{`${rawInput.amount || ''} ${rawInput.type || ''} ${rawInput.name || ''}`}</td>
@@ -29,18 +29,26 @@ const TableRow = (props) => {
             <td>{changableInput.match.length && changableInput.match[0]['item']['livsmedelsverketId']}</td>
             <td>{changableInput.match.length && changableInput.match[0]['item']['name']}</td>
         </tr>)
-    }
+    } */
     // otherwise plain text
-    else{
+    //else{
         html = (
         <tr>
             <td style={{fontSize: '10px'}}>{`${rawInput.amount || ''} ${rawInput.type || ''} ${rawInput.name || ''}`}</td>
             <td>{changableInput.amount}</td>
             <td>{changableInput.type}</td>
-            <td><input type='text' value={changableInput.name} onChange={(e) => handleChange(e, index, 'name')} onFocus={(e) => handleFocus(e, index, 'name')}></input></td>
+            <td><DropDownMenu
+                    indexInput={index}
+                    name={changableInput.name}
+                    changableInput={changableInput}
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    activeIndex={activeIndex}
+                    onBlur={handleBlur}
+                /></td>
         </tr>
         )
-    }
+    //}
     
     return (html);
 }

@@ -14,24 +14,24 @@ class Content extends Component {
         //Put raw input into input fields.
         const changableInputArray = [];
         this.props.rawInputArray.map((row) => {
-            row = {...row, "match": []}
-            changableInputArray.push(row);
+            row = {...row, "match": search(row.name, propsdataallFoods)}
+            return changableInputArray.push(row);
         })
         this.setState({changableInputArray});
     }
   
-    handleChange = (event, index, column, newValue) => {
+    handleChange = (value, index, column, type) => {
 		// newValue means that the value comes from one option in the dropdownmenu
-		if(newValue){
-			//const currentState = [...this.state.ingredients];
-			//currentState[index][column] = newValue;
-			//this.setState({ ingredients: currentState })
-			//this.setState({activeIndex: -1});
+		if(type === 'selected'){
+			const currentState = [...this.state.changableInputArray];
+			currentState[index][column] = value;
+			this.setState({ changableInputArray: currentState })
+			this.setState({activeIndex: -1});
 		}
-		// !newValue means that the value comes from the inputfield onChange, new input has been written and can be found in event.target.value
-		else if(!newValue){
+        //if new value is typed in by user:
+        else if(type === 'newInput'){
             const currentState = [...this.state.changableInputArray];
-			currentState[index][column] = event.target.value;
+			currentState[index][column] = value;
             this.setState({ changableInputArray: currentState })
             this.searchIngredientFromDb(this.state.changableInputArray[index]['name'],index);
 		}

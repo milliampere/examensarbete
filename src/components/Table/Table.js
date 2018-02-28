@@ -38,6 +38,7 @@ class Table extends Component {
 							<th>Mängd</th>
 							<th>Mått</th>
 							<th>Livsmedel</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
