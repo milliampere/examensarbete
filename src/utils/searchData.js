@@ -27,5 +27,8 @@ export default function search(name, allFoods){
     if(result.length){
         return result;
     }
+    else {
+        return []
+    }
 }
 
