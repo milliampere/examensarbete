@@ -5,11 +5,7 @@ const DropDownMenu = (props) => {
 
 	const { indexInput, name, onChange, onFocus, activeIndex } = props;
 	
-
-	console.log(name);
-	console.log(activeIndex);
 	const result = props.changableInput['match'];
-	console.log(result);
 
 	let results;
 

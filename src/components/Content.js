@@ -14,7 +14,12 @@ class Content extends Component {
         //Put raw input into input fields.
         const changableInputArray = [];
         this.props.rawInputArray.map((row) => {
-            row = {...row, "match": search(row.name, propsdataallFoods)}
+            let match = search(row.name, propsdataallFoods);
+            if(match.length){
+                row = {...row, "name": match[0]['item'].name, "match": match}
+            } else {
+                row = {...row, "name": '*', "match": match}
+            }
             return changableInputArray.push(row);
         })
         this.setState({changableInputArray});
