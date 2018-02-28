@@ -4,7 +4,6 @@ import './DropDownMenu.css';
 const DropDownMenu = (props) => {
 
 	const { indexInput, name, onChange, onFocus, activeIndex } = props;
-	
 	const result = props.changableInput['match'];
 
 	let results;
@@ -16,9 +15,9 @@ const DropDownMenu = (props) => {
 				return <li className="dropdown-item" key={index} onClick={(e) => onChange(item['item'].name, indexInput, 'name', 'selected')}>{item['item'].name}</li>
 			}else { return null }
 		})
-	} 
-
-	else {results = <li className="dropdown-no-item">Vi hittade ingen match, skriv in en annan råvara.</li>}
+	}else {
+		results = <li className="dropdown-no-item">Vi hittade ingen match, skriv in en annan råvara.</li>
+	}
 
 	return (
 		<div className="dropdown" onFocus={(e) => onFocus(e, indexInput, 'type')}>
@@ -31,9 +30,7 @@ const DropDownMenu = (props) => {
 				</div>
 			}
 		</div>
-	); 
-
-	
+	);
 }
 
 export default DropDownMenu;

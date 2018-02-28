@@ -6,7 +6,7 @@ import DropDownMenu from '../DropDownMenu/DropDownMenu';
 
 const TableRow = (props) => {
 
-    const { 
+    const {
         rawInput,
         index,
         changableInput,
@@ -35,8 +35,8 @@ const TableRow = (props) => {
         html = (
         <tr>
             <td style={{fontSize: '10px'}}>{`${rawInput.amount || ''} ${rawInput.type || ''} ${rawInput.name || ''}`}</td>
-            <td>{changableInput.amount}</td>
-            <td>{changableInput.type}</td>
+            <td><input className='input-small' type='text' value={changableInput.amount || ''} onChange={(e) => handleChange(e.target.value, index, 'amount')}></input></td>
+            <td><input className='input-small' type='text' value={changableInput.type || ''} onChange={(e) => handleChange(e.target.value, index, 'type')}></input></td>
             <td><DropDownMenu
                     indexInput={index}
                     name={changableInput.name}
@@ -49,7 +49,7 @@ const TableRow = (props) => {
         </tr>
         )
     //}
-    
+
     return (html);
 }
 
@@ -81,7 +81,7 @@ export default TableRow;
     />
 </td>
 <td className='input-large' type='text'>{result && result[0]['item'].name}</td>
-{/*             <td>{result && result[0]['item'].livsmedelsverketId}</td>  
+{/*             <td>{result && result[0]['item'].livsmedelsverketId}</td>
              <td>{getNutritionalValue('P')}</td>
             <td>{getNutritionalValue('I')}</td>
             <td>{getNutritionalValue('Fe')}</td>
@@ -111,7 +111,7 @@ export default TableRow;
 
 			const total = fakeProps3.data.allFoods.map((food)=>{
 				const nutrition = food.nutritions.find((nutrient) => { return nutrient.abbreviation === abbr});
-				if(nutrition) { return nutrition.value } 
+				if(nutrition) { return nutrition.value }
 				else { return 0 }
 			});
 

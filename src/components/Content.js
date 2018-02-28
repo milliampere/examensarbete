@@ -26,14 +26,31 @@ class Content extends Component {
     }
   
     handleChange = (value, index, column, type) => {
+
 		// if new value is selected from dropdown menu:
 		if(type === 'selected'){
-            this.updateStateItem(index, column, value);
+            let newMatch = search(value, propsdataallFoods);  // new match, ex newValue="potatis" results in match = ([{item: [name: "potatis rå"]}{etc}])
+            if(newMatch.length){
+                this.updateStateItem(index, {name: newMatch[0]['item'].name, match: newMatch});
+            } else {
+                this.updateStateItem(index, {name: '*', match: newMatch});
+            }        
+
             this.setState({activeIndex: -1});
 		}
         //if new value is typed in by user:
-        else if(type === 'newInput'){
-            this.updateStateItem(index, column, value);
+        else {
+            if(column === 'type'){
+                this.updateStateItem(index, {type: value});
+            }
+            else if (column === 'amount') {
+                this.updateStateItem(index, {amount: value});
+            }
+            else if (column === 'name') {
+                let newMatch = search(value, propsdataallFoods);  // new match, ex newValue="potatis" results in match = ([{item: [name: "potatis rå"]}{etc}])
+                this.updateStateItem(index, {name: value, match: newMatch});
+            }
+            
         }
 
     } 
@@ -41,18 +58,11 @@ class Content extends Component {
     /** 
      * Updates the state for all the input fields
      * @param {number} index - The index of the object.
-     * @param {string} key - The column object key ('amount' or 'type' or 'name).
-     * @param {string} newValue - The input value.
+     * @param {object} newEntries - The entries to change, {amount: '100', type: 'g'}
      */
-    updateStateItem(index, key, newValue) {
+    updateStateItem(index, newEntries) {
 
-        // new match result from search, ex newValue="potatis" results in newMatch = ([{item: [name: "potatis rå"]}{etc}])
-        let newMatch = search(newValue, propsdataallFoods);
-
-        // use object assign to create a new object to put in state
-        let newItem = Object.assign({}, this.state.changableInputArray[index], {[key]: newValue, match: newMatch});
-
-        console.log(newItem);
+        const newItem = Object.assign({}, this.state.changableInputArray[index], newEntries);
 
         // use slice to copy unedited parts of the state
         this.setState({
@@ -63,12 +73,6 @@ class Content extends Component {
             ]
         }, );
       }
- 
- 	searchIngredientFromDb = (name, index) => {
-        const currentState = [...this.state.changableInputArray];
-        currentState[index]['match'] = search(name, propsdataallFoods);
-        this.setState({ changableInputArray: currentState })
-    } 
     
     handleFocus = (event, index, column) => {
         if(this.state.activeIndex !== index) {
