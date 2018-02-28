@@ -24,18 +24,20 @@ class Content extends Component {
         })
         this.setState({changableInputArray: initialChangableInputArray});
     }
-  
-    handleChange = (value, index, column, type) => {
 
+    handleChange = (value, index, column, type) => {
 		// if new value is selected from dropdown menu:
 		if(type === 'selected'){
-            let newMatch = search(value, propsdataallFoods);  // new match, ex newValue="potatis" results in match = ([{item: [name: "potatis rå"]}{etc}])
-            if(newMatch.length){
-                this.updateStateItem(index, {name: newMatch[0]['item'].name, match: newMatch});
-            } else {
-                this.updateStateItem(index, {name: '*', match: newMatch});
-            }        
+            //let newMatch = search(value, propsdataallFoods);  // new match, ex newValue="potatis" results in match = ([{item: [name: "potatis rå"]}{etc}])
+            //if(newMatch.length){
+                //this.updateStateItem(index, {name: newMatch[0]['item'].name, match: newMatch});
+            //}
+            // else {
+            //     this.updateStateItem(index, {name: '*', match: newMatch});
+            // }
 
+             //Vi vill inte göra en ny sökning här o ta ut det första, när någon tryck på en produkt vill vi visa just den.
+            this.updateStateItem(index, {name: value});
             this.setState({activeIndex: -1});
 		}
         //if new value is typed in by user:
@@ -50,12 +52,10 @@ class Content extends Component {
                 let newMatch = search(value, propsdataallFoods);  // new match, ex newValue="potatis" results in match = ([{item: [name: "potatis rå"]}{etc}])
                 this.updateStateItem(index, {name: value, match: newMatch});
             }
-            
         }
+    }
 
-    } 
-    
-    /** 
+    /**
      * Updates the state for all the input fields
      * @param {number} index - The index of the object.
      * @param {object} newEntries - The entries to change, {amount: '100', type: 'g'}
@@ -71,45 +71,48 @@ class Content extends Component {
                 newItem,
                 ...this.state.changableInputArray.slice(index+1)
             ]
-        }, );
-      }
-    
-    handleFocus = (event, index, column) => {
-        if(this.state.activeIndex !== index) {
-            this.setState({activeIndex: index});
-        }
-        else{
-            this.setState({activeIndex: -1});
-        }
-    } 
+        });
+    }
 
-    handleBlur = (event, index, column) => {
-        // things happen here
-    } 
-    
+
+    openDropDownMenu = (event, index, column) => {
+        this.setState({activeIndex: index}, () => {
+            document.addEventListener("click", this.closeDropDownMenu);
+        });
+    }
+
+    closeDropDownMenu = (event) => {
+        if(!event.target.matches('.input-large')){
+            this.setState({activeIndex: -1}, () => {
+                document.removeEventListener('click', this.closeDropDownMenu);
+            })
+        }
+    }
+
     render() {
 
         const {rawInputArray, propsdataallFoods} = this.props;
         const {changableInputArray} = this.state;
-        
+
         return (
             <div>
-                { changableInputArray.length && (
+                { changableInputArray.length &&
                     <Table
                         rawInputArray={rawInputArray}
                         allFoods={propsdataallFoods}
                         handleChange={this.handleChange}
                         changableInputArray={this.state.changableInputArray}
-                        handleFocus={this.handleFocus}
-                        handleBlur={this.handleBlur}
+                        handleFocus={this.openDropDownMenu}
                         activeIndex={this.state.activeIndex}
                     />
-                    )
                 }
-
             </div>
         );
     }
 }
 
 export default Content;
+
+
+
+
