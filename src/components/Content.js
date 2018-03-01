@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Table from './Table/Table';
 import search from '../utils/searchData';
 import propsdataallFoods from '../data/list.json'; /* change to db when finished (props.data.allFoods) */
+import { forEach } from 'async';
 
 class Content extends Component {
 
@@ -10,20 +11,34 @@ class Content extends Component {
         activeIndex: -1
     }
 
-    componentWillMount() {
+    componentWillMount() { //ComponentDidMount??
         //Put raw input into input fields.
-        const initialChangableInputArray = [];
+
+       /* const initialChangableInputArray = [];
         this.props.rawInputArray.map((row) => {
             let match = search(row.name, propsdataallFoods);
             if(match.length){
-                row = {...row, "name": match[0]['item'].name, "match": match}
+                row = {...row, "name": match[0]['item'].name, "match": match} //tror inte detta är ok, här muterar vi argumentet row
             } else {
-                row = {...row, "name": '*', "match": match}
+                row = {...row, "name": '*', "match": match}  //tror inte detta är ok, här muterar vi argumentet row
             }
-            return initialChangableInputArray.push(row);
+            return initialChangableInputArray.push(row); //denna behöver ju inte pushas här.. map returnerar ju en ny lista.
+        })
+        this.setState({changableInputArray: initialChangableInputArray});*/
+
+
+        //ett förslag till ovan då map returnerar just en ny lista, ingen anledning att göra en push i en return.. :
+        const initialChangableInputArray = this.props.rawInputArray.map((row) => {
+            const match = search(row.name, propsdataallFoods);
+            if(match.length){
+                return {...row, name: match[0]['item'].name, match: match}
+            } else {
+                return {...row, name: '*', match: match}
+            }
         })
         this.setState({changableInputArray: initialChangableInputArray});
     }
+
 
     handleChange = (value, index, column, type) => {
 		// if new value is selected from dropdown menu:
@@ -37,23 +52,20 @@ class Content extends Component {
             // }
 
              //Vi vill inte göra en ny sökning här o ta ut det första, när någon tryck på en produkt vill vi visa just den.
-            this.updateStateItem(index, {name: value});
+            this.updateStateItem(index, {[column]: value});
             this.setState({activeIndex: -1});
 		}
-        //if new value is typed in by user:
+        // if new ingredient is typed in by user:
+        else if (type === 'newInput') {
+            let newMatch = search(value, propsdataallFoods);  // new match, ex newValue="potatis" results in match = ([{item: [name: "potatis rå"]}{etc}])
+            this.updateStateItem(index, {name: value, match: newMatch});
+        }
+        // if new volume or type is typed in by user:
         else {
-            if(column === 'type'){
-                this.updateStateItem(index, {type: value});
-            }
-            else if (column === 'amount') {
-                this.updateStateItem(index, {amount: value});
-            }
-            else if (column === 'name') {
-                let newMatch = search(value, propsdataallFoods);  // new match, ex newValue="potatis" results in match = ([{item: [name: "potatis rå"]}{etc}])
-                this.updateStateItem(index, {name: value, match: newMatch});
-            }
+            this.updateStateItem(index, {[column]: value});
         }
     }
+
 
     /**
      * Updates the state for all the input fields
@@ -64,7 +76,10 @@ class Content extends Component {
 
         const newItem = Object.assign({}, this.state.changableInputArray[index], newEntries);
 
-        // use slice to copy unedited parts of the state
+        //TEST, DETTA ÄR SAMMA SOM OVAN:
+        const newItem2 = {...this.state.changableInputArray[index], amount: 10}; //<-- man gör då inte detta (newEnries) till ett object
+
+        // use slice to copy un-edited parts of the state
         this.setState({
             changableInputArray: [
                 ...this.state.changableInputArray.slice(0,index),
@@ -91,8 +106,8 @@ class Content extends Component {
 
     render() {
 
-        const {rawInputArray, propsdataallFoods} = this.props;
-        const {changableInputArray} = this.state;
+        const { rawInputArray, propsdataallFoods } = this.props;
+        const { changableInputArray, activeIndex } = this.state;
 
         return (
             <div>
@@ -101,9 +116,10 @@ class Content extends Component {
                         rawInputArray={rawInputArray}
                         allFoods={propsdataallFoods}
                         handleChange={this.handleChange}
-                        changableInputArray={this.state.changableInputArray}
+                        changableInputArray={changableInputArray}
                         handleFocus={this.openDropDownMenu}
-                        activeIndex={this.state.activeIndex}
+                        activeIndex={activeIndex}
+                        handlePortions={this.portionChange}
                     />
                 }
             </div>

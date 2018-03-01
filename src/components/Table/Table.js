@@ -15,7 +15,7 @@ class Table extends Component {
 			handleChange,
 			activeIndex,
 			handleFocus,
-			handleBlur
+			handleBlur,
 		} = this.props;
 
 		const headButtons = ['standard', 'fettsyror', 'vitaminer (vattenlösliga)', 'vitaminer (fettlösliga)', 'mineraler'].map((item, index) => {
