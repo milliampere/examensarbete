@@ -7,7 +7,6 @@ import Credits from './components/Credits';
 //import allFoods from './data/list.json'
 //import searchData from './utils/searchData';
 //import foodArray from './data/input'
-
 import propsdataallFoods from './data/list.json';
 import rawInputArray from './data/input';
 import Content from './components/Content';

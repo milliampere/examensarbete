@@ -3,16 +3,15 @@ import './DropDownMenu.css';
 
 const DropDownMenu = (props) => {
 
-	const { indexInput, name, onChange, onFocus, activeIndex, changableInput } = props;
+	const { indexInput, name, onChange, onFocus, activeIndex, changableInput, backgroundColor } = props;
 	const result = props.changableInput['match'];
 
-	let backgroundColor = '';
+	let iconColor = '';
 
 	if (changableInput.livsmedelsverketId != undefined) {
-		backgroundColor = 'green';
-	}
-	else {
-		backgroundColor = 'red';
+		iconColor = 'green';
+	}else {
+		iconColor = 'red';
 	}
 
 	let results;
@@ -30,19 +29,16 @@ const DropDownMenu = (props) => {
 
 	return (
 		<div className="dropdown" onFocus={(e) => onFocus(e, indexInput, 'type')}>
-			<div className="input">
-				<span className='fa fa-check' style={{color: backgroundColor}}></span>
-				<input className='input-large input-food' type='text' value={name} onChange={(e) => onChange(e.target.value, indexInput, 'name', 'newInput')} ></input>
-			</div>
+			<span className='fa fa-check' style={{color: iconColor}}></span>
+			<input className='input-large input-food' style={{backgroundColor: backgroundColor}} type='text' value={name} onChange={(e) => onChange(e.target.value, indexInput, 'name', 'newInput')} ></input>
 			{activeIndex === indexInput &&
-				<div classname='dropdown-container'>
+				<div className='dropdown-container'>
 					<div id="myDropdown" className="dropdown-content">
 						<ul>
 							{results}
 						</ul>
 					</div>
 				</div>
-
 			}
 		</div>
 	);

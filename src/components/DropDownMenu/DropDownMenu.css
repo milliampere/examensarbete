@@ -1,7 +1,11 @@
 @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
 
-.input {
+.dropdown {
     position: relative;
+}
+
+.dropdown:nth-child(2) {
+    background-color: lightgrey;
 }
 
 span {

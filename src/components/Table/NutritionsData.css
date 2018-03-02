@@ -1,5 +1,17 @@
-.table-data {
-    width: 100px;
-    border: 1px solid black;
-    padding: 0 10px;
+.nutrition-container{
+    display: flex;
+    text-align: center;
 }
+
+.nutrition-container:nth-child(even) {
+    background: #e5e6e8;
+}
+
+.nutrition-data {
+    width: 70px;
+    padding: 0 5px;
+    border-right: 1px solid lightgrey;
+}
+
+
+

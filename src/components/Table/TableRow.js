@@ -14,31 +14,32 @@ const TableRow = (props) => {
         handleChange,
         activeIndex,
         handleFocus,
-        handleBlur,
         portions
     } = props;
 
+    let backgroundColor = 'white';
+
+    if(index % 2){
+        backgroundColor = '#e5e6e8';
+    }
 
     return (
-        <tr>
-            <td style={{fontSize: '10px'}}>{`${rawInput.amount || ''} ${rawInput.type || ''} ${rawInput.name || ''}`}</td>
-            <td><input className='input-small' type='text' value={changableInput.amount || ''} onChange={(e) => handleChange(e.target.value, index, 'amount')}></input></td>
-            <td><input className='input-small' type='text' value={changableInput.type || ''} onChange={(e) => handleChange(e.target.value, index, 'type')}></input></td>
-            <td><DropDownMenu
-                    indexInput={index}
-                    name={changableInput.name}
-                    changableInput={changableInput}
-                    onChange={handleChange}
-                    onFocus={handleFocus}
-                    activeIndex={activeIndex}
-                    onBlur={handleBlur}
-                />
-            </td>
-            <td>
-                {changableInput.livsmedelsverketId && <NutritionsData changableInput={changableInput}/>}
-            </td>
-        </tr>
-        )
+        <div className="table-row">
+            <div className='receipt-row'>{`${rawInput.amount || ''} ${rawInput.type || ''} ${rawInput.name || ''}`}</div>
+            <input className='input-small' style={{backgroundColor: backgroundColor}} type='text' value={changableInput.amount || ''} onChange={(e) => handleChange(e.target.value, index, 'amount')}></input>
+            <input className='input-small' style={{backgroundColor: backgroundColor}} type='text' value={changableInput.type || ''} onChange={(e) => handleChange(e.target.value, index, 'type')}></input>
+            <DropDownMenu
+                indexInput={index}
+                name={changableInput.name}
+                changableInput={changableInput}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                activeIndex={activeIndex}
+                backgroundColor={backgroundColor}
+            />
+            <NutritionsData changableInput={changableInput}/>
+        </div>
+    )
 }
 
 // export const foodListNutritions = gql`

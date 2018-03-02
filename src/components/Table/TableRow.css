@@ -1,3 +1,22 @@
+.table-row {
+    display:flex;
+    align-items: center;
+}
+
+.table-row:nth-child(even) {
+    background-color: #e5e6e8;
+}
+
+.table-row:last-child {
+    border-bottom: 1px solid lightgrey;
+}
+
+.receipt-row {
+    width: 180px;
+    padding-left: 5px;
+    font-size: 12px;
+}
+
 .input-small {
     width: 45px;
     padding-left: 5px;
@@ -8,6 +27,4 @@
     padding-left: 5px;
 }
 
-td {
-    border-bottom: 1px solid grey;  /* för att se raderna lättare */
-}
+
