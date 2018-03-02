@@ -25,6 +25,7 @@ function useRegex(inputString = '') {
         index = inputString.search(/\d\s+\D/);
         ingredientObject.amount = inputString.substring(0,index+1);
         ingredientObject.name = inputString.slice(index+2);
+        ingredientObject.type = "st";
 
     } else if (inputString.match(re3)) {
         // don't separate
