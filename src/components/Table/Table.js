@@ -10,13 +10,11 @@ class Table extends Component {
 
 		const {
 			rawInputArray,
-			//allFoods,
 			changableInputArray,
 			handleChange,
 			activeIndex,
 			handleFocus,
-			handleBlur,
-			portions
+			handleBlur
 		} = this.props;
 
 		const headButtons = ['standard', 'fettsyror', 'vitaminer (vattenlösliga)', 'vitaminer (fettlösliga)', 'mineraler'].map((item, index) => {
@@ -34,7 +32,6 @@ class Table extends Component {
 				activeIndex={activeIndex}
 				handleFocus={handleFocus}
 				handleBlur={handleBlur}
-				portions={portions}
 			/>
 		})
 

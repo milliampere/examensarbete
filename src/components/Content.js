@@ -94,7 +94,6 @@ class Content extends Component {
                         changableInputArray={changableInputArray}
                         handleFocus={this.openDropDownMenu}
                         activeIndex={activeIndex}
-                        portions={portions}
                     />
                 }
             </div>
