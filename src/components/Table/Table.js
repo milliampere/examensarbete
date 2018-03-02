@@ -16,15 +16,13 @@ class Table extends Component {
 			activeIndex,
 			handleFocus,
 			handleBlur,
+			portions
 		} = this.props;
 
 		const headButtons = ['standard', 'fettsyror', 'vitaminer (vattenlösliga)', 'vitaminer (fettlösliga)', 'mineraler'].map((item, index) => {
 			return <Button key={index} name={item} handleClick={this.handleClick}/>
 		})
 
-		const headers = ['Från receptet', 'Mängd', 'Mått', 'Livsmedel'].map((item, index) => {
-			return <TableHeader key={index} data={item}/>
-		})
 
 		const rows = rawInputArray.map((rawInput, index) => {
 			return <TableRow
@@ -36,6 +34,7 @@ class Table extends Component {
 				activeIndex={activeIndex}
 				handleFocus={handleFocus}
 				handleBlur={handleBlur}
+				portions={portions}
 			/>
 		})
 
@@ -46,10 +45,7 @@ class Table extends Component {
 				</div>
 				<table>
 					<thead>
-						<tr>
-							{headers}
-							<th></th>
-						</tr>
+						<TableHeader activeTab={'minerals'}/>
 					</thead>
 					<tbody>
 						{rows}

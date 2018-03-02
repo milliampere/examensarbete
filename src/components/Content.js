@@ -16,9 +16,9 @@ class Content extends Component {
         const initialChangableInputArray = this.props.rawInputArray.map((row) => {
             const match = search(row.name, propsdataallFoods);
             if(match.length){
-                return {...row, name: match[0]['item'].name, match: match, livsmedelsverketId: match[0]['item'].livsmedelsverketId}
+                return {...row, name: match[0]['item'].name, amount: row.amount/this.props.portions, match: match, livsmedelsverketId: match[0]['item'].livsmedelsverketId}
             } else {
-                return {...row, name: '*', match: match}
+                return {...row, name: '*', amount: row.amount/this.props.portions, match: match}
             }
         })
         this.setState({changableInputArray: initialChangableInputArray});
@@ -81,7 +81,7 @@ class Content extends Component {
 
     render() {
 
-        const { rawInputArray, propsdataallFoods } = this.props;
+        const { rawInputArray, propsdataallFoods, portions } = this.props;
         const { changableInputArray, activeIndex } = this.state;
 
         return (
@@ -94,7 +94,7 @@ class Content extends Component {
                         changableInputArray={changableInputArray}
                         handleFocus={this.openDropDownMenu}
                         activeIndex={activeIndex}
-                        handlePortions={this.portionChange}
+                        portions={portions}
                     />
                 }
             </div>

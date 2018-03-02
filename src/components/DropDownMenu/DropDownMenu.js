@@ -6,8 +6,6 @@ const DropDownMenu = (props) => {
 	const { indexInput, name, onChange, onFocus, activeIndex, changableInput } = props;
 	const result = props.changableInput['match'];
 
-	console.log(props.changableInput.livsmedelsverketId)
-
 	let backgroundColor = '';
 
 	if (changableInput.livsmedelsverketId != undefined) {

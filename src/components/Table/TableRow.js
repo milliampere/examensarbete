@@ -3,10 +3,9 @@ import React from 'react';
 // import gql from 'graphql-tag'
 import './TableRow.css';
 import DropDownMenu from '../DropDownMenu/DropDownMenu';
+import NutritionsData from './NutritionsData.js'
 
 const TableRow = (props) => {
-
-
 
     const {
         rawInput,
@@ -15,26 +14,13 @@ const TableRow = (props) => {
         handleChange,
         activeIndex,
         handleFocus,
-        handleBlur
+        handleBlur,
+        portions
     } = props;
 
-    let html = '';
 
-    // render input fields if active
-/*     if(index === activeIndex){
-        html = (
-        <tr>
-            <td style={{fontSize: '10px'}}>{`${rawInput.amount || ''} ${rawInput.type || ''} ${rawInput.name || ''}`}</td>
-            <td><input style={{width: '40px'}} type='text' value={changableInput.amount} onChange={(e) => handleChange(e, index, 'amount')}></input></td>
-            <td><input style={{width: '40px'}} type='text' value={changableInput.type} onChange={(e) => handleChange(e, index, 'type')}></input></td>
-            <td><input type='text' value={changableInput.name} onChange={(e) => handleChange(e, index, 'name')} onFocus={(e) => handleFocus(e, index, 'name')} onBlur={(e) => handleBlur(e, index, 'name')}></input></td>
-            <td>{changableInput.match.length && changableInput.match[0]['item']['livsmedelsverketId']}</td>
-            <td>{changableInput.match.length && changableInput.match[0]['item']['name']}</td>
-        </tr>)
-    } */
-    // otherwise plain text
-    //else{
-        html = (
+
+    return (
         <tr>
             <td style={{fontSize: '10px'}}>{`${rawInput.amount || ''} ${rawInput.type || ''} ${rawInput.name || ''}`}</td>
             <td><input className='input-small' type='text' value={changableInput.amount || ''} onChange={(e) => handleChange(e.target.value, index, 'amount')}></input></td>
@@ -47,13 +33,13 @@ const TableRow = (props) => {
                     onFocus={handleFocus}
                     activeIndex={activeIndex}
                     onBlur={handleBlur}
-                /></td>
+                />
+            </td>
+            <td>
+                {changableInput.livsmedelsverketId && <NutritionsData changableInput={changableInput}/>}
+            </td>
         </tr>
-
         )
-    //}
-
-    return (html);
 }
 
 // export const foodListNutritions = gql`
