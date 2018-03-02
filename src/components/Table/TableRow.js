@@ -19,7 +19,6 @@ const TableRow = (props) => {
     } = props;
 
 
-
     return (
         <tr>
             <td style={{fontSize: '10px'}}>{`${rawInput.amount || ''} ${rawInput.type || ''} ${rawInput.name || ''}`}</td>
@@ -56,56 +55,4 @@ const TableRow = (props) => {
 export default TableRow;
 
 
-/*
-<td><DropDownMenu
-        indexInput={index}
-        name={ingredients[index].name}
-        ingredients={ingredients}
-        result={result}
-        onChange={handleChange}
-        onClick={onClick}
-        onFocus={onFocus}
-        activeIndex={activeIndex}
-        onBlur={onBlur}
-    />
-</td>
-<td className='input-large' type='text'>{result && result[0]['item'].name}</td>
-{/*             <td>{result && result[0]['item'].livsmedelsverketId}</td>
-             <td>{getNutritionalValue('P')}</td>
-            <td>{getNutritionalValue('I')}</td>
-            <td>{getNutritionalValue('Fe')}</td>
-            <td>{getNutritionalValue('Ca')}</td>
-            <td>{getNutritionalValue('K')}</td>
-            <td>{getNutritionalValue('Cu')}</td>
-            <td>{getNutritionalValue('Mg')}</td>
-            <td>{getNutritionalValue('Se')}</td>
-            <td>{getNutritionalValue('Zn')}</td> */
 
-/*
-		const getRecommendedValue = (abbr) => {
-			const nutrition = fakeProps2.data.allNutrients.find((nutrient) => { return nutrient.abbreviation === abbr});
-			if(nutrition) { return nutrition.woman3160 }
-			else { return 0 }
-		};
-
-		const getNutritionNameAndUnit = (abbr) => {
-			const nutrition = fakeProps2.data.allNutrients.find((nutrient) => { return nutrient.abbreviation === abbr});
-			if(nutrition) { return `${nutrition.name} (${nutrition.unitforRI}) ` }
-			else { return '' }
-		};
-
-		const totalNutritionalValue = (abbr) => {
-
-			console.log(fakeProps3);
-
-			const total = fakeProps3.data.allFoods.map((food)=>{
-				const nutrition = food.nutritions.find((nutrient) => { return nutrient.abbreviation === abbr});
-				if(nutrition) { return nutrition.value }
-				else { return 0 }
-			});
-
-			console.log(total);
-			total.reduce((total, num) => {return total + num});
-
-        };
- */
