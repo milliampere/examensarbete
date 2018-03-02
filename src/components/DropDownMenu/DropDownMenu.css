@@ -1,3 +1,19 @@
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
+
+.input {
+    position: relative;
+}
+
+span {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.dropdown-container {
+    position: relative;
+}
+
 .dropdown-content {
     position: absolute;
     z-index: 10;
@@ -5,6 +21,10 @@
     border: 1px solid lightgrey;
     list-style: none;
     width: 230px;
+}
+
+.input-food {
+    padding-right: 30px;
 }
 
 ul {

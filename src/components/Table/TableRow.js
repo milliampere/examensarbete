@@ -6,6 +6,8 @@ import DropDownMenu from '../DropDownMenu/DropDownMenu';
 
 const TableRow = (props) => {
 
+
+
     const {
         rawInput,
         index,
@@ -47,6 +49,7 @@ const TableRow = (props) => {
                     onBlur={handleBlur}
                 /></td>
         </tr>
+
         )
     //}
 

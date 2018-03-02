@@ -13,25 +13,10 @@ class Content extends Component {
 
     componentWillMount() { //ComponentDidMount??
         //Put raw input into input fields.
-
-       /* const initialChangableInputArray = [];
-        this.props.rawInputArray.map((row) => {
-            let match = search(row.name, propsdataallFoods);
-            if(match.length){
-                row = {...row, "name": match[0]['item'].name, "match": match} //tror inte detta är ok, här muterar vi argumentet row
-            } else {
-                row = {...row, "name": '*', "match": match}  //tror inte detta är ok, här muterar vi argumentet row
-            }
-            return initialChangableInputArray.push(row); //denna behöver ju inte pushas här.. map returnerar ju en ny lista.
-        })
-        this.setState({changableInputArray: initialChangableInputArray});*/
-
-
-        //ett förslag till ovan då map returnerar just en ny lista, ingen anledning att göra en push i en return.. :
         const initialChangableInputArray = this.props.rawInputArray.map((row) => {
             const match = search(row.name, propsdataallFoods);
             if(match.length){
-                return {...row, name: match[0]['item'].name, match: match}
+                return {...row, name: match[0]['item'].name, match: match, livsmedelsverketId: match[0]['item'].livsmedelsverketId}
             } else {
                 return {...row, name: '*', match: match}
             }
@@ -40,25 +25,18 @@ class Content extends Component {
     }
 
 
-    handleChange = (value, index, column, type) => {
+    handleChange = (value, index, column, type, item) => {
 		// if new value is selected from dropdown menu:
 		if(type === 'selected'){
-            //let newMatch = search(value, propsdataallFoods);  // new match, ex newValue="potatis" results in match = ([{item: [name: "potatis rå"]}{etc}])
-            //if(newMatch.length){
-                //this.updateStateItem(index, {name: newMatch[0]['item'].name, match: newMatch});
-            //}
-            // else {
-            //     this.updateStateItem(index, {name: '*', match: newMatch});
-            // }
-
+            let newMatch = search(value, propsdataallFoods);  // new match, ex newValue="potatis" results in match = ([{item: [name: "potatis rå"]}{etc}])
              //Vi vill inte göra en ny sökning här o ta ut det första, när någon tryck på en produkt vill vi visa just den.
-            this.updateStateItem(index, {[column]: value});
+            this.updateStateItem(index, {[column]: value, match: newMatch, livsmedelsverketId: item.livsmedelsverketId});
             this.setState({activeIndex: -1});
 		}
         // if new ingredient is typed in by user:
         else if (type === 'newInput') {
             let newMatch = search(value, propsdataallFoods);  // new match, ex newValue="potatis" results in match = ([{item: [name: "potatis rå"]}{etc}])
-            this.updateStateItem(index, {name: value, match: newMatch});
+            this.updateStateItem(index, {name: value, match: newMatch, livsmedelsverketId: null});
         }
         // if new volume or type is typed in by user:
         else {
@@ -75,9 +53,6 @@ class Content extends Component {
     updateStateItem(index, newEntries) {
 
         const newItem = Object.assign({}, this.state.changableInputArray[index], newEntries);
-
-        //TEST, DETTA ÄR SAMMA SOM OVAN:
-        const newItem2 = {...this.state.changableInputArray[index], amount: 10}; //<-- man gör då inte detta (newEnries) till ett object
 
         // use slice to copy un-edited parts of the state
         this.setState({
