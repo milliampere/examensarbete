@@ -2,7 +2,6 @@ import React from 'react';
 import nutritionForOneFood from '../../data/nutritionForOneFood.json';
 // import { graphql } from 'react-apollo'
 // import gql from 'graphql-tag'
-
 import './NutritionsData.css'
 
 
@@ -15,10 +14,13 @@ const NutritionsData = (props) => {
     const standard = ['Ener', 'Kolh', 'Fett', 'Prot' , 'Fibe', 'Fullk/tot'];
     const fatt = ['Mfet', 'Mone', 'Pole', 'Kole'];
 
-
     //instead of mineras.map use map for the prop that comes from nutritions buttonClick
-    const nutritionsResult = minerals.map((abbr) => {
-        const nutrition = nutritionForOneFood.data.Food.nutritions.find((nutrient) => { return nutrient.abbreviation === abbr});
+    const nutritionsResult = minerals.map((abbr, index) => {
+
+        const nutrition = nutritionForOneFood.data.Food.nutritions.find((nutrient) => {
+            return nutrient.abbreviation === abbr;
+        });
+
         if(nutrition) {
             let convertedAmount = '';
 
@@ -38,12 +40,12 @@ const NutritionsData = (props) => {
                     //convertedAmount = convertAmount();
                 }
             }
-            return <div className="table-data" style={{display: 'inline'}}>{convertedAmount} {nutrition.unit}</div>
+            return <div className="nutrition-data" key={index}>{convertedAmount} {nutrition.unit}</div>
         }
-        return <div className="table-data" style={{display: 'inline'}}></div>
+        else {
+            return <div className="nutrition-data" key={index}></div>
+        }
     })
-
-
 
     function convertAmount(valueInGram) {
         //Diveded by 100 to get value per 1 gram and multiplied with recepie amount
@@ -53,7 +55,7 @@ const NutritionsData = (props) => {
 
 
     return (
-        <div>
+        <div className="nutrition-container">
             {nutritionsResult}
         </div>
     )

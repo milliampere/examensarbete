@@ -1,11 +1,12 @@
 import React from 'react';
+import'./TableHeaderRow.css';
 
-const TableHeader = (props) => {
+const TableHeaderRow = (props) => {
 
     const { activeTab } = props;
 
     const inputHeaders = ['Från receptet', 'Mängd', 'Mått', 'Livsmedel'].map((item, index) => {
-        return <th key={index}>{item}</th>
+        return <div className="header-receipt" key={index}>{item}</div>
     })
 
     let headersArray = [];
@@ -28,21 +29,17 @@ const TableHeader = (props) => {
         headersArray = vitamins;
     }
 
-
-    const nutritionsHeaders = headersArray.map((abbr) => {
-        return <div className="headers" style={{display: 'inline'}}>{abbr}</div>
+    const nutritionsHeaders = headersArray.map((abbr, index) => {
+        return <div className="header-nutrition" key={index}>{abbr}</div>
     })
 
 
     return (
-        <tr>
+        <div className="table-header-row">
             {inputHeaders}
-            <th>
-                {nutritionsHeaders}
-            </th>
-        </tr>
-
+            {nutritionsHeaders}
+        </div>
     );
 }
 
-export default TableHeader;
+export default TableHeaderRow;
