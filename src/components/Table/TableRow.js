@@ -12,9 +12,6 @@ const TableRow = (props) => {
         index,
         changableInput,
         handleChange,
-        activeIndex,
-        handleFocus,
-        portions
     } = props;
 
     let backgroundColor = 'white';
@@ -31,11 +28,8 @@ const TableRow = (props) => {
             <DropDownMenu
                 indexInput={index}
                 name={changableInput.name}
-                changableInput={changableInput}
-                onChange={handleChange}
-                onFocus={handleFocus}
-                activeIndex={activeIndex}
                 backgroundColor={backgroundColor}
+                {...props}
             />
             <NutritionsData changableInput={changableInput}/>
         </div>
