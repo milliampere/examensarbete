@@ -6,15 +6,25 @@ import './Table.css';
 
 class Table extends Component {
 
+	state = {
+		showNutritions: 'standard'
+	}
+
+	handleButtonClick = (event) => {
+		this.setState({showNutritions: event.target.value});
+	}
+
 	render() {
+
+		const { showNutritions } = this.state;
 
 		const {
 			rawInputArray,
 			changableInputArray,
 		} = this.props;
 
-		const headButtons = ['standard', 'fettsyror', 'vitaminer (vattenlösliga)', 'vitaminer (fettlösliga)', 'mineraler'].map((item, index) => {
-			return <Button key={index} name={item} handleClick={this.handleClick}/>
+		const headButtons = ['standard', 'fettsyror', 'vitaminer', 'mineraler'].map((item, index) => {
+			return <Button key={index} name={item} activeButton={showNutritions} handleClick={this.handleButtonClick}/>
 		})
 
 		const rows = rawInputArray.map((rawInput, index) => {
@@ -23,6 +33,7 @@ class Table extends Component {
 				rawInput={rawInput}
 				index={index}
 				changableInput={changableInputArray[index]}
+				activeTab={showNutritions}
 				{...this.props}
 			/>
 		})
@@ -33,7 +44,7 @@ class Table extends Component {
 					{headButtons}
 				</div>
 				<div className="table-header">
-					<TableHeaderRow activeTab={'minerals'}/>
+					<TableHeaderRow activeTab={showNutritions}/>
 				</div>
 				<div className="table-body">
 					{rows}
