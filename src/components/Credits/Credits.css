@@ -1,0 +1,18 @@
+.credits-button {
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+    text-align: center;
+    color: white;
+    background-color: #336B87;
+    max-width: 150px;
+ }
+
+.credits-box {
+    margin: 10px;
+}
+
+.credits-graphcms-logo {
+    width: 100px;
+}
