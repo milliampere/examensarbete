@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import './App.css';
 //import { graphql } from 'react-apollo'
 //import gql from 'graphql-tag'
 import Navigation from './components/Navigation'
 //import Table from './components/Table/Table.js';
-import Credits from './components/Credits';
+import Credits from './components/Credits/Credits';
 //import allFoods from './data/list.json'
 //import searchData from './utils/searchData';
 //import foodArray from './data/input'
