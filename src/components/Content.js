@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Table from './Table/Table';
 import search from '../utils/searchData';
 import propsdataallFoods from '../data/list.json'; /* change to db when finished (props.data.allFoods) */
-import { forEach } from 'async';
 
 class Content extends Component {
 
@@ -81,7 +80,7 @@ class Content extends Component {
 
     render() {
 
-        const { rawInputArray, propsdataallFoods, portions } = this.props;
+        const { rawInputArray, propsdataallFoods } = this.props;
         const { changableInputArray, activeIndex } = this.state;
 
         return (

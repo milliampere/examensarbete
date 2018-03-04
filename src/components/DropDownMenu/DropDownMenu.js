@@ -8,7 +8,7 @@ const DropDownMenu = (props) => {
 
 	let iconColor = '';
 
-	if (changableInput.livsmedelsverketId != undefined) {
+	if (changableInput.livsmedelsverketId !== undefined) {
 		iconColor = 'green';
 	}else {
 		iconColor = 'red';
