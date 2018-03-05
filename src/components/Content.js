@@ -93,6 +93,8 @@ class Content extends Component {
                         changableInputArray={changableInputArray}
                         handleFocus={this.openDropDownMenu}
                         activeIndex={activeIndex}
+                        activeTab={this.props.activeTab}
+                        allNutrients={this.props.allNutrients}
                     />
                 }
             </div>

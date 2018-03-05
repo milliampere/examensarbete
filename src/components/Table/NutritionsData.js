@@ -33,7 +33,8 @@ const NutritionsData = (props) => {
                     //convertedAmount = convertAmount();
                 }
             }
-            return <div className="nutrition-data" key={index}>{convertedAmount} {nutrition.unit}</div>
+            console.log(nutrition)
+            return <div className="nutrition-data" key={index}>{convertedAmount}</div>
         }
         else {
             return <div className="nutrition-data" key={index}></div>
@@ -64,6 +65,8 @@ const NutritionsData = (props) => {
 //     nutritions
 //   }
 // }
+
+
 
  export default NutritionsData;
 

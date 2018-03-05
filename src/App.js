@@ -9,38 +9,44 @@ import Credits from './components/Credits/Credits';
 //import searchData from './utils/searchData';
 //import foodArray from './data/input'
 import propsdataallFoods from './data/list.json';
-import propsdataallNutrients from './data/nutrientNames.json'; 
+import propsdataallNutrients from './data/nutrientNames.json';
 import rawInputArray from './data/input';
 import Content from './components/Content';
 
 class App extends Component {
 
 	state = {
-		activeTab: 1,
-		portions: 4
+		activeTab: 'standard',
+		portions: 4,
 	}
 	componentDidMount() { //stoppa sen in datan från chorme.onmessage... kolla pluginet
 /* 		this.setState({ ingredients: foodArray })
 		this.setState({resultArray: this.searchIngredientsFromDb(foodArray)});
  */	}
 
+	handleButtonClick = (event) => {
+
+		this.setState({activeTab: event.target.value});
+	}
+
 
 	render() {
 
-console.log(propsdataallNutrients);
 
 		return (
 			<div className="App">
-				<Navigation 
+				<Navigation
 					activeTab={this.state.activeTab}
 					allNutrients={propsdataallNutrients}
+					activeTab={this.state.activeTab}
+					handleClick={this.handleButtonClick}
 				/>
 				<Content
-        	rawInputArray={rawInputArray}
+        			rawInputArray={rawInputArray}
 					allFoods={propsdataallFoods}
 					portions={this.state.portions}
 					allNutrients={propsdataallNutrients}
-    			/>
+					activeTab={this.state.activeTab}    			/>
 				<Credits />
 			</div>
 		);
