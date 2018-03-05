@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TableHeaderRow from './TableHeaderRow.js';
+import TableTotalRow from './TableTotalRow.js';
 import TableRow from './TableRow';
 //import Button from '.././Button/Button.js';
 import './Table.css';
@@ -30,6 +31,9 @@ class Table extends Component {
 				</div>
 				<div className="table-body">
 					{rows}
+				</div>
+				<div className="table-footer">
+					<TableTotalRow activeTab={this.props.activeTab} allNutrients={this.props.allNutrients}/>
 				</div>
 			</div>
 		)
