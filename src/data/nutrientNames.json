@@ -1,164 +1,226 @@
 [
       {
         "name": "Vitamin B12",
-        "abbreviation": "VitB12",
+        "unitforRI": "µg",
         "typeOfNutrient": "Vitamin",
-        "unitforRI": "µg"
+        "unit": "µg",
+        "abbreviation": "VitB12"
       },
       {
         "name": "Natrium",
-        "abbreviation": "Na",
+        "unitforRI": "",
         "typeOfNutrient": "Mineral",
-        "unitforRI": ""
+        "unit": "unitForRI",
+        "abbreviation": "Na"
       },
       {
         "name": "Vitamin C",
-        "abbreviation": "VitC",
+        "unitforRI": "mg",
         "typeOfNutrient": "Vitamin",
-        "unitforRI": "mg"
+        "unit": "mg",
+        "abbreviation": "VitC"
       },
       {
         "name": "Folat",
-        "abbreviation": "Folat",
+        "unitforRI": "µg",
         "typeOfNutrient": "Vitamin",
-        "unitforRI": "µg"
+        "unit": "µg",
+        "abbreviation": "Folat"
       },
       {
         "name": "Niacin",
-        "abbreviation": "Niek",
+        "unitforRI": "NE",
         "typeOfNutrient": "Vitamin",
-        "unitforRI": "NE"
+        "unit": "mg",
+        "abbreviation": "Niek"
       },
       {
         "name": "Riboflavin",
-        "abbreviation": "Ribo",
+        "unitforRI": "mg",
         "typeOfNutrient": "Vitamin",
-        "unitforRI": "mg"
+        "unit": "mg",
+        "abbreviation": "Ribo"
       },
       {
         "name": "Tiamin",
-        "abbreviation": "Tiam",
+        "unitforRI": "mg",
         "typeOfNutrient": "Vitamin",
-        "unitforRI": "mg"
+        "unit": "mg",
+        "abbreviation": "Tiam"
       },
       {
         "name": "Vitamin A",
-        "abbreviation": "VitA",
+        "unitforRI": "RE",
         "typeOfNutrient": "Vitamin",
-        "unitforRI": "RE"
+        "unit": "µg",
+        "abbreviation": "VitA"
       },
       {
         "name": "Vitamin B6",
-        "abbreviation": "VitB6",
+        "unitforRI": "mg",
         "typeOfNutrient": "Vitamin",
-        "unitforRI": "mg"
+        "unit": "mg",
+        "abbreviation": "VitB6"
       },
       {
         "name": "Vitamin D",
-        "abbreviation": "VitD",
+        "unitforRI": "µg",
         "typeOfNutrient": "Vitamin",
-        "unitforRI": "µg"
+        "unit": "µg",
+        "abbreviation": "VitD"
       },
       {
         "name": "Vitamin E",
-        "abbreviation": "VitE",
+        "unitforRI": "alfa-TE",
         "typeOfNutrient": "Vitamin",
-        "unitforRI": "alfa-TE"
+        "unit": "mg",
+        "abbreviation": "VitE"
       },
       {
         "name": "Järn",
-        "abbreviation": "Fe",
+        "unitforRI": "mg",
         "typeOfNutrient": "Mineral",
-        "unitforRI": "mg"
+        "unit": "mg",
+        "abbreviation": "Fe"
       },
       {
         "name": "Kalcium",
-        "abbreviation": "Ca",
+        "unitforRI": "mg",
         "typeOfNutrient": "Mineral",
-        "unitforRI": "mg"
+        "unit": "mg",
+        "abbreviation": "Ca"
       },
       {
         "name": "Kalium",
-        "abbreviation": "K",
+        "unitforRI": "g",
         "typeOfNutrient": "Mineral",
-        "unitforRI": "g"
+        "unit": "mg",
+        "abbreviation": "K"
       },
       {
         "name": "Magnesium",
-        "abbreviation": "Mg",
+        "unitforRI": "mg",
         "typeOfNutrient": "Mineral",
-        "unitforRI": "mg"
+        "unit": "mg",
+        "abbreviation": "Mg"
       },
       {
         "name": "Selen",
-        "abbreviation": "Se",
+        "unitforRI": "µg",
         "typeOfNutrient": "Mineral",
-        "unitforRI": "µg"
+        "unit": "µg",
+        "abbreviation": "Se"
       },
       {
         "name": "Zink",
-        "abbreviation": "Zn",
+        "unitforRI": "mg ",
         "typeOfNutrient": "Mineral",
-        "unitforRI": "mg "
+        "unit": "mg",
+        "abbreviation": "Zn"
       },
       {
         "name": "Fosfor",
-        "abbreviation": "P",
+        "unitforRI": "mg",
         "typeOfNutrient": "Mineral",
-        "unitforRI": "mg"
+        "unit": "mg",
+        "abbreviation": "P"
       },
       {
         "name": "Koppar",
-        "abbreviation": "Cu",
+        "unitforRI": "mg",
         "typeOfNutrient": "Mineral",
-        "unitforRI": "mg"
+        "unit": "mg",
+        "abbreviation": "Cu"
       },
       {
         "name": "Protein",
-        "abbreviation": "Prot",
+        "unitforRI": "E%",
         "typeOfNutrient": "Standard",
-        "unitforRI": ""
+        "unit": "g",
+        "abbreviation": "Prot"
       },
       {
         "name": "Jod",
-        "abbreviation": "I",
+        "unitforRI": "µg",
         "typeOfNutrient": "Mineral",
-        "unitforRI": "µg"
+        "unit": "µg",
+        "abbreviation": "I"
       },
       {
         "name": "Kolhydrater",
-        "abbreviation": "Kolh",
+        "unitforRI": "E%",
         "typeOfNutrient": "Standard",
-        "unitforRI": "g"
+        "unit": "g",
+        "abbreviation": "Kolh"
       },
       {
         "name": "Fett",
-        "abbreviation": "Fett",
+        "unitforRI": "E%",
         "typeOfNutrient": "Standard",
-        "unitforRI": "g"
+        "unit": "g",
+        "abbreviation": "Fett"
       },
       {
         "name": "Fibrer",
-        "abbreviation": "Fibe",
+        "unitforRI": "gram/MJ",
         "typeOfNutrient": "Standard",
-        "unitforRI": "g"
+        "unit": "g",
+        "abbreviation": "Fibe"
       },
       {
         "name": "Socker",
-        "abbreviation": "Mono/disack",
+        "unitforRI": "",
         "typeOfNutrient": "Standard",
-        "unitforRI": "g"
+        "unit": "g",
+        "abbreviation": "Mono/disack"
       },
       {
         "name": "Kolesterol",
-        "abbreviation": "Kole",
+        "unitforRI": "mg",
         "typeOfNutrient": "Fat",
-        "unitforRI": ""
+        "unit": "mg",
+        "abbreviation": "Kole"
       },
       {
         "name": "Fullkorn",
-        "abbreviation": "Fullk/tot",
+        "unitforRI": "",
         "typeOfNutrient": "Standard",
-        "unitforRI": "g"
+        "unit": "g",
+        "abbreviation": "Fullk/tot"
+      },
+      {
+        "name": "Mättade fettsyror",
+        "unitforRI": "E%",
+        "typeOfNutrient": "Fat",
+        "unit": "g",
+        "abbreviation": "Mfet"
+      },
+      {
+        "name": "Enkelomättade fettsyror",
+        "unitforRI": "E%",
+        "typeOfNutrient": "Fat",
+        "unit": "g",
+        "abbreviation": "Mone"
+      },
+      {
+        "name": "Fleromättade fettsyror",
+        "unitforRI": "E%",
+        "typeOfNutrient": "Fat",
+        "unit": "g",
+        "abbreviation": "Pole"
+      },
+      {
+        "name": "Energi",
+        "unitforRI": "kcal",
+        "typeOfNutrient": "Standard",
+        "unit": "kcal",
+        "abbreviation": "Ener"
+      },
+      {
+        "name": "Salt",
+        "unitforRI": "g",
+        "typeOfNutrient": "Standard",
+        "unit": "g",
+        "abbreviation": "NaCl"
       }
     ]
