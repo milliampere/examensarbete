@@ -1,29 +1,22 @@
 import React from 'react';
 import nutritionForOneFood from '../../data/nutritionForOneFood.json';
+import showNutritionHelpFunc from '../../utils/showNutritionHelpFunc.js'
 // import { graphql } from 'react-apollo'
 // import gql from 'graphql-tag'
 import './NutritionsData.css'
 
 
 const NutritionsData = (props) => {
+    const { changableInput, activeTab } = props;
 
-    const { changableInput } = props;
+    let nutritionsArray = showNutritionHelpFunc(activeTab);
 
-    const minerals = ['P', 'I', 'Fe', 'Ca', 'K', 'Cu', 'Mg', 'Se', 'Zn'];
-    const vitamins = ['VitA', 'VitC', ' VitD', 'VitE', 'VitB6', 'VitB12', 'Folat', 'Niek', 'Ribo', 'Tiam'];
-    const standard = ['Ener', 'Kolh', 'Fett', 'Prot' , 'Fibe', 'Fullk/tot'];
-    const fatt = ['Mfet', 'Mone', 'Pole', 'Kole'];
-
-    //instead of mineras.map use map for the prop that comes from nutritions buttonClick
-    const nutritionsResult = minerals.map((abbr, index) => {
-
+    const nutritionsResult = nutritionsArray.map((abbr, index) => {
         const nutrition = nutritionForOneFood.data.Food.nutritions.find((nutrient) => {
-            return nutrient.abbreviation === abbr;
+            return nutrient.abbreviation == abbr;
         });
-
         if(nutrition) {
             let convertedAmount = '';
-
             if(changableInput.type === 'g') {
                 convertedAmount = convertAmount(nutrition.value);
             }

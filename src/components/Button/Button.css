@@ -5,7 +5,10 @@
     margin: 10px;
     text-align: center;
     color: white;
-    background-color: #336B87;
     max-width: 100px;
     height: 50px;
- }
+}
+
+button:focus {
+    outline: 0;
+}
