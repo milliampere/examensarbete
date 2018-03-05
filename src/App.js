@@ -8,6 +8,7 @@ import Credits from './components/Credits';
 //import searchData from './utils/searchData';
 //import foodArray from './data/input'
 import propsdataallFoods from './data/list.json';
+import propsdataallNutrients from './data/nutrientNames.json'; 
 import rawInputArray from './data/input';
 import Content from './components/Content';
 
@@ -25,13 +26,19 @@ class App extends Component {
 
 	render() {
 
+console.log(propsdataallNutrients);
+
 		return (
 			<div className="App">
-				<Navigation activeTab={this.state.activeTab} />
+				<Navigation 
+					activeTab={this.state.activeTab}
+					allNutrients={propsdataallNutrients}
+				/>
 				<Content
-        			rawInputArray={rawInputArray}
+        	rawInputArray={rawInputArray}
 					allFoods={propsdataallFoods}
 					portions={this.state.portions}
+					allNutrients={propsdataallNutrients}
     			/>
 				<Credits />
 			</div>
@@ -50,5 +57,17 @@ class App extends Component {
   }
 ` */
 
+/* const allNutrientNames = gql`
+	query allNutrient {
+		allNutrients{
+			name
+			abbreviation
+			unitforRI
+			typeOfNutrient
+		}
+	}
+` */
+
 //export default graphql(allFoods)(App)
+//export default graphql(allNutrientNames)(App)
 export default App;
