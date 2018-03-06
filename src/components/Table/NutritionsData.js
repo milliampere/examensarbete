@@ -4,7 +4,8 @@ import showNutritionHelpFunc from '../../utils/showNutritionHelpFunc.js'
 // import { graphql } from 'react-apollo'
 // import gql from 'graphql-tag'
 import './NutritionsData.css'
-
+import { connect } from 'react-redux';
+//import {save_row} from '../../actions';
 
 const NutritionsData = (props) => {
     const { changableInput, activeTab } = props;
@@ -33,13 +34,15 @@ const NutritionsData = (props) => {
                     //convertedAmount = convertAmount();
                 }
             }
-            console.log(nutrition)
+            //console.log(nutrition)
             return <div className="nutrition-data" key={index}>{convertedAmount}</div>
         }
         else {
             return <div className="nutrition-data" key={index}></div>
         }
     })
+
+    //props.save({test: 'test'});
 
     function convertAmount(valueInGram) {
         //Diveded by 100 to get value per 1 gram and multiplied with recepie amount
@@ -68,5 +71,26 @@ const NutritionsData = (props) => {
 
 
 
- export default NutritionsData;
+//export default NutritionsData;
 
+const mapStateToProps = (state, ownProps) => {
+    return {
+      values: state.totalNutrients
+    }
+}
+
+
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        save: (row) => {dispatch(
+            {
+                type: "SAVE_ROW",
+                value: row
+            }
+        )}
+    }
+}; 
+    
+    
+export default connect(mapStateToProps, mapDispatchToProps)(NutritionsData);
