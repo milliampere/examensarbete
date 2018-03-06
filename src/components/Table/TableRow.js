@@ -12,7 +12,8 @@ const TableRow = (props) => {
         index,
         changableInput,
         handleChange,
-        activeTab
+        activeTab,
+        calculatedNutritionResult
     } = props;
 
     let backgroundColor = 'white';
@@ -32,7 +33,7 @@ const TableRow = (props) => {
                 backgroundColor={backgroundColor}
                 {...props}
             />
-            <NutritionsData changableInput={changableInput} activeTab={activeTab} indexInput={index}/>
+            <NutritionsData changableInput={changableInput} activeTab={activeTab} indexInput={index} calculatedNutritionResult={calculatedNutritionResult}/>
         </div>
     )
 }
