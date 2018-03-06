@@ -5,6 +5,9 @@ import TableRow from './TableRow';
 //import Button from '.././Button/Button.js';
 import './Table.css';
 
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+
 class Table extends Component {
 
 	render() {
@@ -33,7 +36,7 @@ class Table extends Component {
 					{rows}
 				</div>
 				<div className="table-footer">
-					<TableTotalRow activeTab={this.props.activeTab} allNutrients={this.props.allNutrients}/>
+					<TableTotalRow activeTab={this.props.activeTab} allNutrients={this.props.allNutrients} changableInputArray={changableInputArray}/>
 				</div>
 			</div>
 		)
@@ -41,3 +44,17 @@ class Table extends Component {
 }
 
 export default Table;
+
+
+/* export default graphql(gql`
+  query ($livsmedelsverketId: Int!) {
+	name
+	id
+  }
+`, {
+  options: (props) => ({
+    variables: {
+		livsmedelsverketId: props.changableInputArray[0].livsmedelsverketId,
+    },
+  }),
+})(Table); */

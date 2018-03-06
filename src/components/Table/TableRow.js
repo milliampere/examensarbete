@@ -32,7 +32,7 @@ const TableRow = (props) => {
                 backgroundColor={backgroundColor}
                 {...props}
             />
-            <NutritionsData changableInput={changableInput} activeTab={activeTab}/>
+            <NutritionsData changableInput={changableInput} activeTab={activeTab} indexInput={index}/>
         </div>
     )
 }

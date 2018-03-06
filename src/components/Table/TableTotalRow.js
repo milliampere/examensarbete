@@ -7,45 +7,43 @@ import'./TableTotalRow.css';
 
 const TableTotalRow = (props) => {
 
-    // loopa array med livsmedel
-/*     props.changableInputArray.map((changableInput) => {
-        console.log(changableInput.livsmedelsverketId);
-    });  */
-        
-    // loopa svar från databas
-/*     nutritionFor9Foods.data.allFoods.map((oneFood) => {
-        
-        const nutrition = oneFood.nutritions.find((nutrient) => {
-            return nutrient.abbreviation === "Ener";
-        });
+    const { activeTab, allNutrients, values } = props;
 
-        const changableInput = props.changableInputArray.find((c) => {
-            return c.livsmedelsverketId === 4457;
-        });
+    function getNutritionsTotalsForOneAbbr(abbr) {
+        if(values[activeTab].length){
+            let allRowsOfActiveTab = values[activeTab];
 
-        console.log(nutrition);
-        console.log(changableInput);
+            const nutritionsTotalsForOneAbbr = allRowsOfActiveTab.map((oneRow, index) => {
+                    
+                    const oneAbbrObject = oneRow.find(n => {
+                        return n.abbr === abbr
+                    })
 
-        const nutritionPerAmount = nutrition.value*changableInput.amount;
+                    if(oneAbbrObject.value >= 0){
+                        return oneAbbrObject.value;
+                    } 
+                    else {
+                        return 0
+                    }
+    
+            }).reduce((a, b) => {
+                return a + b;
+            }, 0) 
 
-        console.log(nutritionPerAmount);
-    }); */
+            return nutritionsTotalsForOneAbbr;
+        }   
+    } 
 
-    const { activeTab, allNutrients } = props;
+
+    let abbrArray = showNutritionHelpFunc(activeTab);
+    const nutritionsTotals = abbrArray.map((abbr, index) => {
+        return <div className="total-nutrition" key={index}>{getNutritionsTotalsForOneAbbr(abbr)}</div>;
+    }) 
 
     const emptyForInputs = ['Från receptet', 'Mängd', 'Mått', 'Livsmedel'].map((item, index) => {
         return <div className="total-receipt" key={index}></div>
     })
 
-    let totalsArray = showNutritionHelpFunc(activeTab);
-
-    const nutritionsTotals = totalsArray.map((abbr, index) => {
-        return <div className="total-nutrition" key={index}>{abbr}</div>
-    }) 
-
-    //console.log(nutritionsTotals);
-
-    //props.save('hej');
 
     return (
         <div className="table-total-row">
@@ -62,16 +60,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
   
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        save: (row) => {dispatch(
-            {
-                type: "SAVE_ROW",
-                value: row
-            }
-        )}
-    }
-}; 
-
-export default connect(mapStateToProps, mapDispatchToProps)(TableTotalRow);
+export default connect(mapStateToProps)(TableTotalRow);
