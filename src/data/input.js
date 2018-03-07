@@ -1,10 +1,10 @@
 export default [{ amount: "800", type: "g", name: "potatis"},
-    { amount: "200", type: "g", name: "halloumiost"},
-    { amount: "2", type: 'st', name: "tomater"},
-    { amount: "4", type: 'st', name: "champinjonburgare"},
+    { amount: "20", type: "hg", name: "halloumiost"},
+    { amount: "2", type: 'port', name: "tomater"},
+    { amount: "4", type: 'hg', name: "champinjonburgare"},
     { amount: "4", type: 'st', name: "hamburgerbröd av surdeg"},
     { amount: "2", type: "dl", name: "lätt crème fraiche med tacosmak"},
-    { amount: "2", type: "tsk", name: "olja"},
+    { amount: "2", type: "msk", name: "olja"},
     { name: "salt" },
     { name: "peppar" }
 ]

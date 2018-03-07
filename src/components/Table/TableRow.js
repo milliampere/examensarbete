@@ -12,8 +12,9 @@ const TableRow = (props) => {
         index,
         changableInput,
         handleChange,
-        activeTab
+        calculatedNutritionResult
     } = props;
+
 
     let backgroundColor = 'white';
 
@@ -21,18 +22,30 @@ const TableRow = (props) => {
         backgroundColor = '#e5e6e8';
     }
 
+    let iconColor = '';
+
+	if (changableInput.validUnit === true) {
+		iconColor = 'green';
+	}else {
+		iconColor = 'red';
+	}
+
+
     return (
         <div className="table-row">
             <div className='receipt-row'>{`${rawInput.amount || ''} ${rawInput.type || ''} ${rawInput.name || ''}`}</div>
             <input className='input-small' style={{backgroundColor: backgroundColor}} type='text' value={changableInput.amount || ''} onChange={(e) => handleChange(e.target.value, index, 'amount')}></input>
-            <input className='input-small' style={{backgroundColor: backgroundColor}} type='text' value={changableInput.type || ''} onChange={(e) => handleChange(e.target.value, index, 'type')}></input>
+            <div className='type-container'>
+                <span className='fa fa-check' style={{color: iconColor}}></span>
+                <input className='input-small' style={{backgroundColor: backgroundColor}} type='text' value={changableInput.type || ''} onChange={(e) => handleChange(e.target.value, index, 'type')}></input>
+            </div>
             <DropDownMenu
                 indexInput={index}
                 name={changableInput.name}
                 backgroundColor={backgroundColor}
                 {...props}
             />
-            <NutritionsData changableInput={changableInput} activeTab={activeTab}/>
+            <NutritionsData calculatedNutritionResult={calculatedNutritionResult.array}/>
         </div>
     )
 }

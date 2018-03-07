@@ -15,9 +15,9 @@ class Content extends Component {
         const initialChangableInputArray = this.props.rawInputArray.map((row) => {
             const match = search(row.name, propsdataallFoods);
             if(match.length){
-                return {...row, name: match[0]['item'].name, amount: row.amount/this.props.portions, match: match, livsmedelsverketId: match[0]['item'].livsmedelsverketId}
+                return {...row, name: match[0]['item'].name, amount: row.amount/this.props.portions, match: match, livsmedelsverketId: match[0]['item'].livsmedelsverketId, validUnit: true}
             } else {
-                return {...row, name: '*', amount: row.amount/this.props.portions, match: match}
+                return {...row, name: '*', amount: row.amount/this.props.portions, match: match, validUnit: true}
             }
         })
         this.setState({changableInputArray: initialChangableInputArray});
@@ -38,6 +38,14 @@ class Content extends Component {
             this.updateStateItem(index, {name: value, match: newMatch, livsmedelsverketId: null});
         }
         // if new volume or type is typed in by user:
+        else if (column === 'type') {
+            const regex = /^(kg|g|mg|l|dl|cl|ml|msk|tsk|krm|st|port)$/;
+            if(regex.test(value))
+            this.updateStateItem(index, {[column]: value, validUnit: true});
+            else {
+                this.updateStateItem(index, {[column]: value, validUnit: false});
+            }
+        }
         else {
             this.updateStateItem(index, {[column]: value});
         }
