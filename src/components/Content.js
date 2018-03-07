@@ -88,7 +88,7 @@ class Content extends Component {
 
     render() {
 
-        const { rawInputArray, propsdataallFoods } = this.props;
+        const { rawInputArray, propsdataallFoods, options } = this.props;
         const { changableInputArray, activeIndex } = this.state;
 
         return (
@@ -103,6 +103,7 @@ class Content extends Component {
                         activeIndex={activeIndex}
                         activeTab={this.props.activeTab}
                         allNutrients={this.props.allNutrients}
+                        options={options}
                     />
                 }
             </div>
