@@ -92,6 +92,7 @@ class Table extends Component {
 			rawInputArray,
 			changableInputArray,
 			activeTab,
+			options,
 		} = this.props;
 
 
@@ -121,6 +122,7 @@ class Table extends Component {
 						allNutrients={this.props.allNutrients}
 						changableInputArray={changableInputArray}
 						calculatedNutritionResult={calculateNutritionResultForAllRows(changableInputArray, activeTab)}
+						options={options}
 					/>
 				</div>
 			</div>

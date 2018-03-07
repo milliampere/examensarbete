@@ -13,15 +13,26 @@ import propsdataallNutrients from './data/nutrientNames.json';
 import rawInputArray from './data/input';
 import Content from './components/Content';
 
+
 class App extends Component {
 
 	state = {
 		activeTab: 'standard',
 		portions: 4,
+		options: {
+			sex: 'woman',
+			isPregnant: false,
+			isBreastfeeding: false,
+			lengthCm: 163,
+			weightKg: 53,
+			ageYear: 28,
+			PAL: 1.4,    // physical activity level
+		}
 	}
 	componentDidMount() { //stoppa sen in datan från chorme.onmessage... kolla pluginet
 /* 		this.setState({ ingredients: foodArray })
 		this.setState({resultArray: this.searchIngredientsFromDb(foodArray)});
+
  */	}
 
 	handleButtonClick = (event) => {
@@ -45,7 +56,9 @@ class App extends Component {
 					allFoods={propsdataallFoods}
 					portions={this.state.portions}
 					allNutrients={propsdataallNutrients}
-					activeTab={this.state.activeTab}    			/>
+					activeTab={this.state.activeTab}
+					options={this.state.options}
+				/>
 				<Credits />
 			</div>
 		);
