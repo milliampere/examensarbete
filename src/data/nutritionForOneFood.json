@@ -1,25 +1,28 @@
 {
-    "data": {
-      "Food": {
-        "name": "Grönkål fryst",
-        "id": "cjdek45ufjfva0158gn739lpk",
+  "data": {
+    "Food": [
+      {
+        "conversion": {
+          "gramPerPiece": 80
+        },
+        "name": "Tomat",
         "nutritions": [
           {
             "name": "Summa mättade fettsyror",
             "abbreviation": "Mfet",
-            "value": 0.06,
+            "value": 0.02,
             "unit": "g"
           },
           {
             "name": "Summa enkelomättade fettsyror",
             "abbreviation": "Mone",
-            "value": 0.01,
+            "value": 0.02,
             "unit": "g"
           },
           {
             "name": "Summa fleromättade fettsyror",
             "abbreviation": "Pole",
-            "value": 0.32,
+            "value": 0.06,
             "unit": "g"
           },
           {
@@ -43,7 +46,7 @@
           {
             "name": "Palmitinsyra C16:0",
             "abbreviation": "C16:0",
-            "value": 0.05,
+            "value": 0.02,
             "unit": "g"
           },
           {
@@ -61,25 +64,25 @@
           {
             "name": "Palmitoljesyra C16:1",
             "abbreviation": "C16:1",
-            "value": 0.01,
+            "value": 0,
             "unit": "g"
           },
           {
             "name": "Oljesyra C18:1",
             "abbreviation": "C18:1",
-            "value": 0,
+            "value": 0.01,
             "unit": "g"
           },
           {
             "name": "Linolsyra C18:2",
             "abbreviation": "C18:2",
-            "value": 0.07,
+            "value": 0.06,
             "unit": "g"
           },
           {
             "name": "Linolensyra C18:3",
             "abbreviation": "C18:3",
-            "value": 0.19,
+            "value": 0.01,
             "unit": "g"
           },
           {
@@ -115,55 +118,55 @@
           {
             "name": "Monosackarider",
             "abbreviation": "Msac",
-            "value": 0.7,
+            "value": 2.85,
             "unit": "g"
           },
           {
             "name": "Disackarider",
             "abbreviation": "Dsac",
-            "value": 0.4,
+            "value": 0,
             "unit": "g"
           },
           {
             "name": "Sackaros",
             "abbreviation": "Sack",
-            "value": 0.4,
+            "value": 0,
             "unit": "g"
           },
           {
             "name": "Energi (kJ)",
             "abbreviation": "Enkj",
-            "value": 124,
+            "value": 73,
             "unit": "kJ"
           },
           {
             "name": "Energi (kcal)",
             "abbreviation": "Ener",
-            "value": 30,
+            "value": 18,
             "unit": "kcal"
           },
           {
             "name": "Aska",
             "abbreviation": "Aska",
-            "value": 0.9,
+            "value": 0.46,
             "unit": "g"
           },
           {
             "name": "Vatten",
             "abbreviation": "Vatt",
-            "value": 91,
+            "value": 94.7,
             "unit": "g"
           },
           {
             "name": "Kolhydrater",
             "abbreviation": "Kolh",
-            "value": 2.3,
+            "value": 2.6,
             "unit": "g"
           },
           {
             "name": "Protein",
             "abbreviation": "Prot",
-            "value": 2.7,
+            "value": 0.81,
             "unit": "g"
           },
           {
@@ -175,67 +178,73 @@
           {
             "name": "Fibrer",
             "abbreviation": "Fibe",
-            "value": 2.6,
+            "value": 1.3,
             "unit": "g"
           },
           {
             "name": "Fett",
             "abbreviation": "Fett",
-            "value": 0.5,
+            "value": 0.13,
             "unit": "g"
           },
           {
             "name": "Fosfor",
             "abbreviation": "P",
-            "value": 29,
+            "value": 22.5,
             "unit": "mg"
+          },
+          {
+            "name": "Jod",
+            "abbreviation": "I",
+            "value": 2,
+            "unit": "µg"
           },
           {
             "name": "Järn",
             "abbreviation": "Fe",
-            "value": 0.4,
+            "value": 0.19,
             "unit": "mg"
           },
           {
             "name": "Kalcium",
             "abbreviation": "Ca",
-            "value": 136,
+            "value": 12.5,
             "unit": "mg"
           },
           {
             "name": "Kalium",
             "abbreviation": "K",
-            "value": 330,
+            "value": 240,
             "unit": "mg"
           },
           {
             "name": "Magnesium",
             "abbreviation": "Mg",
-            "value": 18,
+            "value": 9,
             "unit": "mg"
           },
           {
             "name": "Natrium",
             "abbreviation": "Na",
-            "value": 15,
+            "value": 2,
             "unit": "mg"
           },
           {
             "name": "Selen",
             "abbreviation": "Se",
-            "value": 2.3,
+            "value": 0,
             "unit": "µg"
           },
           {
             "name": "Zink",
             "abbreviation": "Zn",
-            "value": 0.2,
+            "value": 0.09,
             "unit": "mg"
           },
           {
             "name": "Vitamin A",
             "abbreviation": "VitA",
-            "value": 175,
+            "value": 43.2,
             "unit": "µg"
           },
           {
@@ -253,43 +262,43 @@
           {
             "name": "Vitamin E",
             "abbreviation": "VitE",
-            "value": 2.4,
+            "value": 0.74,
             "unit": "mg"
           },
           {
             "name": "β-Karoten",
             "abbreviation": "b-Kar",
-            "value": null,
+            "value": 518,
             "unit": "µg"
           },
           {
             "name": "Tiamin",
             "abbreviation": "Tiam",
-            "value": 0.06,
+            "value": 0.03,
             "unit": "mg"
           },
           {
             "name": "Riboflavin",
             "abbreviation": "Ribo",
-            "value": 0.11,
+            "value": 0,
             "unit": "mg"
           },
           {
             "name": "Vitamin C",
             "abbreviation": "VitC",
-            "value": 28,
+            "value": 14.8,
             "unit": "mg"
           },
           {
             "name": "Niacin",
             "abbreviation": "Niac",
-            "value": 0.7,
+            "value": 0.58,
             "unit": "mg"
           },
           {
             "name": "Niacinekvivalenter",
             "abbreviation": "Niek",
-            "value": 1.15,
+            "value": 0.7,
             "unit": "mg"
           },
           {
@@ -301,19 +310,19 @@
           {
             "name": "Vitamin B6",
             "abbreviation": "VitB6",
-            "value": 0.09,
+            "value": 0.1,
             "unit": "mg"
           },
           {
             "name": "Folat",
             "abbreviation": "Folat",
-            "value": 17,
+            "value": 16.6,
             "unit": "µg"
           },
           {
             "name": "Socker totalt",
             "abbreviation": "Mono/disack",
-            "value": 1.1,
+            "value": 2.8,
             "unit": "g"
           },
           {
@@ -325,10 +334,13 @@
           {
             "name": "Salt",
             "abbreviation": "NaCl",
-            "value": 0.04,
+            "value": 0.01,
             "unit": "g"
           }
-        ]
+        ],
+        "id": "cjdek48rvjj1c01659cjry05b",
+        "livsmedelsverketId": 364
       }
-    }
+    ]
   }
+}
