@@ -1,6 +1,9 @@
 {
     "data": {
       "Food": {
+        "conversion": {
+          "gramPerPiece": 80
+        },
         "name": "Grönkål fryst",
         "id": "cjdek45ufjfva0158gn739lpk",
         "nutritions": [

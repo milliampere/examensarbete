@@ -15,7 +15,7 @@ const TableTotalRow = (props) => {
                     const oneAbbrObject = oneRow.find(n => {
                         return n.abbr === abbr
                     })
-                    if(oneAbbrObject.value >= 0){
+                    if(oneAbbrObject.value >= 0 && oneAbbrObject.value != null){
                         return oneAbbrObject.value;
                     }
                     else {
@@ -24,7 +24,7 @@ const TableTotalRow = (props) => {
             }).reduce((a, b) => {
                 return a + b;
             }, 0)
-            return nutritionsTotalsForOneAbbr;
+            return nutritionsTotalsForOneAbbr.toFixed(2);
         }
     }
 

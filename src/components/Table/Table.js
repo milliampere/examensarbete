@@ -19,9 +19,15 @@ const calculateNutritionResult = (changableInput, activeTab) => {
 		const nutrition = nutritionForOneFood.data.Food.nutritions.find((nutrient) => {
 			return nutrient.abbreviation == abbr;
 		});
+		const conversion = nutritionForOneFood.data.Food.conversion;  // byt till data från databasen
+
 		let convertedAmount = null;
 		if(nutrition){
-			convertedAmount = amountHelpFunc(changableInput, nutrition);
+			if(changableInput.amount >= 0){
+				convertedAmount = amountHelpFunc(changableInput, nutrition, conversion);
+			}else {
+				convertedAmount = null;
+			}
 		}
 		return {
 			abbr: abbr,
@@ -61,6 +67,9 @@ class Table extends Component {
 				{...this.props}
 			/>
 		})
+
+		console.log('RAW', rawInputArray)
+		console.log('changeble', changableInputArray)
 
 		return (
 			<div className="table">

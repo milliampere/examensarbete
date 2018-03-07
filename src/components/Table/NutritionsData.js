@@ -10,9 +10,7 @@ import { connect } from 'react-redux';
 class NutritionsData extends Component {
 
     render() {
-
         const { changableInput, activeTab, values, indexInput, calculatedNutritionResult} = this.props;
-
         let nutritionsDivs;
 
         if(calculatedNutritionResult.length){
