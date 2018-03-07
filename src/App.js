@@ -38,7 +38,6 @@ class App extends Component {
 				<Navigation
 					activeTab={this.state.activeTab}
 					allNutrients={propsdataallNutrients}
-					activeTab={this.state.activeTab}
 					handleClick={this.handleButtonClick}
 				/>
 				<Content

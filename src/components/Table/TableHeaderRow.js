@@ -14,7 +14,7 @@ const TableHeaderRow = (props) => {
 
     const nutritionsHeaders = headersArray.map((abbr, index) => {
         const oneNutrient = allNutrients.find((nutrient) => {
-            return nutrient.abbreviation == abbr;
+            return nutrient.abbreviation === abbr;
         });
         if(oneNutrient){
             return <div className="header-nutrition" key={index}>{oneNutrient.name} <br></br> {oneNutrient.unit}</div>

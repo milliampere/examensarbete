@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-import nutritionForOneFood from '../../data/nutritionForOneFood.json';
-import showNutritionHelpFunc from '../../utils/showNutritionHelpFunc.js';
-import amountHelpFunc from '../../utils/amountHelpFunc.js';
-// import { graphql } from 'react-apollo'
-// import gql from 'graphql-tag'
 import './NutritionsData.css'
-import { connect } from 'react-redux';
 
 class NutritionsData extends Component {
 
     render() {
-        const { changableInput, activeTab, values, indexInput, calculatedNutritionResult} = this.props;
+        const { calculatedNutritionResult} = this.props;
         let nutritionsDivs;
 
         if(calculatedNutritionResult.length){
@@ -33,16 +27,5 @@ class NutritionsData extends Component {
         );
     }
 }
-
-
-// export const foodListNutritions = gql`
-// query Food {
-//   Food(livsmedelsverketId: 4) {
-//     id
-//     livsmedelsverketId
-//     name
-//     nutritions
-//   }
-// }
 
 export default (NutritionsData);

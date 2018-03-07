@@ -50,32 +50,25 @@ function convertToGram(value, unit) {
     return valueInGram
 }
 
-console.log(convertToGram(1,'kg'));
-
-
-
 function convertToDl(value, unit) {
 
     let valueInDl = null;
 
-    if(unit === ('liter' || 'l')){
+    if(unit === 'l'){
         valueInDl = value*10;
-    } else if (unit === 'deciliter' || unit === 'dl') {
+    } else if (unit === 'dl') {
         valueInDl = value;
-    } else if (unit === 'centiliter' || unit === 'centiliter') {
+    } else if (unit === 'cl') {
         valueInDl = value/10;
-    } else if (unit === 'milliliter' || unit === 'ml') {
+    } else if (unit === 'ml') {
         valueInDl = value/100;
-    } else if (unit === 'matsked' || unit === 'msk') {
+    } else if (unit === 'msk') {
         valueInDl = value/100*15;
-    } else if (unit === 'tesked' || unit === 'tsk') {
+    } else if (unit === 'tsk') {
         valueInDl = value/100*5;
-    } else if (unit === 'kryddmått' || unit === 'krm') {
+    } else if (unit === 'krm') {
         valueInDl = value/100;
     }
     return valueInDl
 }
-
-//console.log(convertToDl(1,'msk'));
-
 

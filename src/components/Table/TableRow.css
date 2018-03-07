@@ -27,4 +27,13 @@
     padding-left: 5px;
 }
 
+.type-container {
+    position: relative;
+}
+
+span {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
 
