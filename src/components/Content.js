@@ -104,6 +104,7 @@ class Content extends Component {
                         activeTab={this.props.activeTab}
                         allNutrients={this.props.allNutrients}
                         options={options}
+                        livsmedelsverketIdArray={changableInputArray.filter(changableInput => {return changableInput.livsmedelsverketId}).map((changableInput) => {return changableInput.livsmedelsverketId})}
                     />
                 }
             </div>

@@ -13,37 +13,55 @@ import gql from 'graphql-tag'
 
 
 //flyttat upp denna funktion och gort den mer generell för att får infon till alla behövande komponenter (tagen från nutritionData.js)
-const calculateNutritionResult = (changableInput, activeTab) => {
-	const nutritionsAbbrArray = showNutritionHelpFunc(activeTab);
-	const conversion = nutritionForOneFood.data.Food.conversion;  // byt till data från databasen
+const calculateNutritionResult = (changableInput, activeTab, dataFromDb = {}) => {
+
 	let nutritionsResult = {
 		array: [],
 		error: false,
-		errorMess: ''
+		errorMess: 'loading'
 	};
 
+	// don't to the rest if no data or loading
+ 	if(Object.keys(dataFromDb).length === 0){
+		return nutritionsResult;
+	} 
+
+	const nutritionsAbbrArray = showNutritionHelpFunc(activeTab);
+	//const conversion = nutritionForOneFood.data.Food.conversion;  // byt till data från databasen
+	const conversion = dataFromDb.conversion; // från db
+
+	console.log(dataFromDb);
+
 	if(changableInput.type === 'st') {
-		if(!conversion.gramPerPiece){
-			nutritionsResult.error = true;
-			nutritionsResult.errorMess = 'vi hittar inte vikt/st, skriv in mått i gram istället';
+		if(conversion) {
+			if(!conversion.gramPerPiece){
+				nutritionsResult.error = true;
+				nutritionsResult.errorMess = 'vi hittar inte vikt/st, skriv in mått i gram istället';
+			}
 		}
 	}
 	else if(changableInput.type === 'port'){
-		if(!conversion.gramPerPort){
-			nutritionsResult.error = true;
-			nutritionsResult.errorMess = 'vi hittar inte vikt/port, skriv in mått i gram istället';
+		if(conversion) {
+			if(!(conversion.hasOwnProperty('gramPerPort'))){
+				if(!conversion.gramPerPort){
+					nutritionsResult.error = true;
+					nutritionsResult.errorMess = 'vi hittar inte vikt/port, skriv in mått i gram istället';
+				}
+			}
 		}
 	}
 	else if(changableInput.type === 'dl'){
-		if(!conversion.gramPerPort){
-			nutritionsResult.error = true;
-			nutritionsResult.errorMess = 'vi hittar inte vikt/port, skriv in mått i gram istället';
+		if(conversion) {
+			if(!conversion.gramPerPort){
+				nutritionsResult.error = true;
+				nutritionsResult.errorMess = 'vi hittar inte vikt/port, skriv in mått i gram istället';
+			}
 		}
 	}
-
 	else {
 		nutritionsResult.array = nutritionsAbbrArray.map((abbr, index) => {
-			const nutrition = nutritionForOneFood.data.Food.nutritions.find((nutrient) => {
+			//const nutrition = nutritionForOneFood.data.Food.nutritions.find((nutrient) => {  // byt till data från databasen
+			const nutrition = dataFromDb.nutritions.find((nutrient) => {   // <--- från db
 				return nutrient.abbreviation === abbr;
 			});
 
@@ -84,6 +102,21 @@ const calculateNutritionResultForAllRows = (changableInputArray, activeTab) => {
 	})
 }
 
+function findDbResult(data, changableInput) {
+	let dataFromDb = {}
+	if(!data.loading){
+		dataFromDb = data.allFoods.find((food) => {return food.livsmedelsverketId === changableInput.livsmedelsverketId})
+		if(!dataFromDb){
+			dataFromDb = {}
+		}
+	} 
+	else {
+		dataFromDb = {}
+	}
+
+	return dataFromDb
+}
+
 
 class Table extends Component {
 	render() {
@@ -95,15 +128,20 @@ class Table extends Component {
 			options,
 		} = this.props;
 
+		//const data = {loading: true}   // byt till databas
+		const data = this.props.data;    // från db
 
 		const rows = rawInputArray.map((rawInput, index) => {
+
+			let dataFromDb = findDbResult(data, changableInputArray[index]);
 
 			return <TableRow
 				key={index}
 				rawInput={rawInput}
 				index={index}
 				changableInput={changableInputArray[index]}
-				calculatedNutritionResult={calculateNutritionResult(changableInputArray[index], activeTab)}
+				calculatedNutritionResult={calculateNutritionResult(changableInputArray[index], activeTab, dataFromDb)}
+				dataFromDb={dataFromDb}
 				{...this.props}
 			/>
 		})
@@ -130,29 +168,22 @@ class Table extends Component {
 	}
 }
 
-export default Table;
+export const foodListNutritions = gql`
+	query allFoods($livsmedelsverketIdForAllFoods: [Int!]){
+		allFoods(filter: {livsmedelsverketId_in: $livsmedelsverketIdForAllFoods}){
+			id
+			name 
+			nutritions 
+			livsmedelsverketId
+			conversion
+		  }
+	}
+`
 
+export default graphql(foodListNutritions,
+	{
+		options: ({livsmedelsverketIdArray}) => ({ variables: { livsmedelsverketIdForAllFoods: livsmedelsverketIdArray } }),
+	}
+)(Table);  
 
-/* export default graphql(gql`
-  query ($livsmedelsverketId: Int!) {
-	name
-	id
-  }
-`, {
-  options: (props) => ({
-    variables: {
-		livsmedelsverketId: props.changableInputArray[0].livsmedelsverketId,
-    },
-  }),
-})(Table); */
-
-
-// export const foodListNutritions = gql`
-// query Food {
-//   Food(livsmedelsverketId: 4) {
-//     id
-//     livsmedelsverketId
-//     name
-//     nutritions
-//   }
-// }
+//export default Table;    // byt till databas
