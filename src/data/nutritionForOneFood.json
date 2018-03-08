@@ -1,11 +1,10 @@
-{
-    "data": {
-      "Food": {
+[{
         "conversion": {
           "gramPerPiece": 80
         },
         "name": "Grönkål fryst",
         "id": "cjdek45ufjfva0158gn739lpk",
+        "livsmedelsverketId": 4457,
         "nutritions": [
           {
             "name": "Summa mättade fettsyror",
@@ -332,6 +331,5 @@
             "unit": "g"
           }
         ]
-      }
-    }
   }
+]

@@ -1,6 +1,4 @@
-{
-  "data": {
-    "allNutrients": [
+[
       {
         "name": "Vitamin B12",
         "unitforRI": "µg",
@@ -258,5 +256,3 @@
         "abbreviation": "NaCl"
       }
     ]
-  }
-}
