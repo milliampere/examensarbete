@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Inställningar</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+
+        <div style="width:700px;overflow:hidden">
+            Kön:
+            <select id="sex">
+                <option value="woman">Kvinna</option>
+                <option value="man">Man</option>
+            </select>
+            
+            <label>
+                <input type="checkbox" id="isPregnant">
+                Gravid
+            </label>
+
+            <label>
+                <input type="checkbox" id="isBreastfeeding">
+                Ammande
+            </label>
+
+            <label for="ageYear">Ålder (år)</label>
+            <input type="text" id="ageYear"  />
+
+            <label for="lengthCm">Längd (cm)</label>
+            <input type="text" id="lengthCm" />
+
+            <label for="weightKg">Vikt (kg)</label>
+            <input type="text" id="weightKg" />
+
+            <select id="PAL">
+                <option value="1.15">Bed-bound or chair-bound (not wheelchair)</option>
+                <option value="1.4">Seated work with no option of moving around and little or no leisure activity</option>
+                <option value="1.65">Seated work with some requirement to move around, and with some leisure activity</option>
+                <option value="1.85">Work including both standing and moving around (e.g. housework, shop assistant) OR seated
+                    work with some requirement to move around with regular, almost daily, leisure activity</option>
+                <option value="2.2">Very strenuous work or daily competitive athletic training</option>
+            </select>
+
+            <div id="status"></div>
+            <button id="save">Spara</button>
+
+        </div>
+        <script src="options.js"></script>
+    </body>
+</html>
