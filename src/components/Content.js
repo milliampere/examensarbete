@@ -23,6 +23,15 @@ class Content extends Component {
         this.setState({changableInputArray: initialChangableInputArray});
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.portions !== this.props.portions){
+            console.log("Ändrat antal portioner");
+            console.log('nextProps', nextProps.portions);
+            console.log('this-props', this.props.portions);
+            this.updateStateAmounts(this.props.rawInputArray, nextProps.portions);
+        }
+    }
+
 
     handleChange = (value, index, column, type, item) => {
 		// if new value is selected from dropdown menu:
@@ -68,6 +77,29 @@ class Content extends Component {
                 newItem,
                 ...this.state.changableInputArray.slice(index+1)
             ]
+        });
+    }
+
+    /**
+     * Updates the state for all amounts 
+     */
+    updateStateAmounts(array, portions) {
+        
+        portions = Number(portions); // convert to number to be able to use in calculation
+
+        const newState = array.map((row, index) => {
+            if(row.hasOwnProperty('amount')){
+                let newAmount = Number(row.amount)/portions;  // convert to number to be able to calculate
+                newAmount = newAmount.toString();  // convert back to string to fit input field
+                return Object.assign({}, this.state.changableInputArray[index], {amount: newAmount});
+            }
+            else {  //if no amount in raw input field
+                return Object.assign({}, this.state.changableInputArray[index], {amount: ''});  
+            }
+        });
+
+        this.setState({
+            changableInputArray: newState
         });
     }
 

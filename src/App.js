@@ -27,7 +27,7 @@ class App extends Component {
 	}
 
 	componentDidMount() { //stoppa sen in datan från chorme.onmessage... kolla pluginet
-/* 		chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+/*  		chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 			chrome.tabs.sendMessage(
 			  	tabs[0].id,
 			  	{ type: 'reactInit' },
@@ -52,8 +52,9 @@ class App extends Component {
 				},
 				personalGroup: filterRiForPersonData(result.sex, result.ageYear)
 			});
-		}) */
+		})  */
 
+		this.setState({portions: 4});
 		this.setState({personalGroup: filterRiForPersonData('woman', 30)})
 	}
 
@@ -61,8 +62,22 @@ class App extends Component {
 		this.setState({activeTab: event.target.value});
 	}
 
+	handlePortionChange = (event) => {
+		//const answer = window.confirm("Detta kommer att återställa kolumnen 'Mängd' i tabellen. Vill du fortsätta?")   <- OBS, ska beräkningen göras på raw-input eller på fältet? 
+		const answer = true;
+		
+		if (answer) {
+			this.setState({portions: Number(event.target.value)});
+		} else {
+			// Do nothing!
+		}
+	}
 
 	render() {
+
+		const options = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map((number, index) => {
+			return <option value={number} key={index}>{number}</option>
+		});
 
 		return (
 			<div className="App">
@@ -72,6 +87,9 @@ class App extends Component {
 					handleClick={this.handleButtonClick}
 				/>
 				<p>Antal portioner som receptet ska räcka till: {this.state.portions}</p>
+				<select value={this.state.portions} selected={this.state.portions} onChange={this.handlePortionChange}>
+					{options}
+				</select>
 				{/*this.state.rawInputArray && */
 					<Content
 						//rawInputArray={this.state.rawInputArray}
