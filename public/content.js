@@ -3,9 +3,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     if(request.type === 'reactInit') {
         let array = [];
+        let portions = 1;
         let url = window.location.href;
 
         if(url.includes("ica")){
+            let portionsNode = document.querySelector(".servings-picker__servings");
+            if(portionsNode !== null){
+                portions = findPortionsRegex(portionsNode.innerText);
+            }
+
             let nodesArray = Array.from(document.querySelectorAll(".ingredients__list__item"));
             let option1 = nodesArray[0].querySelector('.ingredient');
             let option2 = nodesArray[0].querySelector('span');
@@ -19,27 +25,53 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                     return useRegex(node.innerText);
                 });
             }
+
         }
         else if(url.includes("koket")){
+            let portionsNode = document.querySelector("span.amount");
+            if(portionsNode !== null){
+                portions = findPortionsRegex(portionsNode.innerText);
+            }
             let nodesArray = Array.from(document.querySelectorAll(".ingredient"));
             array = nodesArray.map((node) => {
                 return useRegex(node.innerText);
             });
+
         }
         else if(url.includes("coop")){
+            let portionsNode = document.querySelector(".Recipe-portionsCount");
+            if(portionsNode !== null){
+                portions = findPortionsRegex(portionsNode.innerText);
+            }
+
             let nodesArray = Array.from(document.querySelectorAll(".Recipe-ingredient"));
             array = nodesArray.map((node) => {
                 return useRegex(node.innerText);
             });
         }
-        console.log(array);
+        //console.log('before send', array);
+        //console.log('before send', portions);
 
         //respond back to the sender.
-        sendResponse(array);
+        sendResponse({array, portions});
     }
 });
 
 
+function findPortionsRegex(inputString) {
+    inputString.trim();
+    var r = /\d+/;
+    regexResult = inputString.match(r);
+
+    if(regexResult === null) {   
+        return 1;                   // default if no number is found
+    } else {
+        portionsNumber = Number(regexResult[0]);
+    }
+    
+    console.log('regex', portionsNumber);
+    return portionsNumber;
+}
 
 //kan vi flytta denna till anna fil? hur isf prata med denna fil?
 function useRegex(inputString) {
@@ -107,7 +139,7 @@ function appendButton(){
     }
     else if(url.includes("coop")){
         node = document.querySelector('.Recipe-portions');
-        console.log(node);
+        //console.log(node);
         node.appendChild(btn);
     }
 
@@ -121,4 +153,4 @@ function appendButton(){
     };
 }
 
-appendButton();
+//appendButton();

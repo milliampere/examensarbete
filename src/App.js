@@ -1,3 +1,4 @@
+/*global chrome*/
 import React, { Component } from 'react';
 import './App.css';
 import Navigation from './components/Navigation'
@@ -9,14 +10,11 @@ import rawInputArray from './data/input';
 import Content from './components/Content';
 import PersonDataForm from './components/PersonDataForm.js';
 
-/*global chrome*/
-
-
 class App extends Component {
 
 	state = {
 		activeTab: 'standard',
-		portions: 4,
+		portions: 1,
 		sex: '',
 		isPregnant: false,
 		isBreastfeeding: false,
@@ -122,6 +120,7 @@ class App extends Component {
 						handleClick={this.handleButtonClick}
 					/>
 				}
+				<p>Antal portioner som receptet ska räcka till: {this.state.portions}</p>
 				{/* {this.state.rawInputArray && !this.state.showPersonDataForm && */}
 					<Content
 						//rawInputArray={this.state.rawInputArray}
