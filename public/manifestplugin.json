@@ -27,10 +27,6 @@
       "matches": ["https://www.ica.se/*", "https://www.coop.se/*", "https://www.koket.se/*"],
       "js": ["content.js"]
     }],
-    "options_ui": {
-      "page": "options.html",
-      "chrome_style": true
-    },
     "web_accessible_resources": [
       "icon.png"
     ]

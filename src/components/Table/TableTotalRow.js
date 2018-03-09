@@ -18,7 +18,6 @@ const TableTotalRow = (props) => {
     //const loading = props.data.loading;
     const loading = false;
 
-    console.log(data)
 
 
     function getNutritionsTotalsForOneAbbr(abbr, calculatedNutritionResult) {

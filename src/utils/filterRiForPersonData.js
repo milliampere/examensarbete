@@ -4,6 +4,7 @@ export default function filterRiForPersonData(sex, age) {
 
     if(sex === 'woman') {
         if( age >= 18 && age <= 30){
+            console.log('Detta är du: woman1830')
             personData = 'woman1830';
         }
         else if( age >= 31 && age <= 60){

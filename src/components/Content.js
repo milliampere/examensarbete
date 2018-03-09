@@ -25,9 +25,6 @@ class Content extends Component {
 
     componentWillReceiveProps(nextProps){
         if(nextProps.portions !== this.props.portions){
-            console.log("Ändrat antal portioner");
-            console.log('nextProps', nextProps.portions);
-            console.log('this-props', this.props.portions);
             this.updateStateAmounts(this.props.rawInputArray, nextProps.portions);
         }
     }
