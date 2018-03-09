@@ -1,3 +1,4 @@
+/*global chrome*/
 import React, { Component } from 'react';
 import './App.css';
 import Navigation from './components/Navigation'
@@ -8,14 +9,11 @@ import filterRiForPersonData from './utils/filterRiForPersonData.js';
 import rawInputArray from './data/input';
 import Content from './components/Content';
 
-/*global chrome*/
-
-
 class App extends Component {
 
 	state = {
 		activeTab: 'standard',
-		portions: 4,
+		portions: 1,
 		options: {
 			sex: 'woman',
 			isPregnant: false,
@@ -28,31 +26,33 @@ class App extends Component {
 		personalGroup: '',
 	}
 
-
 	componentDidMount() { //stoppa sen in datan från chorme.onmessage... kolla pluginet
-		// chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-		// 	chrome.tabs.sendMessage(
-		// 	  	tabs[0].id,
-		// 	  	{ type: 'reactInit' },
-		// 		(response) => { //arrowfunction isf en vanlig funktion gör att this är komponenten o inte window
-		// 			this.setState({rawInputArray: response})
-		// 		}
-		// 	);
-		// });
-		// chrome.storage.sync.get(null, (result) => {
-		// 	this.setState({
-		// 		options: {
-		// 			sex: result.sex,
-		// 			isPregnant: result.isPregnant,
-		// 			isBreastfeeding: result.isBreastfeeding,
-		// 			lengthCm: result.lengthCm,
-		// 			weightKg: result.weightKg,
-		// 			ageYear: result.ageYear,
-		// 			PAL: result.PAL,
-		// 		},
-		// 		personalGroup: filterRiForPersonData(result.sex, result.ageYear)
-		// 	});
-		// })
+/* 		chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+			chrome.tabs.sendMessage(
+			  	tabs[0].id,
+			  	{ type: 'reactInit' },
+				(response) => { //arrowfunction isf en vanlig funktion gör att this är komponenten o inte window
+					this.setState({rawInputArray: response.array})
+					this.setState({portions: response.portions})
+				}
+			);
+		});
+		chrome.storage.sync.get(null, (result) => {
+			const sex = result.sex;
+			this.setState({sex: result.sex});
+			this.setState({
+				options: {
+					sex: result.sex,
+					isPregnant: result.isPregnant,
+					isBreastfeeding: result.isBreastfeeding,
+					lengthCm: result.lengthCm,
+					weightKg: result.weightKg,
+					ageYear: result.ageYear,
+					PAL: result.PAL,
+				},
+				personalGroup: filterRiForPersonData(result.sex, result.ageYear)
+			});
+		}) */
 
 		this.setState({personalGroup: filterRiForPersonData('woman', 30)})
 	}
@@ -71,9 +71,10 @@ class App extends Component {
 					allNutrients={propsdataallNutrients}
 					handleClick={this.handleButtonClick}
 				/>
-				{/* {this.state.rawInputArray && */}
+				<p>Antal portioner som receptet ska räcka till: {this.state.portions}</p>
+				{/*this.state.rawInputArray && */
 					<Content
-						// rawInputArray={this.state.rawInputArray}
+						//rawInputArray={this.state.rawInputArray}
 						rawInputArray={rawInputArray}
 						allFoods={propsdataallFoods}
 						portions={this.state.portions}
@@ -82,7 +83,7 @@ class App extends Component {
 						options={this.state.options}
 						personalGroup={this.state.personalGroup}
 					/>
-				{/* } */}
+				}
 				<Credits />
 			</div>
 		);

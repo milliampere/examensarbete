@@ -55,4 +55,22 @@ function useRegex(inputString = '') {
 
 }
 
-console.log(useRegex("1,5 msk vaniljpulver"));
+function findPortionsRegex(inputString) {
+    inputString.trim();
+
+    var r = /\d+/;
+
+    regexResult = inputString.match(r);
+
+    if(regexResult === null) {   
+        return 1;                   // default if no number is found
+    } else {
+        portionsNumber = Number(regexResult[0]);
+    }
+    
+    return portionsNumber;
+}
+
+
+//console.log(useRegex("1,5 msk vaniljpulver"));
+//console.log(findPortionsRegex("10 portioner"));
