@@ -12,7 +12,7 @@ export default class PersonDataForm extends Component {
 		PAL: '',    // physical activity level
     }
 
-    componentWillMount() {
+    componentDidMount() {
 
     }
 

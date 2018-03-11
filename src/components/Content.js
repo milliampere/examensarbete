@@ -10,7 +10,7 @@ class Content extends Component {
         activeIndex: -1
     }
 
-    componentWillMount() { //ComponentDidMount??
+    componentDidMount() { 
         //Put raw input into input fields.
         const initialChangableInputArray = this.props.rawInputArray.map((row) => {
             const match = search(row.name, propsdataallFoods);
