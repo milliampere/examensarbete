@@ -1,0 +1,37 @@
+
+.person-data-form {
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    border: 1px solid grey;
+    padding: 20px;
+}
+
+.close-button {
+    width: 55px;
+    align-self: flex-end;
+    background-color: #336B87;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.input-header {
+    margin-bottom: 0;
+}
+
+.save-button {
+    width: 75px;
+    background-color:rgb(130, 43, 130);;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.disabled {
+    background-color: lightgray;
+}
+
+button:focus {
+    outline: 0;
+}

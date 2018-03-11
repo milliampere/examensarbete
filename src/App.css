@@ -1,3 +1,4 @@
 .App {
-  width: 1288px; /* <--ändra sen utifrån pluginet */
+  width: 1000px; /* <--ändra sen utifrån pluginet */
+  padding: 10px;
 }

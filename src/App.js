@@ -9,6 +9,7 @@ import filterRiForPersonData from './utils/filterRiForPersonData.js';
 import rawInputArray from './data/input';
 import Content from './components/Content';
 import PersonDataForm from './components/PersonDataForm.js';
+import Button from './components/Button/Button.js';
 
 class App extends Component {
 
@@ -58,9 +59,9 @@ class App extends Component {
 	}
 
 	handlePortionChange = (event) => {
-		//const answer = window.confirm("Detta kommer att återställa kolumnen 'Mängd' i tabellen. Vill du fortsätta?")   <- OBS, ska beräkningen göras på raw-input eller på fältet? 
+		//const answer = window.confirm("Detta kommer att återställa kolumnen 'Mängd' i tabellen. Vill du fortsätta?")   <- OBS, ska beräkningen göras på raw-input eller på fältet?
 		const answer = true;
-		
+
 		if (answer) {
 			this.setState({portions: Number(event.target.value)});
 		} else {
@@ -110,6 +111,10 @@ class App extends Component {
 		this.setState({showPersonDataForm: true})
 	}
 
+	closePersonData = () => {
+		this.setState({showPersonDataForm: false})
+	}
+
 
 	render() {
 
@@ -133,7 +138,7 @@ class App extends Component {
 					<Navigation
 						activeTab={this.state.activeTab}
 						allNutrients={propsdataallNutrients}
-						handleClick={this.handleButtonClick}
+						onClick={this.handleButtonClick}
 					/>
 				}
 				<p>Antal portioner som receptet ska räcka till: {this.state.portions}</p>
@@ -152,16 +157,17 @@ class App extends Component {
 						personalGroup={this.state.personalGroup}
 					/>
 				{/* } */}
+				<p>Nu visas datan baserat på: {this.state.personalGroup}</p>
 				{!this.state.personalGroup &&
 					<h4>För att se resultat av Rekommenderat intag, fyll i dina personliga uppgifter här:</h4>
 				}
-				<p>Nu visas datan baserat på: {this.state.personalGroup}</p>
-				<button onClick={this.changePersonData}>Ändra Persondata</button>
+				<Button name="Ändra persondata" onClick={this.changePersonData}></Button>
 				{this.state.showPersonDataForm &&
 					<div>
 						<PersonDataForm
 							onSubmit={this.onSubmit}
 							options={options}
+							close={this.closePersonData}
 						/>
 					</div>
 				}
