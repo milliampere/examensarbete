@@ -10,7 +10,7 @@ class Content extends Component {
         activeIndex: -1
     }
 
-    componentWillMount() { //ComponentDidMount??
+    componentWillMount() { 
         //Put raw input into input fields.
         const initialChangableInputArray = this.props.rawInputArray.map((row) => {
             const match = search(row.name, propsdataallFoods);
@@ -21,6 +21,12 @@ class Content extends Component {
             }
         })
         this.setState({changableInputArray: initialChangableInputArray});
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.portions !== this.props.portions){
+            this.updateStateAmounts(this.props.rawInputArray, nextProps.portions);
+        }
     }
 
 
@@ -68,6 +74,29 @@ class Content extends Component {
                 newItem,
                 ...this.state.changableInputArray.slice(index+1)
             ]
+        });
+    }
+
+    /**
+     * Updates the state for all amounts 
+     */
+    updateStateAmounts(array, portions) {
+        
+        portions = Number(portions); // convert to number to be able to use in calculation
+
+        const newState = array.map((row, index) => {
+            if(row.hasOwnProperty('amount')){
+                let newAmount = Number(row.amount)/portions;  // convert to number to be able to calculate
+                newAmount = newAmount.toString();  // convert back to string to fit input field
+                return Object.assign({}, this.state.changableInputArray[index], {amount: newAmount});
+            }
+            else {  //if no amount in raw input field
+                return Object.assign({}, this.state.changableInputArray[index], {amount: ''});  
+            }
+        });
+
+        this.setState({
+            changableInputArray: newState
         });
     }
 

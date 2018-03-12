@@ -18,7 +18,6 @@ const TableTotalRow = (props) => {
     //const loading = props.data.loading;
     const loading = false;
 
-    console.log(data)
 
 
     function getNutritionsTotalsForOneAbbr(abbr, calculatedNutritionResult) {
@@ -112,13 +111,13 @@ const TableTotalRow = (props) => {
         return <div className="total-nutrition" key={index}>{result}</div>;
     })
 
-    const emptyForInputs = ['Från receptet', 'Mängd', 'Mått'].map((item, index) => {
-        return <div className="total-receipt" key={index}></div>
-    })
+    // const emptyForInputs = ['Från receptet', 'Mängd', 'Mått'].map((item, index) => {
+    //     return <div className="total-receipt" key={index}></div>
+    // })
 
     return (
         <div className="table-total-row">
-            {emptyForInputs}
+            {/* {emptyForInputs} */}
             <div className="total-receipt">Totalt av rekommenderat intag:</div>
             {nutritionsTotals}
         </div>

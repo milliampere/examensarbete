@@ -2,7 +2,7 @@ import React from 'react';
 import './Button.css';
 
 const Button = (props) => {
-    const { value, name, handleClick, activeButton } = props;
+    const { value, name, onClick, activeButton } = props;
 
     let color = '#336B87';
 
@@ -11,7 +11,7 @@ const Button = (props) => {
     }
 
     return (
-        <button className='button' style={{backgroundColor: color}} value={value} onClick={handleClick}>{name}</button>
+        <button className='button' style={{backgroundColor: color}} value={value} onClick={onClick}>{name}</button>
     );
 }
 export default Button;

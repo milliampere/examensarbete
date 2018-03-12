@@ -2,4 +2,6 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  height: 600px;
+  width: 1000px;
 }
