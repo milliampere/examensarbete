@@ -1,6 +1,9 @@
 .nutrition-container{
     display: flex;
     text-align: center;
+    width: 400px;
+    max-width: 500px;
+    align-content: stretch;
 }
 
 .nutrition-container:nth-child(even) {
@@ -8,10 +11,11 @@
 }
 
 .nutrition-data {
-    width: 70px;
+    /* width: 50px; ändrat till align-content */
     padding: 0 5px;
+    width: 100%;
     border-right: 1px solid lightgrey;
-    font-size: 14px;
+    /*font-size: 14px;    lägger i body  */
 }
 
 

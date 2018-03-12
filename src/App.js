@@ -167,7 +167,7 @@ class App extends Component {
 				{/* } */}
 				<p>Nu visas datan baserat på: {basedOnPerson} </p>
 				{!this.state.personalGroup &&
-					<h4>För att se resultat av Rekommenderat intag, fyll i dina personliga uppgifter här:</h4>
+					<p>För att se resultat av rekommenderat intag, fyll i dina personliga uppgifter här:</p>
 				}
 				<Button name="Ändra persondata" onClick={this.changePersonData}></Button>
 				{this.state.showPersonDataForm &&

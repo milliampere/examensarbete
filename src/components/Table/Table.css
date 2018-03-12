@@ -1,11 +1,8 @@
 .table {
-    width: 1200px; /* <--ändra sen utifrån pluginet */
+    width: 100%;  
     padding: 10px 0;
 }
 
-.button-menu {
-    display: flex;
-    justify-content: flex-end;
-}
+
 
 

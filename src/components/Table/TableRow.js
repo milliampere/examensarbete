@@ -30,10 +30,20 @@ const TableRow = (props) => {
 		iconColor = 'red';
 	}
 
+    let rawInputString = `${rawInput.amount || ''} ${rawInput.type || ''} ${rawInput.name || ''}`;
+    let rawInputStringShort = '';
+    let raw = '';
+    if(rawInputString.length > 20){
+        rawInputStringShort = rawInputString.substring(0,20) + "...";
+        raw = <div className="tooltip">{rawInputStringShort}<span className="tooltiptext">{rawInputString}</span></div>
+    }
+    else {
+        raw = <div>{rawInputString}</div>;
+    }
 
     return (
         <div className="table-row">
-            <div className='receipt-row'>{`${rawInput.amount || ''} ${rawInput.type || ''} ${rawInput.name || ''}`}</div>
+            <div className='receipt-row'>{raw}</div>
             <input className='input-small' style={{backgroundColor: backgroundColor}} type='text' value={changableInput.amount || ''} onChange={(e) => handleChange(e.target.value, index, 'amount')}></input>
             <div className='type-container'>
                 <span className='fa fa-check' style={{color: iconColor}}></span>

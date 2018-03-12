@@ -12,21 +12,21 @@
 }
 
 .receipt-row {
-    width: 180px;
+    width: 140px;
     padding-left: 5px;
-    font-size: 12px;
+    /*font-size: 12px; lägger i body */ 
 }
 
 .input-small {
     width: 45px;
     padding-left: 5px;
-    font-size: 12px;
+    /*font-size: 12px; lägger i body */
 }
 
 .input-large {
-    width: 180px;
+    width: 170px;
     padding-left: 5px;
-    font-size: 12px;
+    /*font-size: 12px; lägger i body */
 }
 
 .type-container {
@@ -39,3 +39,33 @@ span {
     top: 5px;
 }
 
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted grey; /* dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 140px;
+    background-color: #F5D2CB;
+    color: #000;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position of the tooltip text */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%; 
+    margin-left: -30px;  
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}

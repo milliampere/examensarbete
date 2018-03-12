@@ -1,30 +1,30 @@
 import React from 'react';
 import Button from './Button/Button.js';
-
+import './Navigation.css';
 
 const Navigation = (props) => {
 
     const tabs = [
         {
-            sv: 'standard',
+            sv: 'Standard',
             eng: 'standard'
         },
         {
-            sv: 'fettsyror',
+            sv: 'Fettsyror',
             eng: 'fat'
         },
         {
-            sv: 'vitaminer',
+            sv: 'Vitaminer',
             eng: 'vitamin'
         },
         {
-            sv: 'mineraler',
+            sv: 'Mineraler',
             eng: 'mineral'
         }
     ];
 
     const headButtons = tabs.map((item, index) => {
-        return <Button key={index} name={item.sv} value={item.eng} activeButton={props.activeTab} onClick={props.onClick}/>
+        return <div className="navigation-button"><Button key={index} name={item.sv} value={item.eng} activeButton={props.activeTab} onClick={props.onClick}/></div>
     })
 
     return (

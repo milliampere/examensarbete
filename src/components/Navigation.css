@@ -1,0 +1,8 @@
+.button-menu {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navigation-button {
+    margin-left: 15px;
+}

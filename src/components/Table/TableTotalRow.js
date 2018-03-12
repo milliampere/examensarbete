@@ -111,15 +111,10 @@ const TableTotalRow = (props) => {
         return <div className="total-nutrition" key={index}>{result}</div>;
     })
 
-    // const emptyForInputs = ['Från receptet', 'Mängd', 'Mått'].map((item, index) => {
-    //     return <div className="total-receipt" key={index}></div>
-    // })
-
     return (
         <div className="table-total-row">
-            {/* {emptyForInputs} */}
-            <div className="total-receipt">Totalt av rekommenderat intag:</div>
-            {nutritionsTotals}
+            <div className="total-receipt"></div>
+            <div className="total-nutrition-container">{nutritionsTotals}</div>
         </div>
     );
 }
