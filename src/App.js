@@ -140,8 +140,6 @@ class App extends Component {
 			PAL: this.state.PAL,
 		}
 
-		console.log('allFoodsData', this.props.data)
-		console.log('allFoodsData', this.props.data.loading)
 
 		return (
 			<div className="App">
@@ -196,6 +194,7 @@ export const allFoods = gql`query allFoods {
 		name
 		group
 		euroFirName
+		livsmedelsverketId
 	}
 }`
 

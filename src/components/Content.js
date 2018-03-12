@@ -116,6 +116,8 @@ class Content extends Component {
 
     render() {
 
+        console.log(this.state.changableInputArray);
+
         const { rawInputArray, options, personalGroup } = this.props;
         const { changableInputArray, activeIndex } = this.state;
 

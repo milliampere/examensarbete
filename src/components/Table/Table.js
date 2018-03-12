@@ -28,7 +28,6 @@ class Table extends Component {
 		//const data = {loading: false, allFoods: nutritionForOneFood}   // byt till databas
 		const data = this.props.data;    // från db
 
-		console.log(this.props.data.loading)
 
 		let rows= '';
 		if(!this.props.data.loading){
