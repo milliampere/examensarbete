@@ -5,22 +5,18 @@ import './PersonDataForm.css';
 export default class PersonDataForm extends Component {
 
     state = {
-		sex: '',
-		isPregnant: false,
-		isBreastfeeding: false,
-		lengthCm: '',
-		weightKg: '',
-		ageYear: '',
-        PAL: '',    // physical activity level
+		sex: this.props.options.sex,
+		isPregnant: this.props.options.isPregnant,
+		isBreastfeeding: this.props.options.isBreastfeeding,
+		lengthCm: this.props.options.lengthCm,
+		weightKg: this.props.options.weightKg,
+		ageYear: this.props.options.ageYear,
+        PAL: this.props.options.PAL,    // physical activity level
         formErrors: {lengthCm: '', weightKg: '', ageYear: ''},
         lengthCmValid: false,
         weightKgValid: false,
         ageYearValid: false,
         formValid: false
-    }
-
-    componentDidMount() {
-
     }
 
     onChange = (event) => {
