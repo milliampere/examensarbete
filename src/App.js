@@ -5,52 +5,56 @@ import Credits from './components/Credits/Credits';
 import propsdataallFoods from './data/list.json';
 import propsdataallNutrients from './data/nutrientNames.json';
 import filterRiForPersonData from './utils/filterRiForPersonData.js';
-//import rawInputArray from './data/input';
+import rawInputArray from './data/input';
 import Content from './components/Content';
 import PersonDataForm from './components/PersonDataForm.js';
 import Button from './components/Button/Button.js';
 
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+
+
 class App extends Component {
 
 	state = {
-		activeTab: 'standard',
 		portions: 1,
 		sex: 'woman',
 		isPregnant: false,
 		isBreastfeeding: false,
-		lengthCm: '160',
-		weightKg: '50',
-		ageYear: '31',
-		PAL: '',    // physical activity level
+		lengthCm: 170,
+		weightKg: 60,
+		ageYear: 30,
+		PAL: 1.65, // physical activity level
 		personalGroup: '',
+		activeTab: 'standard',
 		showPersonDataForm: false,
 	}
 
 	componentDidMount() { //stoppa sen in datan från chorme.onmessage... kolla pluginet
-		chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-			chrome.tabs.sendMessage(
-			  	tabs[0].id,
-			  	{ type: 'reactInit' },
-				(response) => { //arrowfunction isf en vanlig funktion gör att this är komponenten o inte window
-					this.setState({rawInputArray: response.array})
-					this.setState({portions: response.portions})
-				}
-			);
-		});
-		chrome.storage.sync.get(null, (result) => {
-			this.setState({
-				sex: result.sex,
-				isPregnant: result.isPregnant,
-				isBreastfeeding: result.isBreastfeeding,
-				lengthCm: Number(result.lengthCm),
-				weightKg: Number(result.weightKg),
-				ageYear: Number(result.ageYear),
-				PAL: Number(result.PAL),
-				personalGroup: filterRiForPersonData(result.sex, result.ageYear, result.isPregnant, result.isBreastfeeding)
-			});
-		})
-		// this.setState({personalGroup: filterRiForPersonData('woman', 30, false, false)})
-		// this.setState({portions: 4});
+		//chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+		// 	chrome.tabs.sendMessage(
+		// 	  	tabs[0].id,
+		// 	  	{ type: 'reactInit' },
+		// 		(response) => { //arrowfunction isf en vanlig funktion gör att this är komponenten o inte window
+		// 			this.setState({rawInputArray: response.array})
+		// 			this.setState({portions: response.portions})
+		// 		}
+		// 	);
+		// });
+		// chrome.storage.sync.get(null, (result) => {
+		// 	this.setState({
+		// 		sex: result.sex,
+		// 		isPregnant: result.isPregnant,
+		// 		isBreastfeeding: result.isBreastfeeding,
+		// 		lengthCm: Number(result.lengthCm),
+		// 		weightKg: Number(result.weightKg),
+		// 		ageYear: Number(result.ageYear),
+		// 		PAL: Number(result.PAL),
+		// 		personalGroup: filterRiForPersonData(result.sex, Number(result.ageYear), result.isPregnant, result.isBreastfeeding)
+		// 	});
+		// })
+		this.setState({personalGroup: filterRiForPersonData('woman', 30, false, false)})
+		this.setState({portions: 4});
 	}
 
 	handleButtonClick = (event) => {
@@ -58,7 +62,6 @@ class App extends Component {
 	}
 
 	handlePortionChange = (event) => {
-		//const answer = window.confirm("Detta kommer att återställa kolumnen 'Mängd' i tabellen. Vill du fortsätta?");
 		const answer = true;
 
 		if (answer) {
@@ -79,24 +82,23 @@ class App extends Component {
 			sex: input.sex,
 			isPregnant: input.isPregnant,
 			isBreastfeeding: input.isBreastfeeding,
-			lengthCm: input.lengthCm,
-			weightKg: input.weightKg,
-			ageYear: input.ageYear,
-			PAL: input.PAL,
+			lengthCm: Number(input.lengthCm),
+			weightKg: Number(input.weightKg),
+			ageYear: Number(input.ageYear),
+			PAL: Number(input.PAL),
 		})
-
 		this.setState({personalGroup: filterRiForPersonData(input.sex, input.ageYear, input.isPregnant, input.isBreastfeeding)})
 
 		//Save it using the Chrome extension storage API.
-		chrome.storage.sync.set({
-			sex: input.sex,
-			isPregnant: input.isPregnant,
-			isBreastfeeding: input.isBreastfeeding,
-			lengthCm: input.lengthCm,
-			weightKg: input.weightKg,
-			ageYear: input.ageYear,
-			PAL: input.PAL,
-		});
+		// chrome.storage.sync.set({
+		// 		sex: input.sex,
+		// 	isPregnant: input.isPregnant,
+		// 	isBreastfeeding: input.isBreastfeeding,
+		// 	lengthCm: Number(input.lengthCm),
+		// 	weightKg: Number(input.weightKg),
+		// 	ageYear: Number(input.ageYear),
+		// 	PAL: Number(input.PAL),
+		// });
 		this.setState({showPersonDataForm: false})
 	}
 
@@ -117,10 +119,8 @@ class App extends Component {
 
 		let gender = this.state.sex;
 		let pregnantOrBreastfeeding = '';
-
 		if(this.state.sex === 'woman'){
 			gender = 'Kvinna'
-
 			if(this.state.isPregnant){
 				pregnantOrBreastfeeding = "(gravid)"
 			}
@@ -140,6 +140,9 @@ class App extends Component {
 			PAL: this.state.PAL,
 		}
 
+		console.log('allFoodsData', this.props.data)
+		console.log('allFoodsData', this.props.data.loading)
+
 		return (
 			<div className="App">
 				{!this.state.showPersonDataForm &&
@@ -153,18 +156,20 @@ class App extends Component {
 				<select value={this.state.portions} selected={this.state.portions} onChange={this.handlePortionChange}>
 					{selectOptions}
 				</select>
-				{this.state.rawInputArray && !this.state.showPersonDataForm &&
+				{/* {this.state.rawInputArray && !this.state.showPersonDataForm && */}
+				{!this.props.data.loading &&
 					<Content
-						rawInputArray={this.state.rawInputArray}
-						//rawInputArray={rawInputArray}
-						allFoods={propsdataallFoods}
+						//rawInputArray={this.state.rawInputArray}
+						rawInputArray={rawInputArray}
 						portions={this.state.portions}
 						allNutrients={propsdataallNutrients}
 						activeTab={this.state.activeTab}
 						options={options}
 						personalGroup={this.state.personalGroup}
+						allFoodsData={this.props.data.allFoods}
 					/>
 				}
+				{/* } */}
 				<p>Nu visas datan baserat på: {basedOnPerson} </p>
 				{!this.state.personalGroup &&
 					<p>För att se resultat av rekommenderat intag, fyll i dina personliga uppgifter här:</p>
@@ -185,4 +190,15 @@ class App extends Component {
 	}
 }
 
-export default App;
+export const allFoods = gql`query allFoods {
+	allFoods{
+		id
+		name
+		group
+		euroFirName
+	}
+}`
+
+export default graphql(allFoods)(App);
+
+//export default App;

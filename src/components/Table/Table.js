@@ -4,7 +4,7 @@ import TableTotalRow from './TableTotalRow.js';
 import TableRow from './TableRow';
 //import Button from '.././Button/Button.js';
 import './Table.css';
-import nutritionForOneFood from '../../data/nutritionForOneFood.json';
+//import nutritionForOneFood from '../../data/nutritionForOneFood.json';
 import showNutritionHelpFunc from '../../utils/showNutritionHelpFunc.js';
 import amountHelpFunc from '../../utils/amountHelpFunc.js';
 import {findDbResult, calculateNutritionResult, calculateNutritionResultForAllRows } from '../../utils/calculateNutritionHelpFunc.js';
@@ -25,23 +25,26 @@ class Table extends Component {
 			personalGroup,
 		} = this.props;
 
-		const data = {loading: false, allFoods: nutritionForOneFood}   // byt till databas
-		//const data = this.props.data;    // från db
+		//const data = {loading: false, allFoods: nutritionForOneFood}   // byt till databas
+		const data = this.props.data;    // från db
 
-		const rows = rawInputArray.map((rawInput, index) => {
+		console.log(this.props.data.loading)
 
-			let dataFromDb = findDbResult(data, changableInputArray[index]);
-
-			return <TableRow
-				key={index}
-				rawInput={rawInput}
-				index={index}
-				changableInput={changableInputArray[index]}
-				calculatedNutritionResult={calculateNutritionResult(changableInputArray[index], activeTab, dataFromDb)}
-				dataFromDb={dataFromDb}
-				{...this.props}
-			/>
-		})
+		let rows= '';
+		if(!this.props.data.loading){
+			rows = rawInputArray.map((rawInput, index) => {
+				let dataFromDb = findDbResult(data, changableInputArray[index]);
+				return <TableRow
+					key={index}
+					rawInput={rawInput}
+					index={index}
+					changableInput={changableInputArray[index]}
+					calculatedNutritionResult={calculateNutritionResult(changableInputArray[index], activeTab, dataFromDb)}
+					dataFromDb={dataFromDb}
+					{...this.props}
+				/>
+			})
+		}
 
 		return (
 			<div className="table">
@@ -49,7 +52,7 @@ class Table extends Component {
 					<TableHeaderRow activeTab={this.props.activeTab} allNutrients={this.props.allNutrients}/>
 				</div>
 				<div className="table-body">
-					{rows}
+					{rows && rows}
 				</div>
 				<div className="table-footer">
 					<TableTotalRow
@@ -78,10 +81,10 @@ export const foodListNutritions = gql`
 	}
 `
 
-// export default graphql(foodListNutritions,
-// 	{
-// 		options: ({livsmedelsverketIdArray}) => ({ variables: { livsmedelsverketIdForAllFoods: livsmedelsverketIdArray } }),
-// 	}
-// )(Table);
+export default graphql(foodListNutritions,
+	{
+		options: ({livsmedelsverketIdArray}) => ({ variables: { livsmedelsverketIdForAllFoods: livsmedelsverketIdArray } }),
+	}
+)(Table);
 
-export default Table;    // byt till databas
+//export default Table;    // byt till databas

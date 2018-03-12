@@ -1,26 +1,22 @@
 import React from 'react';
 import showNutritionHelpFunc from '../../utils/showNutritionHelpFunc.js';
 import {totalEnergyNeed} from '../../utils/optionCalculations.js'
-import womanData from '../../data/woman31-60.json'
-
+import ri from '../../data/ri.json'
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-
-
 import'./TableTotalRow.css';
 
 const TableTotalRow = (props) => {
 
     const { activeTab, calculatedNutritionResult, options, personalGroup } = props;
-
     //const data = props.data.allNutrients;
-    const data = womanData;
+    const data = ri;
     //const loading = props.data.loading;
     const loading = false;
 
-
-
     function getNutritionsTotalsForOneAbbr(abbr, calculatedNutritionResult) {
+
+        //console.log('getNutritionsTotalsForOneAbbr', calculatedNutritionResult)
         if(calculatedNutritionResult.length){
             const nutritionsTotalsForOneAbbr = calculatedNutritionResult.map((oneRow, index) => {
                 if(oneRow.length){
@@ -45,6 +41,8 @@ const TableTotalRow = (props) => {
     }
 
     function standardCalc(value, abbr){
+        //console.log('standardCalc', value)
+
         const { sex, weightKg, lengthCm, ageYear, PAL } = options;
         const total = totalEnergyNeed(sex, weightKg, lengthCm, ageYear, PAL)
 
@@ -52,13 +50,15 @@ const TableTotalRow = (props) => {
             const nutritionObj = data.find((nutrition) => {
                 return nutrition.abbreviation === abbr;
             })
+            //console.log('object personalgroup', nutritionObj[personalGroup])
+
             const recommendedValue = nutritionObj[personalGroup];
-            let percent = 0;
+            let decimal = 0;
             let kcalOfTotalGram = 0;
             const neededKcal = recommendedValue*0.01*total;
 
             if(abbr === 'Ener'){
-                percent = (value/total);
+                decimal = (value/total);
             }
             else {
                 if (abbr === 'Prot' || abbr === 'Kolh'){
@@ -70,9 +70,9 @@ const TableTotalRow = (props) => {
                 else if(abbr === 'Fibe'){
                     kcalOfTotalGram = value*2;
                 }
-                percent = kcalOfTotalGram/neededKcal;
+                decimal = kcalOfTotalGram/neededKcal;
             }
-            return (percent*100).toFixed(1)  + '%';
+            return (decimal*100).toFixed(1) + '%';
         }else{
             return '';
         }
@@ -83,11 +83,12 @@ const TableTotalRow = (props) => {
             const nutritionObj = data.find((nutrition) => {
                 return nutrition.abbreviation === abbr;
             })
-
             const recommendedValue = nutritionObj[personalGroup];
+            const recommendedUnit = nutritionObj['unitforRI'];
+
             if(recommendedValue){
-                const percent = value/recommendedValue;
-                return (percent*100).toFixed(1) + '%';
+                const decimal = value/recommendedValue;
+                return (decimal*100).toFixed(1) + '%';
             }
             else {
                 return null;
@@ -140,7 +141,7 @@ export const foodListNutritions = gql`query allNutrients {
     }
 }`
 
-//export default graphql(foodListNutritions)(TableTotalRow);
+export default graphql(foodListNutritions)(TableTotalRow);
 
 
-export default (TableTotalRow);
+//export default (TableTotalRow);

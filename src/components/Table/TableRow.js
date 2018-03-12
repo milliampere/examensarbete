@@ -15,15 +15,12 @@ const TableRow = (props) => {
         calculatedNutritionResult
     } = props;
 
-
     let backgroundColor = 'white';
-
     if(index % 2){
         backgroundColor = '#e5e6e8';
     }
 
     let iconColor = '';
-
 	if (changableInput.validUnit === true) {
 		iconColor = 'green';
 	}else {
