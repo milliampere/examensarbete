@@ -89,19 +89,13 @@ class App extends Component {
 
 		//Save it using the Chrome extension storage API.
 		chrome.storage.sync.set({
-			sex: this.state.sex,
-			isPregnant: this.state.isPregnant,
-			isBreastfeeding: this.state.isBreastfeeding,
-			lengthCm: this.state.lengthCm,
-			weightKg: this.state.weightKg,
-			ageYear: this.state.ageYear,
-			PAL: this.state.PAL,
-		}, function() {
-				// Update status to let user know options were saved.
-				console.log('sparat!')
-				setTimeout(function() {
-					console.log('something went wrong')
-			}, 750);
+			sex: input.sex,
+			isPregnant: input.isPregnant,
+			isBreastfeeding: input.isBreastfeeding,
+			lengthCm: input.lengthCm,
+			weightKg: input.weightKg,
+			ageYear: input.ageYear,
+			PAL: input.PAL,
 		});
 		this.setState({showPersonDataForm: false})
 	}
