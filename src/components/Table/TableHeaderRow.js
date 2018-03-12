@@ -17,7 +17,7 @@ const TableHeaderRow = (props) => {
             return nutrient.abbreviation === abbr;
         });
         if(oneNutrient){
-            return <div className="header-nutrition" key={index}>{oneNutrient.name} <br></br> {oneNutrient.unit}</div>
+            return <div className="header-nutrition" key={index}>{oneNutrient.name} ({oneNutrient.unit})</div>
         }
         else {
             return <div className="header-nutrition" key={index}></div>
@@ -28,7 +28,7 @@ const TableHeaderRow = (props) => {
     return (
         <div className="table-header-row">
             {inputHeaders}
-            {nutritionsHeaders}
+            <div className="header-nutrition-container">{nutritionsHeaders}</div>
         </div>
     );
 }

@@ -1,16 +1,28 @@
 .table-total-row {
     display: flex;
-    background-color: #F5D2CB;
-    color: grey;
-    font-weight: 500;
+    background-color: rgb(130, 43, 130);
+    color: white;
+    font-weight: 400;
     text-align: center;
+    align-items: center;
+    min-height: 20px;   /* magic */
 }
 
 .total-receipt {
-    width: 450px;
-    text-align: right;
+    width: 400px;
+    text-align: left;
+    padding-left: 10px; 
 }
 
 .total-nutrition {
-    width: 70px;
+    /* width: 70px; ändrat till align-content nedan */
+    width: 100%;
+    overflow: hidden; /* cut too long words (a long word will not obey width 100%) */ 
+}
+
+.total-nutrition-container {
+    display: flex;
+    text-align: center;
+    width: 400px;
+    align-content: stretch;
 }
