@@ -3,15 +3,13 @@
     border: none;
     border-radius: 5px;
     margin: 10px;
+    margin-left: 0;
     text-align: center;
     color: white;
     background-color: #336B87;
     max-width: 150px;
+    cursor: pointer;
  }
-
-.credits-box {
-    margin: 10px;
-}
 
 .credits-graphcms-logo {
     width: 100px;

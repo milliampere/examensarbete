@@ -1,6 +1,6 @@
 .table-total-row {
     display: flex;
-    background-color: rgb(130, 43, 130);
+    background-color: rgb(111, 37, 111);
     color: white;
     font-weight: 400;
     text-align: center;
@@ -11,13 +11,15 @@
 .total-receipt {
     width: 400px;
     text-align: left;
-    padding-left: 10px; 
+    padding-left: 10px;
 }
 
 .total-nutrition {
     /* width: 70px; ändrat till align-content nedan */
     width: 100%;
-    overflow: hidden; /* cut too long words (a long word will not obey width 100%) */ 
+    overflow: hidden; /* cut too long words (a long word will not obey width 100%) */
+    min-width: 40px; /* big amounts must fit inside the div */
+    font-size: 10px;
 }
 
 .total-nutrition-container {

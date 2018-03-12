@@ -30,19 +30,19 @@ export default class PersonDataForm extends Component {
         if(name === 'pregnantOrBreastfeading'){
             if(event.target.id === 'isPregnant'){
                 this.setState({
-                    isPregnant: true, 
+                    isPregnant: true,
                     isBreastfeeding: false
                 })
             }
             else if(event.target.id === 'isBreastfeeding'){
                 this.setState({
-                    isBreastfeeding: true, 
+                    isBreastfeeding: true,
                     isPregnant: false
                 })
             }
             else if(event.target.id === 'inget'){
                 this.setState({
-                    isBreastfeeding: false, 
+                    isBreastfeeding: false,
                     isPregnant: false
                 })
             }
@@ -90,66 +90,95 @@ export default class PersonDataForm extends Component {
 
     render() {
 
+        let gender = this.props.options.sex;
+		let pregnantOrBreastfeeding = '';
+		if(this.props.options.sex === 'woman'){
+			gender = 'Kvinna'
+			if(this.props.options.isPregnant){
+				pregnantOrBreastfeeding = "(gravid)"
+			}
+			else if(this.props.options.isBreastfeeding){
+				pregnantOrBreastfeeding = "(ammande)"
+			}
+		}
+		const basedOnPerson = `${gender} ${this.props.options.ageYear}år ${pregnantOrBreastfeeding}`;
+
+
         return (
-            <form className="person-data-form" onSubmit={(e) => this.props.onSubmit(e, {...this.state})}>
-                <button className="close-button" onClick={this.props.close}>Stäng</button>
-                <div>
-                    <p className="input-header">Kön:</p>
-                    <select name="sex" value={this.state.sex} onChange={this.onChange}>
-                        <option name='woman' value='woman'>Kvinna</option>
-                        <option name='man' value='man'>Man</option>
-                    </select>
-                </div>
-                <br/>
-                {this.state.sex === 'woman' &&
-                    <div>
-                        <div>
-                            <label>Gravid</label> <n/>
-                            <input type="radio" id="isPregnant" name="pregnantOrBreastfeading" onChange={this.onChange} value={this.state.isPregnant} checked={this.state.isPregnant}></input>
-                        </div>
-                        <div>
-                            <label>Ammande</label> <n/>
-                            <input type="radio" id="isBreastfeeding" name="pregnantOrBreastfeading" onChange={this.onChange} value={this.state.isBreastfeeding} checked={this.state.isBreastfeeding}></input>
-                        </div>
-                        <div>
-                            <label>Inte gravid eller ammande</label> <n/>
-                            <input type="radio" id="inget" name="pregnantOrBreastfeading" onChange={this.onChange} value="inget" checked={!this.state.isBreastfeeding && !this.state.isPregnant}></input>
-                        </div>
+            <div>
+                {!this.props.show &&
+                    <div className="persondata-container">
+                        <p className="persondata-info">Nu visas datan baserat på: {basedOnPerson} </p>
+                        {!this.props.personalGroup &&
+                            <p>För att se resultat av rekommenderat intag, fyll i dina personliga uppgifter här:</p>
+                        }
+                        <button className="button-link" onClick={this.props.onClick}>Ändra persondata här!</button>
                     </div>
                 }
-                <br/>
-                <div>
-                    <p className="input-header">Ålder:</p>
-                    <input type="text" name="ageYear" onChange={this.onChange} value={this.state.ageYear}></input>
-                    {this.state.formErrors.ageYear}
-                </div>
-                <br/>
-                <div>
-                    <p className="input-header">Längd i cm:</p>
-                    <input type="text" name="lengthCm" onChange={this.onChange} value={this.state.lengthCm}></input>
-                    {this.state.formErrors.lengthCm}
-                </div>
-                <br/>
-                <div>
-                    <p className="input-header">Vikt i kg:</p>
-                    <input type="text" name="weightKg" onChange={this.onChange} value={this.state.weightKg}></input>
-                    {this.state.formErrors.weightKg}
-                </div>
-                <br/>
-                <div>
-                    <p className="input-header">Fysisk aktivitet:</p>
-                    <select id="PAL" name="PAL" value={this.state.PAL} onChange={this.onChange}>
-                        <option name="PAL" value="1.15">Rullstolsburen eller sängliggande.</option>
-                        <option name="PAL" value="1.4">Stillasittande arbete, lite fysikt fritidsaktivitet.</option>
-                        <option name="PAL" value="1.65">Stillasittande arbete, träna några gånger i veckan.</option>
-                        <option name="PAL" value="1.85">Huvudsakligen stående arbete.</option>
-                        <option name="PAL" value="2.2">Tungt kroppsarbete eller mycket hög fritidsaktivitet</option>
-                    </select>
-                </div>
-                <br/>
-                {this.state.formValid ? <input className="save-button" type="submit" value="Spara" />
-                : <input className="save-button disabled" type="submit" value="Spara" disabled /> }
-            </form>
+                {this.props.show &&
+                    <div className="person-data-form-container">
+                        <form className="person-data-form" onSubmit={(e) => this.props.onSubmit(e, {...this.state})}>
+                            <button className="close-button" onClick={this.props.close}>Stäng</button>
+                            <div>
+                                <p className="input-header">Kön:</p>
+                                <select name="sex" value={this.state.sex} onChange={this.onChange}>
+                                    <option name='woman' value='woman'>Kvinna</option>
+                                    <option name='man' value='man'>Man</option>
+                                </select>
+                            </div>
+                            <br/>
+                            {this.state.sex === 'woman' &&
+                                <div>
+                                    <div>
+                                        <label>Gravid</label> <n/>
+                                        <input type="radio" id="isPregnant" name="pregnantOrBreastfeading" onChange={this.onChange} value={this.state.isPregnant} checked={this.state.isPregnant}></input>
+                                    </div>
+                                    <div>
+                                        <label>Ammande</label> <n/>
+                                        <input type="radio" id="isBreastfeeding" name="pregnantOrBreastfeading" onChange={this.onChange} value={this.state.isBreastfeeding} checked={this.state.isBreastfeeding}></input>
+                                    </div>
+                                    <div>
+                                        <label>Inte gravid eller ammande</label> <n/>
+                                        <input type="radio" id="inget" name="pregnantOrBreastfeading" onChange={this.onChange} value="inget" checked={!this.state.isBreastfeeding && !this.state.isPregnant}></input>
+                                    </div>
+                                </div>
+                            }
+                            <br/>
+                            <div>
+                                <p className="input-header">Ålder:</p>
+                                <input type="text" name="ageYear" onChange={this.onChange} value={this.state.ageYear}></input>
+                                {this.state.formErrors.ageYear}
+                            </div>
+                            <br/>
+                            <div>
+                                <p className="input-header">Längd i cm:</p>
+                                <input type="text" name="lengthCm" onChange={this.onChange} value={this.state.lengthCm}></input>
+                                {this.state.formErrors.lengthCm}
+                            </div>
+                            <br/>
+                            <div>
+                                <p className="input-header">Vikt i kg:</p>
+                                <input type="text" name="weightKg" onChange={this.onChange} value={this.state.weightKg}></input>
+                                {this.state.formErrors.weightKg}
+                            </div>
+                            <br/>
+                            <div>
+                                <p className="input-header">Fysisk aktivitet:</p>
+                                <select id="PAL" name="PAL" value={this.state.PAL} onChange={this.onChange}>
+                                    <option name="PAL" value="1.15">Rullstolsburen eller sängliggande.</option>
+                                    <option name="PAL" value="1.4">Stillasittande arbete, lite fysikt fritidsaktivitet.</option>
+                                    <option name="PAL" value="1.65">Stillasittande arbete, träna några gånger i veckan.</option>
+                                    <option name="PAL" value="1.85">Huvudsakligen stående arbete.</option>
+                                    <option name="PAL" value="2.2">Tungt kroppsarbete eller mycket hög fritidsaktivitet</option>
+                                </select>
+                            </div>
+                            <br/>
+                            {this.state.formValid ? <input className="save-button" type="submit" value="Spara" />
+                            : <input className="save-button disabled" type="submit" value="Spara" disabled /> }
+                        </form>
+                    </div>
+                }
+            </div>
         )
     }
 }

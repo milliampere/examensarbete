@@ -1,5 +1,4 @@
 import amountHelpFunc from './amountHelpFunc.js';
-//import calculateNutritionResult from '../calculateNutritionHelpFunc.js';
 import showNutritionHelpFunc from './showNutritionHelpFunc.js';
 import nutritionForOneFood from '../data/nutritionForOneFood.json';
 
@@ -15,11 +14,10 @@ export function findDbResult(data, changableInput) {
 	else {
 		dataFromDb = {}
 	}
-
 	return dataFromDb
 }
 
-//loopa igenom allt för att kunna anropa calculateNutritionResult per row/index (inne i map)
+
 export function  calculateNutritionResultForAllRows(changableInputArray, activeTab, data) {
 	return changableInputArray.map((row) => {
 		const dataFromDb = findDbResult(data,row);
@@ -28,7 +26,6 @@ export function  calculateNutritionResultForAllRows(changableInputArray, activeT
 }
 
 
-//flyttat upp denna funktion och gort den mer generell för att får infon till alla behövande komponenter (tagen från nutritionData.js)
 export function calculateNutritionResult(changableInput, activeTab, dataFromDb = {}) {
 
 	let nutritionsResult = {
@@ -48,31 +45,13 @@ export function calculateNutritionResult(changableInput, activeTab, dataFromDb =
 	const conversion = nutritionForOneFood[0].conversion;  // byt till data från databasen
 	//const conversion = dataFromDb.conversion; // från db
 
-	if(changableInput.type === 'st') {
-		if(conversion) {
-			if(!conversion.gramPerPiece){
-				nutritionsResult.error = true;
-				nutritionsResult.errorMess = 'vi hittar inte vikt/st, skriv in mått i gram istället';
-			}
-		}
+	if(changableInput.type === 'st' && conversion && !conversion.gramPerPiece) {
+		nutritionsResult.error = true;
+		nutritionsResult.errorMess = 'vi hittar inte vikt/st, skriv in mått i gram istället';
 	}
-	else if(changableInput.type === 'port'){
-		if(conversion) {
-			if(!(conversion.hasOwnProperty('gramPerPort'))){
-				if(!conversion.gramPerPort){
-					nutritionsResult.error = true;
-					nutritionsResult.errorMess = 'vi hittar inte vikt/port, skriv in mått i gram istället';
-				}
-			}
-		}
-	}
-	else if(changableInput.type === 'dl'){
-		if(conversion) {
-			if(!conversion.gramPerPort){
-				nutritionsResult.error = true;
-				nutritionsResult.errorMess = 'vi hittar inte vikt/port, skriv in mått i gram istället';
-			}
-		}
+	else if((changableInput.type === 'port' || changableInput.type === 'dl') && conversion && !conversion.gramPerPort && !(conversion.hasOwnProperty('gramPerPort'))){
+		nutritionsResult.error = true;
+		nutritionsResult.errorMess = 'vi hittar inte vikt/port, skriv in mått i gram istället';
 	}
 	else {
 		nutritionsResult.array = nutritionsAbbrArray.map((abbr, index) => {

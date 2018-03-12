@@ -1,0 +1,15 @@
+
+.header-part {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.portions-div {
+    display: flex;
+    align-items: flex-end;
+}
+
+.portions-text {
+    margin: 0 5px 0 0 ;
+}

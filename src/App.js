@@ -8,8 +8,7 @@ import filterRiForPersonData from './utils/filterRiForPersonData.js';
 import rawInputArray from './data/input';
 import Content from './components/Content';
 import PersonDataForm from './components/PersonDataForm.js';
-import Button from './components/Button/Button.js';
-
+import './App.css';
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
@@ -117,18 +116,18 @@ class App extends Component {
 			return <option value={number} key={index}>{number}</option>
 		});
 
-		let gender = this.state.sex;
-		let pregnantOrBreastfeeding = '';
-		if(this.state.sex === 'woman'){
-			gender = 'Kvinna'
-			if(this.state.isPregnant){
-				pregnantOrBreastfeeding = "(gravid)"
-			}
-			else if(this.state.isBreastfeeding){
-				pregnantOrBreastfeeding = "(ammande)"
-			}
-		}
-		const basedOnPerson = `${gender} ${this.state.ageYear}år ${pregnantOrBreastfeeding}`;
+		// let gender = this.state.sex;
+		// let pregnantOrBreastfeeding = '';
+		// if(this.state.sex === 'woman'){
+		// 	gender = 'Kvinna'
+		// 	if(this.state.isPregnant){
+		// 		pregnantOrBreastfeeding = "(gravid)"
+		// 	}
+		// 	else if(this.state.isBreastfeeding){
+		// 		pregnantOrBreastfeeding = "(ammande)"
+		// 	}
+		// }
+		// const basedOnPerson = `${gender} ${this.state.ageYear}år ${pregnantOrBreastfeeding}`;
 
 		const options = {
 			sex: this.state.sex,
@@ -143,19 +142,24 @@ class App extends Component {
 
 		return (
 			<div className="App">
-				{!this.state.showPersonDataForm &&
-					<Navigation
-						activeTab={this.state.activeTab}
-						allNutrients={propsdataallNutrients}
-						onClick={this.handleButtonClick}
-					/>
-				}
-				<p>Antal portioner som receptet ska räcka till: {this.state.portions}</p>
-				<select value={this.state.portions} selected={this.state.portions} onChange={this.handlePortionChange}>
-					{selectOptions}
-				</select>
-				{/* {this.state.rawInputArray && !this.state.showPersonDataForm && */}
-				{!this.props.data.loading &&
+				<div className="header-part">
+					{!this.state.showPersonDataForm &&
+						<Navigation
+							activeTab={this.state.activeTab}
+							allNutrients={propsdataallNutrients}
+							onClick={this.handleButtonClick}
+						/>
+					}
+					{!this.state.showPersonDataForm &&
+						<div className="portions-div">
+							<p className="portions-text" >Antal portioner:</p>
+							<select value={this.state.portions} selected={this.state.portions} onChange={this.handlePortionChange}>
+								{selectOptions}
+							</select>
+						</div>
+					}
+				</div>
+				{!this.props.data.loading && !this.state.showPersonDataForm &&
 					<Content
 						//rawInputArray={this.state.rawInputArray}
 						rawInputArray={rawInputArray}
@@ -167,21 +171,14 @@ class App extends Component {
 						allFoodsData={this.props.data.allFoods}
 					/>
 				}
-				{/* } */}
-				<p>Nu visas datan baserat på: {basedOnPerson} </p>
-				{!this.state.personalGroup &&
-					<p>För att se resultat av rekommenderat intag, fyll i dina personliga uppgifter här:</p>
-				}
-				<Button name="Ändra persondata" onClick={this.changePersonData}></Button>
-				{this.state.showPersonDataForm &&
-					<div>
-						<PersonDataForm
-							onSubmit={this.onSubmit}
-							options={options}
-							close={this.closePersonData}
-						/>
-					</div>
-				}
+				<PersonDataForm
+					onClick={this.changePersonData}
+					onSubmit={this.onSubmit}
+					options={options}
+					close={this.closePersonData}
+					show={this.state.showPersonDataForm}
+					personalGroup={this.state.personalGroup}
+				/>
 				<Credits />
 			</div>
 		);
