@@ -76,6 +76,8 @@ class App extends Component {
 	onSubmit = (event, input) => {
 		event.preventDefault(); //prevent the page to reload when the form is submitted
 
+		console.log(input);
+
 		this.setState({
 			sex: input.sex,
 			isPregnant: input.isPregnant,
@@ -104,7 +106,7 @@ class App extends Component {
 		// 			console.log('something went wrong')
 		// 	}, 750);
 		// });
-		// this.setState({showPersonDataForm: false})
+		this.setState({showPersonDataForm: false})
 	}
 
 	changePersonData = () => {
