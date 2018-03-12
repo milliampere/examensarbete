@@ -16,12 +16,12 @@ class App extends Component {
 	state = {
 		activeTab: 'standard',
 		portions: 1,
-		sex: '',
+		sex: 'woman',
 		isPregnant: false,
 		isBreastfeeding: false,
 		lengthCm: '',
 		weightKg: '',
-		ageYear: '',
+		ageYear: '31',
 		PAL: '',    // physical activity level
 		personalGroup: '',
 		showPersonDataForm: false,
@@ -76,6 +76,8 @@ class App extends Component {
 	onSubmit = (event, input) => {
 		event.preventDefault(); //prevent the page to reload when the form is submitted
 
+		console.log(input);
+
 		this.setState({
 			sex: input.sex,
 			isPregnant: input.isPregnant,
@@ -104,7 +106,7 @@ class App extends Component {
 		// 			console.log('something went wrong')
 		// 	}, 750);
 		// });
-		// this.setState({showPersonDataForm: false})
+		this.setState({showPersonDataForm: false})
 	}
 
 	changePersonData = () => {
@@ -121,6 +123,12 @@ class App extends Component {
 		const selectOptions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map((number, index) => {
 			return <option value={number} key={index}>{number}</option>
 		});
+
+		let gender = this.state.sex;
+		if(this.state.sex === 'woman'){
+			gender = 'Kvinna'
+		}
+		const basedOnPerson = `${gender} ${this.state.ageYear}år`;
 
 		const options = {
 			sex: this.state.sex,
@@ -157,7 +165,7 @@ class App extends Component {
 						personalGroup={this.state.personalGroup}
 					/>
 				{/* } */}
-				<p>Nu visas datan baserat på: {this.state.personalGroup}</p>
+				<p>Nu visas datan baserat på: {basedOnPerson} </p>
 				{!this.state.personalGroup &&
 					<h4>För att se resultat av Rekommenderat intag, fyll i dina personliga uppgifter här:</h4>
 				}
