@@ -19,8 +19,8 @@ class App extends Component {
 		sex: 'woman',
 		isPregnant: false,
 		isBreastfeeding: false,
-		lengthCm: '',
-		weightKg: '',
+		lengthCm: '160',
+		weightKg: '50',
 		ageYear: '31',
 		PAL: '',    // physical activity level
 		personalGroup: '',
@@ -46,11 +46,11 @@ class App extends Component {
 		// 		weightKg: Number(result.weightKg),
 		// 		ageYear: Number(result.ageYear),
 		// 		PAL: Number(result.PAL),
-		// 		personalGroup: filterRiForPersonData(result.sex, result.ageYear)
+		// 		personalGroup: filterRiForPersonData(result.sex, result.ageYear, result.isPregnant, result.isBreastfeeding)
 		// 	});
 		// 	console.log(result)
 		// })
-		//this.setState({personalGroup: filterRiForPersonData('woman', 30)})
+		//this.setState({personalGroup: filterRiForPersonData('woman', 30, false, false)})
 		this.setState({portions: 4});
 	}
 
@@ -88,7 +88,7 @@ class App extends Component {
 			PAL: input.PAL,
 		})
 
-		this.setState({personalGroup: filterRiForPersonData(input.sex, input.ageYear)})
+		this.setState({personalGroup: filterRiForPersonData(input.sex, input.ageYear, input.isPregnant, input.isBreastfeeding)})
 
 		// //Save it using the Chrome extension storage API.
 		// chrome.storage.sync.set({
@@ -125,10 +125,19 @@ class App extends Component {
 		});
 
 		let gender = this.state.sex;
+		let pregnantOrBreastfeeding = '';
+
 		if(this.state.sex === 'woman'){
 			gender = 'Kvinna'
+
+			if(this.state.isPregnant){
+				pregnantOrBreastfeeding = "(gravid)"
+			}
+			else if(this.state.isBreastfeeding){
+				pregnantOrBreastfeeding = "(ammande)"
+			}
 		}
-		const basedOnPerson = `${gender} ${this.state.ageYear}år`;
+		const basedOnPerson = `${gender} ${this.state.ageYear}år ${pregnantOrBreastfeeding}`;
 
 		const options = {
 			sex: this.state.sex,

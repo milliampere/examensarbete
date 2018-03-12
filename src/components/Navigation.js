@@ -24,7 +24,7 @@ const Navigation = (props) => {
     ];
 
     const headButtons = tabs.map((item, index) => {
-        return <div className="navigation-button"><Button key={index} name={item.sv} value={item.eng} activeButton={props.activeTab} onClick={props.onClick}/></div>
+        return <div key={index} className="navigation-button"><Button name={item.sv} value={item.eng} activeButton={props.activeTab} onClick={props.onClick}/></div>
     })
 
     return (
