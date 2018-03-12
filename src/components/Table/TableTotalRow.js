@@ -135,6 +135,8 @@ export const foodListNutritions = gql`query allNutrients {
     man3160
     man6174
     mangreater75
+    womanPregnant
+    womanBreastfeeding
     }
 }`
 

@@ -13,11 +13,14 @@ export default class PersonDataForm extends Component {
         ageYear: this.props.options.ageYear,
         PAL: this.props.options.PAL,    // physical activity level
         formErrors: {lengthCm: '', weightKg: '', ageYear: ''},
-        lengthCmValid: false,
-        weightKgValid: false,
-        ageYearValid: false,
-        formValid: false,
-        checked: "checked"
+        lengthCmValid: this.props.options.lengthCm ? true : false,
+        weightKgValid: this.props.options.weightKg ? true : false,
+        ageYearValid: this.props.options.ageYear ? true : false,
+        formValid: false
+    }
+
+    componentDidMount() {
+        this.validateForm();
     }
 
     onChange = (event) => {
@@ -26,22 +29,28 @@ export default class PersonDataForm extends Component {
 
         if(name === 'pregnantOrBreastfeading'){
             if(event.target.id === 'isPregnant'){
-                this.setState({isPregnant: true})
-                this.setState({isBreastfeeding: false})
-                this.setState({checked: ""})
+                this.setState({
+                    isPregnant: true, 
+                    isBreastfeeding: false
+                })
             }
             else if(event.target.id === 'isBreastfeeding'){
-                this.setState({isBreastfeeding: true})
-                this.setState({isPregnant: false})
-                this.setState({checked: ""})
+                this.setState({
+                    isBreastfeeding: true, 
+                    isPregnant: false
+                })
             }
             else if(event.target.id === 'inget'){
-                this.setState({isBreastfeeding: false})
-                this.setState({isPregnant: false})
-                this.setState({checked: "checked"})
+                this.setState({
+                    isBreastfeeding: false, 
+                    isPregnant: false
+                })
             }
         }
         else{
+            if(name === 'man'){
+                this.setState({isPregnant: false, isBreastfeeding: false})
+            }
             this.setState({[name] : value}, () => { this.validateField(name, value)}) // validation callback
         }
     }
@@ -96,15 +105,15 @@ export default class PersonDataForm extends Component {
                     <div>
                         <div>
                             <label>Gravid</label> <n/>
-                            <input type="radio" id="radioButton" id="isPregnant" name="pregnantOrBreastfeading" onChange={this.onChange} value={this.state.isPregnant}></input>
+                            <input type="radio" id="isPregnant" name="pregnantOrBreastfeading" onChange={this.onChange} value={this.state.isPregnant} checked={this.state.isPregnant}></input>
                         </div>
                         <div>
                             <label>Ammande</label> <n/>
-                            <input type="radio" id="radioButton" id="isBreastfeeding" name="pregnantOrBreastfeading" onChange={this.onChange} value={this.state.isBreastfeeding}></input>
+                            <input type="radio" id="isBreastfeeding" name="pregnantOrBreastfeading" onChange={this.onChange} value={this.state.isBreastfeeding} checked={this.state.isBreastfeeding}></input>
                         </div>
                         <div>
                             <label>Inte gravid eller ammande</label> <n/>
-                            <input type="radio" id="radioButton" checked={this.state.checked} id="inget" name="pregnantOrBreastfeading" onChange={this.onChange} value="inget"></input>
+                            <input type="radio" id="inget" name="pregnantOrBreastfeading" onChange={this.onChange} value="inget" checked={!this.state.isBreastfeeding && !this.state.isPregnant}></input>
                         </div>
                     </div>
                 }

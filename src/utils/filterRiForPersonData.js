@@ -1,10 +1,15 @@
-export default function filterRiForPersonData(sex, age) {
+export default function filterRiForPersonData(sex, age, isPregnant, isBreastfeeding) {
 
     let personData = '';
 
     if(sex === 'woman') {
-        if( age >= 18 && age <= 30){
-            console.log('Detta är du: woman1830')
+        if(isPregnant){
+            personData = 'womanPregnant';
+        }
+        else if(isBreastfeeding){
+            personData = 'womanBreastfeeding';
+        }
+        else if( age >= 18 && age <= 30){
             personData = 'woman1830';
         }
         else if( age >= 31 && age <= 60){
