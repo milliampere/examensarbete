@@ -16,12 +16,12 @@ class App extends Component {
 	state = {
 		activeTab: 'standard',
 		portions: 1,
-		sex: '',
+		sex: 'woman',
 		isPregnant: false,
 		isBreastfeeding: false,
 		lengthCm: '',
 		weightKg: '',
-		ageYear: '',
+		ageYear: '31',
 		PAL: '',    // physical activity level
 		personalGroup: '',
 		showPersonDataForm: false,
@@ -124,6 +124,12 @@ class App extends Component {
 			return <option value={number} key={index}>{number}</option>
 		});
 
+		let gender = this.state.sex;
+		if(this.state.sex === 'woman'){
+			gender = 'Kvinna'
+		}
+		const basedOnPerson = `${gender} ${this.state.ageYear}år`;
+
 		const options = {
 			sex: this.state.sex,
 			isPregnant: this.state.isPregnant,
@@ -159,7 +165,7 @@ class App extends Component {
 						personalGroup={this.state.personalGroup}
 					/>
 				{/* } */}
-				<p>Nu visas datan baserat på: {this.state.personalGroup}</p>
+				<p>Nu visas datan baserat på: {basedOnPerson} </p>
 				{!this.state.personalGroup &&
 					<h4>För att se resultat av Rekommenderat intag, fyll i dina personliga uppgifter här:</h4>
 				}
