@@ -13,3 +13,9 @@
 .portions-text {
     margin: 0 5px 0 0 ;
 }
+
+h1 {
+    margin-bottom: 5px;
+    font-size: 1.7rem;
+    color: #336B87;
+}

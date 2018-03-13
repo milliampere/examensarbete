@@ -151,11 +151,14 @@ class App extends Component {
 						/>
 					}
 					{!this.state.showPersonDataForm &&
-						<div className="portions-div">
-							<p className="portions-text" >Antal portioner:</p>
-							<select value={this.state.portions} selected={this.state.portions} onChange={this.handlePortionChange}>
-								{selectOptions}
-							</select>
+						<div>
+							<h1>Näringsberäknaren</h1>
+							<div className="portions-div">	
+								<p className="portions-text" >Antal portioner:</p>
+								<select value={this.state.portions} selected={this.state.portions} onChange={this.handlePortionChange}>
+									{selectOptions}
+								</select>
+							</div>
 						</div>
 					}
 				</div>
