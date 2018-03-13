@@ -44,8 +44,8 @@ const TableHeaderRow = (props) => {
                 const {name, unit, description, typeOfNutrient:type }= oneNutrient;
                 let shortname;
                 
-                if(type === 'Standard' && name.length > 5){
-                    shortname = name.substring(0,5) + "..";
+                if(type === 'Standard' && name.length > 7){
+                    shortname = name.substring(0,7) + "..";
                 }
                 else if(type === 'Mineral' && name.length > 3){
                     shortname = name.substring(0,3) + "..";
