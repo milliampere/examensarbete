@@ -136,6 +136,8 @@ class Content extends Component {
                         options={options}
                         personalGroup={personalGroup}
                         livsmedelsverketIdArray={changableInputArray.filter(changableInput => {return changableInput.livsmedelsverketId}).map((changableInput) => {return changableInput.livsmedelsverketId})}
+                        handlePortionChange={this.props.handlePortionChange}
+                        portions={this.props.portions}
                     />
                 }
             </div>

@@ -4,6 +4,7 @@ import showNutritionHelpFunc from '../../utils/showNutritionHelpFunc.js';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 
+
 import'./TableHeaderRow.css';
 
 
@@ -11,8 +12,21 @@ const TableHeaderRow = (props) => {
 
     const { activeTab } = props;
 
+    const selectOptions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map((number, index) => {
+        return <option value={number} key={index}>{number}</option>
+    });
+
+    const select = <select value={props.portions} selected={props.portions} onChange={props.handlePortionChange}>
+        {selectOptions}
+    </select>
+
     const inputHeaders = ['Från receptet', 'Mängd', 'Mått', 'Livsmedel'].map((item, index) => {
-        return <div className="header-receipt" key={index}>{item}</div>
+        if(item === "Från receptet"){
+            return <div className="header-receipt" key={index}>{item} <div className="header-tooltip">({props.portions} port)<span className="header-tooltiptext"><b>Antal portioner</b><br/>Antal portioner hämtas från receptet. Vill du ändra detta, observera att dina eventuella ändringar i kolumnen "mängd" i tabellen kommer att förloras. <br /> {select}</span></div></div>
+        }
+        else {
+            return <div className="header-receipt" key={index}>{item}</div>
+        }
     })
 
     if (props.data.loading) {
