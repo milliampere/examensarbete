@@ -37,10 +37,12 @@ export function calculateNutritionResult(changableInput, activeTab, dataFromDb =
 		errorMess: 'loading'
 	};
 
-	// don't to the rest if no data or loading
- 	if(Object.keys(dataFromDb).length === 0){
-		return nutritionsResult;
-	}
+	//TOG BORT DENNA O DET VERKA FUNKA?? ANNARS FASTNAR ALLT HÄR...
+	// // don't to the rest if no data or loading
+ 	// if(Object.keys(dataFromDb).length === 0){
+	// 	 console.log('wtf!!', Object.keys(dataFromDb))
+	// 	return nutritionsResult;
+	// }
 
 	const nutritionsAbbrArray = showNutritionHelpFunc(activeTab);
 	const conversion = nutritionForOneFood[0].conversion;  // byt till data från databasen

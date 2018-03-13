@@ -4,7 +4,11 @@ import './DropDownMenu.css';
 const DropDownMenu = (props) => {
 
 	const { indexInput, name, handleChange, handleFocus, activeIndex, changableInput, backgroundColor } = props;
-	const result = props.changableInput['match'];
+
+	let result = [];
+	if(changableInput.hasOwnProperty('match')){
+		result = changableInput['match'];
+	}
 
 	let iconColor = '';
 
