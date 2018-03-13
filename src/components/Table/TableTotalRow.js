@@ -109,7 +109,23 @@ const TableTotalRow = (props) => {
         else {
             result = allOtherCalc(getNutritionsTotalsForOneAbbr(abbr, calculatedNutritionResult), abbr);
         }
-        return <div className="total-nutrition" key={index}>{result}</div>;
+
+        let tooltiptext = `Den här måltiden ger dig ${result} av rekommenderat dagligt intag.`;
+
+        if(abbr === 'Ener'){
+            tooltiptext = `Den här måltiden ger dig ${result} av den energi du behöver per dag.`
+        }
+        else if(abbr === 'Mfet'){
+            tooltiptext = `Du uppnår ${result} av maximalt dagligt intag. Intaget av mättade fettsyror bör begränsas till mindre än en tiondel av totala energiintaget per dag.`
+        }
+        else if(abbr === 'Kole'){
+            tooltiptext = `Du uppnår ${result} av maximalt dagligt intag. Intag av kolesterol bör vara under 300 mg per dag.`
+        }
+        else if(abbr === 'NaCl'){
+            tooltiptext = `Du uppnår ${result} av maximalt dagligt intag. Intaget av salt bör vara mindre än 6 g per dag. `
+        }
+
+        return <div className="total-nutrition" key={index}><div className="total-tooltip">{result}<span className="total-tooltiptext">{tooltiptext}</span></div></div>;
     })
 
     return (

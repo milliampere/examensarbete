@@ -17,7 +17,7 @@
 .total-nutrition {
     /* width: 70px; ändrat till align-content nedan */
     width: 100%;
-    overflow: hidden; /* cut too long words (a long word will not obey width 100%) */
+    /* overflow: hidden;  tar bort pga tooltip */
     min-width: 40px; /* big amounts must fit inside the div */
     font-size: 10px;
 }
@@ -27,4 +27,38 @@
     text-align: center;
     width: 400px;
     align-content: stretch;
+}
+
+
+
+
+
+/* Tooltip container */
+.total-tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted #F5D2CB; /* dots under the hoverable text */
+}
+
+/* Tooltip text */
+.total-tooltip .total-tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: lightgray;
+    color: #000;
+    text-align: left;
+    padding: 10px;
+    border-radius: 6px;
+ 
+    /* Position of the tooltip text */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%; 
+    margin-left: -30px;  
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.total-tooltip:hover .total-tooltiptext {
+    visibility: visible;
 }
