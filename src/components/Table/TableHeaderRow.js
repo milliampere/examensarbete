@@ -16,8 +16,32 @@ const TableHeaderRow = (props) => {
         const oneNutrient = allNutrients.find((nutrient) => {
             return nutrient.abbreviation === abbr;
         });
+        let shortname = '';
         if(oneNutrient){
-            return <div className="header-nutrition" key={index}>{oneNutrient.name} ({oneNutrient.unit})</div>
+
+            const {name, unit, description, typeOfNutrient:type }= oneNutrient;
+            let shortname;
+            
+            if(type === 'Standard' && name.length > 5){
+                shortname = name.substring(0,5) + "..";
+            }
+            else if(type === 'Mineral' && name.length > 3){
+                shortname = name.substring(0,3) + "..";
+            }
+            else if(type === 'Fat' && name.length > 12){
+                shortname = name.substring(0,12) + "..";
+            }
+            else if(type === 'Vitamin' && name.length > 3){
+                shortname = name.substring(0,3) + "..";
+            }
+            else {
+                shortname = name;
+            };
+
+            //let tooltiptext = <div>{name}<br />{description}</div>
+            let tooltiptext = "HEJ"
+
+            return <div className="header-nutrition" key={index}><div className="tooltip">{shortname}<span className="tooltiptext">{tooltiptext}</span></div></div>
         }
         else {
             return <div className="header-nutrition" key={index}></div>

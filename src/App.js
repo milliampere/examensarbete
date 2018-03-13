@@ -9,7 +9,7 @@ import rawInputArray from './data/input';
 import Content from './components/Content';
 import PersonDataForm from './components/PersonDataForm.js';
 import './App.css';
-import { graphql } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 
 
@@ -194,7 +194,13 @@ export const allFoods = gql`query allFoods {
 		livsmedelsverketId
 	}
 }`
+export const allNutrients = gql`query allNutrients {
+	allNutrients{
+		name
+	}
+}`
 
-export default graphql(allFoods)(App);
+
+export default compose(graphql(allFoods))(App);
 
 //export default App;
