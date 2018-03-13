@@ -7,7 +7,7 @@ const Button = (props) => {
     let color = '#336B87';
 
     if(activeButton === value) {
-        color = '#822b82';
+        color = 'rgb(111, 37, 111)';
     }
 
     return (

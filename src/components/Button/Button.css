@@ -6,6 +6,7 @@
     color: white;
     max-width: 100px;
     height: 50px;
+    cursor: pointer;
 }
 
 button:focus {

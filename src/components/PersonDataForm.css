@@ -2,6 +2,7 @@
 .person-data-form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: 450px;
     border: 1px solid grey;
     padding: 20px;
@@ -22,14 +23,37 @@
 
 .save-button {
     width: 75px;
-    background-color:rgb(130, 43, 130);;
+    background-color:rgb(111, 37, 111);;
     color: white;
     border-radius: 5px;
     padding: 5px;
 }
 
+.save-button:focus {
+    outline: 0;
+}
+
 .disabled {
     background-color: lightgray;
+}
+
+.button-link {
+    border: none;
+    color: rgb(111, 37, 111);
+    cursor: pointer;
+}
+
+.persondata-container {
+    display: flex;
+}
+
+.persondata-info {
+    margin-bottom: 0;
+}
+
+.person-data-form-container {
+    display: flex;
+    justify-content: center;
 }
 
 button:focus {

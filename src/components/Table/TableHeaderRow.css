@@ -1,10 +1,11 @@
 .table-header-row {
     display: flex;
-    background-color: #F5D2CB;
-    color: grey;
+    background-color: #336B87;
+    color: white;
     font-weight: 500;
-    text-align: center; 
+    text-align: center;
     align-items: center;
+    height: 40px;
 }
 
 .header-receipt {
@@ -22,7 +23,7 @@
 .header-nutrition {
     /* width: 50px; ändrat till align-content nedan */
     width: 100%;
-    overflow: hidden; /* cut too long words (a long word will not obey width 100%) */ 
+    overflow: hidden; /* cut too long words (a long word will not obey width 100%) */
 }
 
 .header-nutrition-container {
