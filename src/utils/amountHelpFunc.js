@@ -1,3 +1,5 @@
+import precisionRound from './precisionRound';
+
 export default function amountHelpFunc(changableInput, nutrition, conversion) {
 
 
@@ -30,7 +32,7 @@ export default function amountHelpFunc(changableInput, nutrition, conversion) {
 function convertAmount(valueInGram, changableInput) {
     //Diveded by 100 to get value per 1 gram and multiplied with recepie amount
     const amountPerPortion = (valueInGram * changableInput.amount)/100;
-    return amountPerPortion.toFixed(2);
+    return precisionRound((amountPerPortion),2);
 }
 
 

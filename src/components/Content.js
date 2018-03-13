@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Table from './Table/Table';
 import search from '../utils/searchData';
+import precisionRound from '../utils/precisionRound';
+
 //import propsdataallFoods from '../data/list.json'; /* change to db when finished (props.data.allFoods) */
 
 // import { graphql } from 'react-apollo'
@@ -19,9 +21,9 @@ class Content extends Component {
             const initialChangableInputArray = this.props.rawInputArray.map((row) => {
                 const match = search(row.name, allFoodsData);
                 if(match.length){
-                    return {...row, name: match[0]['item'].name, amount: (row.amount/this.props.portions).toFixed(2), match: match, livsmedelsverketId: match[0]['item'].livsmedelsverketId, validUnit: true}
+                    return {...row, name: match[0]['item'].name, amount: precisionRound((row.amount/this.props.portions),1), match: match, livsmedelsverketId: match[0]['item'].livsmedelsverketId, validUnit: true}
                 } else {
-                    return {...row, name: '*', amount: (row.amount/this.props.portions).toFixed(2), match: match, validUnit: true}
+                    return {...row, name: '*', amount: precisionRound((row.amount/this.props.portions),1), match: match, validUnit: true}
                 }
             })
             this.setState({changableInputArray: initialChangableInputArray});
@@ -86,7 +88,7 @@ class Content extends Component {
 
         const newState = array.map((row, index) => {
             if(row.hasOwnProperty('amount')){
-                let newAmount = (Number(row.amount)/portions).toFixed(2);  // convert to number to be able to calculate
+                let newAmount = precisionRound((Number(row.amount)/portions),1);  // convert to number to be able to calculate
                 newAmount = newAmount.toString();  // convert back to string to fit input field
                 return Object.assign({}, this.state.changableInputArray[index], {amount: newAmount});
             }
