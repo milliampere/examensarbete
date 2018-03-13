@@ -9,7 +9,7 @@ import rawInputArray from './data/input';
 import Content from './components/Content';
 import PersonDataForm from './components/PersonDataForm.js';
 import './App.css';
-import { graphql } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 
 
@@ -139,49 +139,66 @@ class App extends Component {
 			PAL: this.state.PAL,
 		}
 
+		
+/* 		if(!this.state.rawInputArray){
+			return (
+				<div className="App">
+					<div className="use-extension-info">
+						<p>Besök någon av följande sidor för att använda pluginet</p>
+						<p>ica.se</p>
+						<p>coop.se</p>
+						<p>koket.se</p>
+					</div>
+				</div>
+			)
+		}else { */
 
-		return (
-			<div className="App">
-				<div className="header-part">
-					{!this.state.showPersonDataForm &&
-						<Navigation
-							activeTab={this.state.activeTab}
+			return (
+				<div className="App">
+					<div className="header-part">
+						{!this.state.showPersonDataForm &&
+							<Navigation
+								activeTab={this.state.activeTab}
+								allNutrients={propsdataallNutrients}
+								onClick={this.handleButtonClick}
+							/>
+						}
+						{!this.state.showPersonDataForm &&
+							<div>
+								<h1>Näringsberäknaren</h1>
+								<div className="portions-div">	
+									<p className="portions-text" >Antal portioner:</p>
+									<select value={this.state.portions} selected={this.state.portions} onChange={this.handlePortionChange}>
+										{selectOptions}
+									</select>
+								</div>
+							</div>
+						}
+					</div>
+					{!this.props.data.loading && !this.state.showPersonDataForm &&
+						<Content
+							//rawInputArray={this.state.rawInputArray}
+							rawInputArray={rawInputArray}
+							portions={this.state.portions}
 							allNutrients={propsdataallNutrients}
-							onClick={this.handleButtonClick}
+							activeTab={this.state.activeTab}
+							options={options}
+							personalGroup={this.state.personalGroup}
+							allFoodsData={this.props.data.allFoods}
 						/>
 					}
-					{!this.state.showPersonDataForm &&
-						<div className="portions-div">
-							<p className="portions-text" >Antal portioner:</p>
-							<select value={this.state.portions} selected={this.state.portions} onChange={this.handlePortionChange}>
-								{selectOptions}
-							</select>
-						</div>
-					}
-				</div>
-				{!this.props.data.loading && !this.state.showPersonDataForm &&
-					<Content
-						//rawInputArray={this.state.rawInputArray}
-						rawInputArray={rawInputArray}
-						portions={this.state.portions}
-						allNutrients={propsdataallNutrients}
-						activeTab={this.state.activeTab}
+					<PersonDataForm
+						onClick={this.changePersonData}
+						onSubmit={this.onSubmit}
 						options={options}
+						close={this.closePersonData}
+						show={this.state.showPersonDataForm}
 						personalGroup={this.state.personalGroup}
-						allFoodsData={this.props.data.allFoods}
 					/>
-				}
-				<PersonDataForm
-					onClick={this.changePersonData}
-					onSubmit={this.onSubmit}
-					options={options}
-					close={this.closePersonData}
-					show={this.state.showPersonDataForm}
-					personalGroup={this.state.personalGroup}
-				/>
-				<Credits />
-			</div>
-		);
+					<Credits />
+				</div>
+			);
+		/* } */
 	}
 }
 

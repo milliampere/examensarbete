@@ -1,7 +1,8 @@
 [
       {
-        "name": "Vitamin B12",
+        "name": "B12",
         "unitforRI": "µg",
+        "description": "Vitamin B12, kobalamin, behövs bland annat för cellernas ämnesomsättning och för bildningen av blodkroppar. Det är också nödvändigt för nervsystemets funktion.",
         "typeOfNutrient": "Vitamin",
         "unit": "µg",
         "abbreviation": "VitB12"
@@ -9,13 +10,15 @@
       {
         "name": "Natrium",
         "unitforRI": "",
+        "description": "Natrium är ett nödvändigt grundämne i kroppen som finns i kroppsvätskan utanför cellerna men även i skelettet. Natrium är viktigt för syra-basbalansen samt vatten- och saltbalansen i kroppen, vilket motverkar uttorkning.\n\nEnligt NNR 2012 bör intaget av salt minska hos de flesta vuxna i befolkningen. Målet är att befolkningen ska komma ner till 6 gram per dag. Det motsvarar 2,4 gram natrium per dag. ",
         "typeOfNutrient": "Mineral",
         "unit": "unitForRI",
         "abbreviation": "Na"
       },
       {
-        "name": "Vitamin C",
+        "name": "C",
         "unitforRI": "mg",
+        "description": "Vitamin C fungerar som antioxidant och behövs bland annat för att bygga upp kroppens brosk- och benvävnad. Det underlättar även upptaget av järn från maten.",
         "typeOfNutrient": "Vitamin",
         "unit": "mg",
         "abbreviation": "VitC"
@@ -23,13 +26,15 @@
       {
         "name": "Folat",
         "unitforRI": "µg",
+        "description": "Folat finns i nästan all mat i mycket små mängder. Folat behövs för att bilda nya celler och röda blodkroppar. Då cellbildningen ökar, till exempel då man växer eller är gravid, ökar behovet av folat. ",
         "typeOfNutrient": "Vitamin",
         "unit": "µg",
         "abbreviation": "Folat"
       },
       {
         "name": "Niacin",
-        "unitforRI": "NE",
+        "unitforRI": "NE/mg",
+        "description": "Niacin behövs för omsättning av fett, kolhydrater och protein. Rekommendationen för niacin avser så kallade niacinekvivalenter. I livsmedelsdatabasen uppges både ursprungligt niacin och totala niacinekvivalenter (NE). Niacinekvivalenter omfattar både det niacin som finns ursprungligt (preformerat) i maten och det niacin som bildas i kroppen från aminosyran tryptofan. 60 mg tryptofan motsvarar 1 (NE) eller 1 mg niacin.",
         "typeOfNutrient": "Vitamin",
         "unit": "mg",
         "abbreviation": "Niek"
@@ -37,6 +42,7 @@
       {
         "name": "Riboflavin",
         "unitforRI": "mg",
+        "description": "Riboflavin kallades förr vitamin B2. Riboflavin behövs för nedbrytning av fett, kolhydrater och protein.",
         "typeOfNutrient": "Vitamin",
         "unit": "mg",
         "abbreviation": "Ribo"
@@ -44,34 +50,39 @@
       {
         "name": "Tiamin",
         "unitforRI": "mg",
+        "description": "Kroppen behöver tiamin, kallades förr vitamin B1, för ämnesomsättningen av kolhydrater och protein.",
         "typeOfNutrient": "Vitamin",
         "unit": "mg",
         "abbreviation": "Tiam"
       },
       {
-        "name": "Vitamin A",
-        "unitforRI": "RE",
+        "name": "A",
+        "unitforRI": "µg/RE",
+        "description": "Vitamin A behövs för att syn, hud och slemhinnor ska fungera normalt. Vitamin A har en grundläggande betydelse för utveckling, tillväxt och differentiering av embryot under den tidigaste delen av graviditeten, för att fostret ska utvecklas normalt och få en fullgod syn.\n\nGrönsaker och rotfrukter innehåller karotenoider, till exempel beta-karoten, som kan omvandlas till vitamin A i kroppen om och när det behövs. Karotenoiderna, kallas provitamin A därför att de inte har retinolaktivitet i sig utan först behöver omvandlas till vitamin A i kroppen. I livsmedelsdatabasen  motsvarar 1 mikrogram vitamin A 1 retinolekvivalenter (RE).",
         "typeOfNutrient": "Vitamin",
         "unit": "µg",
         "abbreviation": "VitA"
       },
       {
-        "name": "Vitamin B6",
+        "name": "B6",
         "unitforRI": "mg",
+        "description": "Vitamin B6, även kallat pyridoxin, är nödvändigt för proteinomsättningen och har betydelse för exempelvis nervernas funktion.\n\nKvinnor 14-30 år\t1,3 milligram\nKvinnor över 31 år\t1,2 milligram\nMän\t1,6 milligram",
         "typeOfNutrient": "Vitamin",
         "unit": "mg",
         "abbreviation": "VitB6"
       },
       {
-        "name": "Vitamin D",
+        "name": "D",
         "unitforRI": "µg",
+        "description": "Vitamin D reglerar kalkbalansen i skelett och tänder. Brist på vitamin D kan orsaka rakit, \"engelska sjukan\", hos barn, vilket visar sig som mjukt och missformat skelett, och benuppmjukning, osteomalaci, hos vuxna. Vi får i oss vitaminet på två sätt: dels via maten, dels bildas vitamin D i huden när vi är ute i solen.",
         "typeOfNutrient": "Vitamin",
         "unit": "µg",
         "abbreviation": "VitD"
       },
       {
-        "name": "Vitamin E",
-        "unitforRI": "alfa-TE",
+        "name": "E",
+        "unitforRI": "mg/alfa-TE",
+        "description": "Vitamin E är en antioxidant som bland annat skyddar våra vävnader genom att förhindra att de fleromättade fettsyrorna som bygger upp membranen bryts ner.",
         "typeOfNutrient": "Vitamin",
         "unit": "mg",
         "abbreviation": "VitE"
@@ -79,6 +90,7 @@
       {
         "name": "Järn",
         "unitforRI": "mg",
+        "description": "Järn ingår i hemoglobin som transporterar syre i blodet och i myoglobin som transporterar syre i muskler. Järn ingår även i en del enzymer.",
         "typeOfNutrient": "Mineral",
         "unit": "mg",
         "abbreviation": "Fe"
@@ -86,13 +98,15 @@
       {
         "name": "Kalcium",
         "unitforRI": "mg",
+        "description": "Kalcium är ett livsnödvändigt grundämne. Kalcium behövs bland annat då skelett och tänder bildas samt vid blodkoagulering och nervfunktion.",
         "typeOfNutrient": "Mineral",
         "unit": "mg",
         "abbreviation": "Ca"
       },
       {
         "name": "Kalium",
-        "unitforRI": "g",
+        "unitforRI": "mg",
+        "description": "Kalium är ett livsnödvändigt grundämne. Kalium behövs för kroppens nerv- och muskelfunktion samt för att reglera blodtrycket.",
         "typeOfNutrient": "Mineral",
         "unit": "mg",
         "abbreviation": "K"
@@ -100,6 +114,7 @@
       {
         "name": "Magnesium",
         "unitforRI": "mg",
+        "description": "Magnesium behövs bland annat för produktionen av protein, för omsättningen av kalcium samt för normal nerv- och muskelfunktion.",
         "typeOfNutrient": "Mineral",
         "unit": "mg",
         "abbreviation": "Mg"
@@ -107,6 +122,7 @@
       {
         "name": "Selen",
         "unitforRI": "µg",
+        "description": "Selen är ett grundämne som finns i jorden. Selen ingår i enzym som skyddar cellerna mot oxidation, samverkar med vitamin E och deltar i immunologiska försvarsmekanismer. ",
         "typeOfNutrient": "Mineral",
         "unit": "µg",
         "abbreviation": "Se"
@@ -114,6 +130,7 @@
       {
         "name": "Zink",
         "unitforRI": "mg ",
+        "description": "Zink är ett livsnödvändigt mineral. Det ingår i 100-tals enzymer i kroppen som påverkar omsättningen av proteiner, kolhydrater, fett, nukleinsyror och vissa vitaminer som till exempel vitamin A. Zink behövs även för immunsystemet.",
         "typeOfNutrient": "Mineral",
         "unit": "mg",
         "abbreviation": "Zn"
@@ -121,6 +138,7 @@
       {
         "name": "Fosfor",
         "unitforRI": "mg",
+        "description": "Fosfor är ett livsnödvändigt grundämne. Den största mängden finns lagrad i skelettet. Fosfor samverkar med kalcium vid bildning och stärkning av ben av tänder. Fosfor är även viktigt för syra-bas balansen i kroppen och energiproduktion till kroppens alla energikrävande funktioner.",
         "typeOfNutrient": "Mineral",
         "unit": "mg",
         "abbreviation": "P"
@@ -128,6 +146,7 @@
       {
         "name": "Koppar",
         "unitforRI": "mg",
+        "description": "Koppar är ett grundämne som finns i alla livsmedel och i dricksvatten eftersom Sveriges vattenledningsnät framförallt består av kopparrör. Koppar är nödvändigt för att kroppen ska fungera normalt. Det ingår i en rad enzymer som hjälper ämnesomsättningen samt omsättningen av järn i kroppen.",
         "typeOfNutrient": "Mineral",
         "unit": "mg",
         "abbreviation": "Cu"
@@ -135,6 +154,7 @@
       {
         "name": "Protein",
         "unitforRI": "E%",
+        "description": "Protein brukar kallas för kroppens byggstenar. Det behövs bland annat för att bygga upp celler och för att bilda enzymer och hormoner. Många är rädda att inte få i sig tillräckligt mycket protein. Men faktum är att nästan alla får i sig mer protein än de behöver, eftersom protein finns i större eller mindre mängd i nästan all mat.",
         "typeOfNutrient": "Standard",
         "unit": "g",
         "abbreviation": "Prot"
@@ -142,6 +162,7 @@
       {
         "name": "Jod",
         "unitforRI": "µg",
+        "description": "Jod förekommer naturligt i berggrunden och halten varierar mycket mellan olika geografiska områden. Jod ingår i sköldkörtelhormoner som deltar i ämnesomsättningen.",
         "typeOfNutrient": "Mineral",
         "unit": "µg",
         "abbreviation": "I"
@@ -149,6 +170,7 @@
       {
         "name": "Kolhydrater",
         "unitforRI": "E%",
+        "description": "Kolhydrater är det gemensamma namnet för stärkelse, kostfiber och olika sockerarter. Kolhydrater är vår viktigaste källa till energi.",
         "typeOfNutrient": "Standard",
         "unit": "g",
         "abbreviation": "Kolh"
@@ -156,6 +178,7 @@
       {
         "name": "Fett",
         "unitforRI": "E%",
+        "description": "Fett är en viktig energikälla för våra kroppar och rätt sorts fett i rätt mängd är avgörande för att vi ska må bra.\n",
         "typeOfNutrient": "Standard",
         "unit": "g",
         "abbreviation": "Fett"
@@ -163,6 +186,7 @@
       {
         "name": "Fibrer",
         "unitforRI": "gram/MJ",
+        "description": "Fibrer kallas de kolhydrater från växtriket som inte bryts ner vid matsmältningen, utan når tjocktarmen i stort sett opåverkade. Fibrer finns till exempel i grönsaker, frukt, rotfrukter, bönor och linser samt i bröd, flingor, gryn, pasta och ris av fullkorn.",
         "typeOfNutrient": "Standard",
         "unit": "g",
         "abbreviation": "Fibe"
@@ -170,6 +194,7 @@
       {
         "name": "Socker",
         "unitforRI": "",
+        "description": "Mat med mycket tillsatt socker innehåller ofta lite näring. Det är lätt att få i sig mer energi än man gör av med om man äter sådan mat. Därför är det bra att äta mindre av till exempel läsk, saft, godis, glass, kakor och bullar.",
         "typeOfNutrient": "Standard",
         "unit": "g",
         "abbreviation": "Mono/disack"
@@ -177,6 +202,7 @@
       {
         "name": "Kolesterol",
         "unitforRI": "mg",
+        "description": "Kolesterol finns i stort sett bara i animaliska livsmedel, det vill säga i kött och mejeriprodukter. Kroppen tillverkar också mycket eget kolesterol, drygt ett gram per dag. Det är två till tre gånger mer än vad kosten normalt ger. Kolesteroltillverkningen sker framför allt i levern.",
         "typeOfNutrient": "Fat",
         "unit": "mg",
         "abbreviation": "Kole"
@@ -184,27 +210,31 @@
       {
         "name": "Fullkorn",
         "unitforRI": "",
+        "description": "Fullkorn är när alla delar av spannmålskornet finns med i mat gjord på till exempel vete, råg, korn, havre, ris och majs. Fullkorn innehåller mer fibrer, vitaminer och mineraler än när man inte använt hela kornet.",
         "typeOfNutrient": "Standard",
         "unit": "g",
         "abbreviation": "Fullk/tot"
       },
       {
-        "name": "Mättade fettsyror",
+        "name": "Mättade",
         "unitforRI": "E%",
+        "description": "Mättat fett används som energi i kroppen, men det är inte bra för hälsan om för stor del av fettet vi äter kommer från mättat fett.",
         "typeOfNutrient": "Fat",
         "unit": "g",
         "abbreviation": "Mfet"
       },
       {
-        "name": "Enkelomättade fettsyror",
+        "name": "Enkelomättade",
         "unitforRI": "E%",
+        "description": "Enkelomättat och fleromättat fett kallas gemensamt för omättat fett. Det är nyttiga fetter som det är bra för hälsan att äta mer av.",
         "typeOfNutrient": "Fat",
         "unit": "g",
         "abbreviation": "Mone"
       },
       {
-        "name": "Fleromättade fettsyror",
+        "name": "Fleromättade",
         "unitforRI": "E%",
+        "description": "Fleromättade fetter är livsnödvändiga. Kroppen kan inte själv tillverka dem utan vi måste få i oss dem via maten.",
         "typeOfNutrient": "Fat",
         "unit": "g",
         "abbreviation": "Pole"
@@ -212,6 +242,7 @@
       {
         "name": "Energi",
         "unitforRI": "kcal",
+        "description": "Maten vi äter ger oss energi – kalorier – som vi behöver för att leva och må bra. För mycket energi leder till viktuppgång och för lite leder till viktnedgång. Vissa livsmedel innehåller många kalorier per gram och andra lite.",
         "typeOfNutrient": "Standard",
         "unit": "kcal",
         "abbreviation": "Ener"
@@ -219,6 +250,7 @@
       {
         "name": "Salt",
         "unitforRI": "g",
+        "description": "Mindre salt! Välj mat med mindre salt. Använd mindre salt när du lagar mat, men använd salt med jod.",
         "typeOfNutrient": "Standard",
         "unit": "g",
         "abbreviation": "NaCl"
