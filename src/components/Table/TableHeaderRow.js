@@ -60,10 +60,9 @@ const TableHeaderRow = (props) => {
                     shortname = name;
                 };
 
-                //let tooltiptext = <div>{name}<br />{description}</div>
-                let tooltiptext = "HEJ"
+                let tooltiptext = <div><b>{name} ({unit})</b><br />{description}</div>
 
-                return <div className="header-nutrition" key={index}><div className="tooltip">{shortname}<span className="tooltiptext">{tooltiptext}</span></div></div>
+                return <div className="header-nutrition" key={index}><div className="header-tooltip">{shortname}<span className="header-tooltiptext">{tooltiptext}</span></div></div>
             }
             else {
                 return <div className="header-nutrition" key={index}></div>

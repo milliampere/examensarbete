@@ -23,7 +23,7 @@
 .header-nutrition {
     /* width: 50px; ändrat till align-content nedan */
     width: 100%;
-    overflow: hidden; /* cut too long words (a long word will not obey width 100%) */
+    /* overflow: hidden; tar bort, förstör tooltip */
 }
 
 .header-nutrition-container {
@@ -35,21 +35,20 @@
 
 
 /* Tooltip container */
-.tooltip {
+.header-tooltip {
     position: relative;
     display: inline-block;
     border-bottom: 1px dotted #F5D2CB; /* dots under the hoverable text */
-    z-index: auto
 }
 
 /* Tooltip text */
-.tooltip .tooltiptext {
+.header-tooltip .header-tooltiptext {
     visibility: hidden;
-    width: 140px;
-    background-color: #F5D2CB;
+    width: 200px;
+    background-color: lightgray;
     color: #000;
-    text-align: center;
-    padding: 5px 0;
+    text-align: left;
+    padding: 10px;
     border-radius: 6px;
  
     /* Position of the tooltip text */
@@ -61,6 +60,6 @@
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
+.header-tooltip:hover .header-tooltiptext {
     visibility: visible;
 }
