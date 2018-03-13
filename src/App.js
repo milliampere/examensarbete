@@ -197,13 +197,7 @@ export const allFoods = gql`query allFoods {
 		livsmedelsverketId
 	}
 }`
-export const allNutrients = gql`query allNutrients {
-	allNutrients{
-		name
-	}
-}`
 
-
-export default compose(graphql(allFoods))(App);
+export default graphql(allFoods)(App);
 
 //export default App;
