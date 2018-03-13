@@ -18,7 +18,8 @@ class Credits extends Component {
         const {showCredits} = this.state;
 
         return (
-            <div>
+            <div className="credits">
+                {/* <div> */}
                     <button onClick={this.handleClick} className="credits-button">{showCredits ? 'Dölj information' : 'Visa information'}</button>
                     {showCredits &&
                     <div className="credits-box">
@@ -35,6 +36,7 @@ class Credits extends Component {
                         <p>Intaget av salt bör vara mindre än 6 g/dag.</p>
                         <img src={ require('../../assets/graphcms.svg') } alt='graphCms logo' className="credits-graphcms-logo"/>
                     </div>}
+                {/* </div> */}
             </div>
         );
     }
