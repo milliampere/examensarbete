@@ -50,8 +50,8 @@ const TableHeaderRow = (props) => {
                 else if(type === 'Mineral' && name.length > 3){
                     shortname = name.substring(0,3) + "..";
                 }
-                else if(type === 'Fat' && name.length > 12){
-                    shortname = name.substring(0,12) + "..";
+                else if(type === 'Fat' && name.length > 13){
+                    shortname = name.substring(0,13) + "..";
                 }
                 else if(type === 'Vitamin' && name.length > 3){
                     shortname = name.substring(0,3) + "..";
