@@ -8,10 +8,11 @@
     background-color: lightgrey;
 }
 
-span {
+.icon {
     position: absolute;
     right: 5px;
     top: 5px;
+    z-index: 9999;
 }
 
 .dropdown-container {
@@ -27,8 +28,10 @@ span {
     width: 230px;
 }
 
-.input-food {
-    padding-right: 30px;
+.input-large {
+    width: 121px; /* input has a built in 2px border on each side */
+    padding-left: 5px; /* plugin css adds padding to width, so inout large takes 160px space */
+    padding-right: 30px; /* to give space for span check icon */ /* plugin css adds padding to width, so inout large takes 160px space */
 }
 
 ul {

@@ -33,8 +33,8 @@ const DropDownMenu = (props) => {
 
 	return (
 		<div className="dropdown" onFocus={(e) => handleFocus(e, indexInput, 'type')}>
-			<span className='fa fa-check' style={{color: iconColor}}></span>
-			<input className='input-large input-food' style={{backgroundColor: backgroundColor}} type='text' value={name} onChange={(e) => handleChange(e.target.value, indexInput, 'name', 'newInput')} ></input>
+			<span className='fa fa-check icon' style={{color: iconColor}}></span>
+			<input className='input-large' style={{backgroundColor: backgroundColor}} type='text' value={name} onChange={(e) => handleChange(e.target.value, indexInput, 'name', 'newInput')} ></input>
 			{activeIndex === indexInput &&
 				<div className='dropdown-container'>
 					<div id="myDropdown" className="dropdown-content">

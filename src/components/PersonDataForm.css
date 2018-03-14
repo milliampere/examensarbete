@@ -47,10 +47,6 @@
     display: flex;
 }
 
-.persondata-info {
-    margin-bottom: 0;
-}
-
 .person-data-form-container {
     display: flex;
     justify-content: center;

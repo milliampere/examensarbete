@@ -1,15 +1,33 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    }
-  ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+    "manifest_version": 2,
+
+    "name": "Näringsberäknaren",
+    "description": "Räknar ut näringsvärde från recept på ica.se, coop.se och koket.se.",
+    "version": "1.0",
+
+    "browser_action": {
+      "default_title": "Näringsberäknaren",
+      "default_icon": "icon.png",
+      "default_popup": "index.html"
+    },
+    "permissions": [
+      "tabs",
+      "storage",
+      "notifications"
+    ],
+    "icons": {
+      "16": "icon.png",
+      "48": "icon.png",
+     "128": "icon.png" }
+     ,
+     "background": {
+      "scripts": ["background.js"]
+     },
+    "content_scripts": [{
+      "matches": ["https://www.ica.se/*", "https://www.coop.se/*", "https://www.koket.se/*"],
+      "js": ["content.js"]
+    }],
+    "web_accessible_resources": [
+      "icon.png"
+    ]
 }

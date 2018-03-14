@@ -9,7 +9,7 @@
 }
 
 .header-receipt {
-    width: 45px;
+    width: 40px;
 }
 
 .header-receipt:nth-child(1) {
@@ -17,13 +17,11 @@
 }
 
 .header-receipt:nth-child(4) {
-    width: 170px;
+    width: 160px;
 }
 
 .header-nutrition {
-    /* width: 50px; ändrat till align-content nedan */
     width: 100%;
-    /* overflow: hidden; tar bort, förstör tooltip */
 }
 
 .header-nutrition-container {
@@ -50,13 +48,13 @@
     text-align: left;
     padding: 10px;
     border-radius: 6px;
- 
+
     /* Position of the tooltip text */
     position: absolute;
     z-index: 1;
     top: 100%;
-    left: 50%; 
-    margin-left: -30px;  
+    left: 50%;
+    margin-left: -30px;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
