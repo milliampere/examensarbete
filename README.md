@@ -2,13 +2,13 @@
 
 Camilla Tranberg & Nina Sjöberg
 
-Nackademin ht 16 - vt17
+Nackademin ht 16 - vt18
 
 Link to repo: https://github.com/milliampere/examensarbete
 
 
 
-A chorme extension that calculates nutritional values ​​of products in a recipe based on personal data such as age, sex and physical activity. The plugin is for now working at the following webbpages: ica.se, coop.se, koket.se
+A chorme extension that calculates nutritional values of products in a recipe based on personal data such as age, sex and physical activity. The plugin is for now working at the following webbpages: ica.se, coop.se, koket.se
 
 
 ## Languages and techniques:
