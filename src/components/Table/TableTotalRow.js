@@ -5,6 +5,7 @@ import ri from '../../data/ri.json'
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import'./TableTotalRow.css';
+import precisionRound from '../../utils/precisionRound';
 
 const TableTotalRow = (props) => {
 
@@ -72,7 +73,7 @@ const TableTotalRow = (props) => {
                 }
                 decimal = kcalOfTotalGram/neededKcal;
             }
-            return (decimal*100).toFixed(1) + '%';
+            return precisionRound((decimal*100),1) + '%';
         }else{
             return '';
         }
@@ -88,7 +89,7 @@ const TableTotalRow = (props) => {
 
             if(recommendedValue){
                 const decimal = value/recommendedValue;
-                return (decimal*100).toFixed(1) + '%';
+                return precisionRound((decimal*100),1) + '%';
             }
             else {
                 return null;
