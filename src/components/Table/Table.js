@@ -48,7 +48,7 @@ class Table extends Component {
 		return (
 			<div className="table">
 				<div className="table-header">
-					<TableHeaderRow activeTab={this.props.activeTab} allNutrients={this.props.allNutrients}/>
+					<TableHeaderRow activeTab={this.props.activeTab} allNutrients={this.props.allNutrients} portions={this.props.portions} handlePortionChange={this.props.handlePortionChange}/>
 				</div>
 				<div className="table-body">
 					{rows && rows}

@@ -112,9 +112,9 @@ class App extends Component {
 
 	render() {
 
-		const selectOptions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map((number, index) => {
+/* 		const selectOptions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map((number, index) => {
 			return <option value={number} key={index}>{number}</option>
-		});
+		});   ta bort*/
 
 		const options = {
 			sex: this.state.sex,
@@ -152,13 +152,14 @@ class App extends Component {
 						}
 						{!this.state.showPersonDataForm &&
 							<div>
+
 								<h1 className="app-heading">Näringsberäknaren</h1>
 								<div className="portions-div">
 									<p className="portions-text" >Antal portioner:</p>
 									<select value={this.state.portions} selected={this.state.portions} onChange={this.handlePortionChange}>
 										{selectOptions}
 									</select>
-								</div>
+								</div> ta bort */}
 							</div>
 						}
 					</div>
@@ -172,6 +173,7 @@ class App extends Component {
 							options={options}
 							personalGroup={this.state.personalGroup}
 							allFoodsData={this.props.data.allFoods}
+							handlePortionChange={this.handlePortionChange}
 						/>
 					}
 					<PersonDataForm

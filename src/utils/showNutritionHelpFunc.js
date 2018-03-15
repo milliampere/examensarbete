@@ -4,7 +4,7 @@ export default function showNutritionHelpFunc(activeTab) {
 
     const minerals = ['P', 'Fe', 'Ca', 'K', 'Mg', 'Se', 'Zn'];
     const vitamins = ['VitA', 'VitC', 'VitD', 'VitE', 'VitB6', 'VitB12', 'Folat', 'Niek', 'Ribo', 'Tiam'];
-    const standard = ['Ener', 'Kolh', 'Fett', 'Prot' , 'Fibe', 'Fullk/tot', 'Mono/disack', 'NaCl'];
+    const standard = ['Ener', 'Kolh', 'Fett', 'Prot' , 'Fibe', 'NaCl'];   // 'Fullk/tot', 'Mono/disack'
     const fatt = ['Mfet', 'Mone', 'Pole', 'Kole'];
 
     if(activeTab === 'standard') {

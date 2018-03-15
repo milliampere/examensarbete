@@ -61,3 +61,7 @@
 .header-tooltip:hover .header-tooltiptext {
     visibility: visible;
 }
+
+.info-circle {
+    max-width: 8px;
+}
