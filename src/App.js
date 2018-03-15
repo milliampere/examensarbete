@@ -30,30 +30,30 @@ class App extends Component {
 	}
 
 	componentDidMount() { //stoppa sen in datan från chorme.onmessage... kolla pluginet
-		//chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-		// 	chrome.tabs.sendMessage(
-		// 	  	tabs[0].id,
-		// 	  	{ type: 'reactInit' },
-		// 		(response) => { //arrowfunction isf en vanlig funktion gör att this är komponenten o inte window
-		// 			this.setState({rawInputArray: response.array})
-		// 			this.setState({portions: response.portions})
-		// 		}
-		// 	);
-		// });
-		// chrome.storage.sync.get(null, (result) => {
-		// 	this.setState({
-		// 		sex: result.sex,
-		// 		isPregnant: result.isPregnant,
-		// 		isBreastfeeding: result.isBreastfeeding,
-		// 		lengthCm: Number(result.lengthCm),
-		// 		weightKg: Number(result.weightKg),
-		// 		ageYear: Number(result.ageYear),
-		// 		PAL: Number(result.PAL),
-		// 		personalGroup: filterRiForPersonData(result.sex, Number(result.ageYear), result.isPregnant, result.isBreastfeeding)
-		// 	});
-		// })
-		this.setState({personalGroup: filterRiForPersonData('woman', 30, false, false)})
-		this.setState({portions: 4});
+		chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+			chrome.tabs.sendMessage(
+			  	tabs[0].id,
+			  	{ type: 'reactInit' },
+				(response) => { //arrowfunction isf en vanlig funktion gör att this är komponenten o inte window
+					this.setState({rawInputArray: response.array})
+					this.setState({portions: response.portions})
+				}
+			);
+		});
+		chrome.storage.sync.get(null, (result) => {
+			this.setState({
+				sex: result.sex,
+				isPregnant: result.isPregnant,
+				isBreastfeeding: result.isBreastfeeding,
+				lengthCm: Number(result.lengthCm),
+				weightKg: Number(result.weightKg),
+				ageYear: Number(result.ageYear),
+				PAL: Number(result.PAL),
+				personalGroup: filterRiForPersonData(result.sex, Number(result.ageYear), result.isPregnant, result.isBreastfeeding)
+			});
+		})
+		//this.setState({personalGroup: filterRiForPersonData('woman', 30, false, false)})
+		//this.setState({portions: 4});
 	}
 
 	handleButtonClick = (event) => {
@@ -89,15 +89,15 @@ class App extends Component {
 		this.setState({personalGroup: filterRiForPersonData(input.sex, input.ageYear, input.isPregnant, input.isBreastfeeding)})
 
 		//Save it using the Chrome extension storage API.
-		// chrome.storage.sync.set({
-		// 		sex: input.sex,
-		// 	isPregnant: input.isPregnant,
-		// 	isBreastfeeding: input.isBreastfeeding,
-		// 	lengthCm: Number(input.lengthCm),
-		// 	weightKg: Number(input.weightKg),
-		// 	ageYear: Number(input.ageYear),
-		// 	PAL: Number(input.PAL),
-		// });
+		chrome.storage.sync.set({
+				sex: input.sex,
+			isPregnant: input.isPregnant,
+			isBreastfeeding: input.isBreastfeeding,
+			lengthCm: Number(input.lengthCm),
+			weightKg: Number(input.weightKg),
+			ageYear: Number(input.ageYear),
+			PAL: Number(input.PAL),
+		});
 		this.setState({showPersonDataForm: false})
 	}
 
@@ -116,19 +116,6 @@ class App extends Component {
 			return <option value={number} key={index}>{number}</option>
 		});   ta bort*/
 
-		// let gender = this.state.sex;
-		// let pregnantOrBreastfeeding = '';
-		// if(this.state.sex === 'woman'){
-		// 	gender = 'Kvinna'
-		// 	if(this.state.isPregnant){
-		// 		pregnantOrBreastfeeding = "(gravid)"
-		// 	}
-		// 	else if(this.state.isBreastfeeding){
-		// 		pregnantOrBreastfeeding = "(ammande)"
-		// 	}
-		// }
-		// const basedOnPerson = `${gender} ${this.state.ageYear}år ${pregnantOrBreastfeeding}`;
-
 		const options = {
 			sex: this.state.sex,
 			isPregnant: this.state.isPregnant,
@@ -139,8 +126,8 @@ class App extends Component {
 			PAL: this.state.PAL,
 		}
 
-		
-/* 		if(!this.state.rawInputArray){
+
+ 		if(!this.state.rawInputArray){
 			return (
 				<div className="App">
 					<div className="use-extension-info">
@@ -151,7 +138,7 @@ class App extends Component {
 					</div>
 				</div>
 			)
-		}else { */
+		}else {
 
 			return (
 				<div className="App">
@@ -165,8 +152,9 @@ class App extends Component {
 						}
 						{!this.state.showPersonDataForm &&
 							<div>
-								<h1>Näringsberäknaren</h1>
-{/* 								<div className="portions-div">	
+
+								<h1 className="app-heading">Näringsberäknaren</h1>
+								<div className="portions-div">
 									<p className="portions-text" >Antal portioner:</p>
 									<select value={this.state.portions} selected={this.state.portions} onChange={this.handlePortionChange}>
 										{selectOptions}
@@ -199,7 +187,7 @@ class App extends Component {
 					<Credits />
 				</div>
 			);
-		/* } */
+		}
 	}
 }
 
