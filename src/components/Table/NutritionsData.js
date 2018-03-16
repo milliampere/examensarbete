@@ -10,8 +10,7 @@ class NutritionsData extends Component {
         if(calculatedNutritionResult.length){
             let rowValues = calculatedNutritionResult;
             nutritionsDivs = rowValues.map((nutrition, index) => {
-                // to only return values and not null or NaN
-                if((nutrition.value >= 0) ){
+                if((nutrition.value >= 0) ){ // to only return values and not null or NaN
                     return <div className="nutrition-data" key={index}>{nutrition.value}</div>
                 }
                 else {

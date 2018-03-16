@@ -4,15 +4,19 @@
     padding: 10px;
 }
 
+.use-extension-info {
+    display: flex;
+    flex-direction: column;
+}
+
 .header-part {
     display: flex;
-    flex-direction: row-reverse;
     justify-content: space-between;
+    align-items: center;
 }
 
 .app-heading {
     font-weight: 500;
-    margin-bottom: 10px;
     font-size: 1.7rem;
     color: slategrey;
 }

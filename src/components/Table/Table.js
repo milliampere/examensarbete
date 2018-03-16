@@ -1,33 +1,23 @@
 import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import TableHeaderRow from './TableHeaderRow.js';
 import TableTotalRow from './TableTotalRow.js';
 import TableRow from './TableRow';
-//import Button from '.././Button/Button.js';
-import './Table.css';
-//import nutritionForOneFood from '../../data/nutritionForOneFood.json';
-import showNutritionHelpFunc from '../../utils/showNutritionHelpFunc.js';
-import amountHelpFunc from '../../utils/amountHelpFunc.js';
 import {findDbResult, calculateNutritionResult, calculateNutritionResultForAllRows } from '../../utils/calculateNutritionHelpFunc.js';
-
-import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+import './Table.css';
 
 
-
-class Table extends Component {
+class Table extends Component { //must be a react component to get graphgl data as props
 	render() {
 
 		const {
 			rawInputArray,
 			changableInputArray,
 			activeTab,
-			options,
-			personalGroup,
 		} = this.props;
 
-		//const data = {loading: false, allFoods: nutritionForOneFood}   // byt till databas
-		const data = this.props.data;    // från db
-
+		const data = this.props.data; // från db
 
 		let rows= '';
 		if(!this.props.data.loading){
@@ -48,19 +38,15 @@ class Table extends Component {
 		return (
 			<div className="table">
 				<div className="table-header">
-					<TableHeaderRow activeTab={this.props.activeTab} allNutrients={this.props.allNutrients} portions={this.props.portions} handlePortionChange={this.props.handlePortionChange}/>
+					<TableHeaderRow {...this.props}/>
 				</div>
 				<div className="table-body">
 					{rows && rows}
 				</div>
 				<div className="table-footer">
 					<TableTotalRow
-						activeTab={this.props.activeTab}
-						allNutrients={this.props.allNutrients}
-						changableInputArray={changableInputArray}
 						calculatedNutritionResult={calculateNutritionResultForAllRows(changableInputArray, activeTab, data)}
-						options={options}
-						personalGroup={personalGroup}
+						{...this.props}
 					/>
 				</div>
 			</div>
@@ -86,4 +72,3 @@ export default graphql(foodListNutritions,
 	}
 )(Table);
 
-//export default Table;    // byt till databas

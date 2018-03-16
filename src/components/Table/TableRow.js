@@ -1,9 +1,9 @@
 import React from 'react';
 // import { graphql } from 'react-apollo'
 // import gql from 'graphql-tag'
-import './TableRow.css';
 import DropDownMenu from '../DropDownMenu/DropDownMenu';
-import NutritionsData from './NutritionsData.js'
+import NutritionsData from './NutritionsData.js';
+import './TableRow.css';
 
 const TableRow = (props) => {
 
@@ -15,8 +15,6 @@ const TableRow = (props) => {
         calculatedNutritionResult
     } = props;
 
-    console.log(calculatedNutritionResult.errorMess)
-
     let backgroundColor = 'white';
     if(index % 2){
         backgroundColor = '#e5e6e8';
@@ -27,13 +25,17 @@ const TableRow = (props) => {
         wrongUnit = '#F5D2CB';
     }
 
-
     let rawInputString = `${rawInput.amount || ''} ${rawInput.type || ''} ${rawInput.name || ''}`;
     let rawInputStringShort = '';
     let raw = '';
     if(rawInputString.length > 20){
         rawInputStringShort = rawInputString.substring(0,20) + "...";
-        raw = <div className="tooltip">{rawInputStringShort}<span className="tooltiptext">{rawInputString}</span></div>
+        raw =
+            <div className="tooltip">{rawInputStringShort}
+                <span className="tooltiptext">
+                    {rawInputString}
+                </span>
+            </div>
     }
     else {
         raw = <div>{rawInputString}</div>;

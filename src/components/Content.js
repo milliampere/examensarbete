@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
+// import { graphql } from 'react-apollo'
+// import gql from 'graphql-tag'
 import Table from './Table/Table';
 import search from '../utils/searchData';
 import precisionRound from '../utils/precisionRound';
-
-//import propsdataallFoods from '../data/list.json'; /* change to db when finished (props.data.allFoods) */
-
-// import { graphql } from 'react-apollo'
-// import gql from 'graphql-tag'
 
 class Content extends Component {
 
@@ -17,17 +14,15 @@ class Content extends Component {
 
     componentDidMount() {
         const { allFoodsData } = this.props;
-            //Put raw input into input fields.
-            const initialChangableInputArray = this.props.rawInputArray.map((row) => {
-                const match = search(row.name, allFoodsData);
-                if(match.length){
-                    return {...row, name: match[0]['item'].name, amount: precisionRound((row.amount/this.props.portions),1), match: match, livsmedelsverketId: match[0]['item'].livsmedelsverketId, validUnit: true}
-                } else {
-                    return {...row, name: '*', amount: precisionRound((row.amount/this.props.portions),1), match: match, validUnit: true}
-                }
-            })
-            this.setState({changableInputArray: initialChangableInputArray});
-
+        const initialChangableInputArray = this.props.rawInputArray.map((row) => { //Put raw input into input fields.
+            const match = search(row.name, allFoodsData);
+            if(match.length){
+                return {...row, name: match[0]['item'].name, amount: precisionRound((row.amount/this.props.portions),1), match: match, livsmedelsverketId: match[0]['item'].livsmedelsverketId, validUnit: true}
+            } else {
+                return {...row, name: '*', amount: precisionRound((row.amount/this.props.portions),1), match: match, validUnit: true}
+            }
+        })
+        this.setState({changableInputArray: initialChangableInputArray});
     }
 
     componentWillReceiveProps(nextProps){
@@ -39,20 +34,16 @@ class Content extends Component {
 
     handleChange = (value, index, column, type, item) => {
         const { allFoodsData } = this.props;
-		// if new value is selected from dropdown menu:
-		if(type === 'selected'){
+		if(type === 'selected'){ // if new value is selected from dropdown menu
             let newMatch = search(value, allFoodsData);  // new match, ex newValue="potatis" results in match = ([{item: [name: "potatis rå"]}{etc}])
-             //Vi vill inte göra en ny sökning här o ta ut det första, när någon tryck på en produkt vill vi visa just den.
             this.updateStateItem(index, {[column]: value, match: newMatch, livsmedelsverketId: item.livsmedelsverketId});
             this.setState({activeIndex: -1});
 		}
-        // if new ingredient is typed in by user:
-        else if (type === 'newInput') {
+        else if (type === 'newInput') { // if new ingredient is typed in by user
             let newMatch = search(value, allFoodsData);  // new match, ex newValue="potatis" results in match = ([{item: [name: "potatis rå"]}{etc}])
             this.updateStateItem(index, {name: value, match: newMatch, livsmedelsverketId: null});
         }
-        // if new volume or type is typed in by user:
-        else if (column === 'type') {
+        else if (column === 'type') { // if new volume or type is typed in by user
             const regex = /^(kg|g|mg|l|dl|cl|ml|msk|tsk|krm|st|port)$/;
             if(regex.test(value))
             this.updateStateItem(index, {[column]: value, validUnit: true});
@@ -96,11 +87,8 @@ class Content extends Component {
                 return Object.assign({}, this.state.changableInputArray[index], {amount: ''});
             }
         });
-        this.setState({
-            changableInputArray: newState
-        });
+        this.setState({changableInputArray: newState});
     }
-
 
     openDropDownMenu = (event, index, column) => {
         this.setState({activeIndex: index}, () => {
@@ -118,26 +106,18 @@ class Content extends Component {
 
     render() {
 
-        const { rawInputArray, options, personalGroup } = this.props;
         const { changableInputArray, activeIndex } = this.state;
 
         return (
             <div>
-                { changableInputArray.length &&
+                {changableInputArray.length &&
                     <Table
-                        rawInputArray={rawInputArray}
-                        //allFoods={propsdataallFoods} //denna används ej i andra componenter
                         handleChange={this.handleChange}
                         changableInputArray={changableInputArray}
                         handleFocus={this.openDropDownMenu}
                         activeIndex={activeIndex}
-                        activeTab={this.props.activeTab}
-                        allNutrients={this.props.allNutrients}
-                        options={options}
-                        personalGroup={personalGroup}
                         livsmedelsverketIdArray={changableInputArray.filter(changableInput => {return changableInput.livsmedelsverketId}).map((changableInput) => {return changableInput.livsmedelsverketId})}
-                        handlePortionChange={this.props.handlePortionChange}
-                        portions={this.props.portions}
+                        {...this.props}
                     />
                 }
             </div>
