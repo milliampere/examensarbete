@@ -135,10 +135,6 @@ class App extends Component {
 		// 	)
 		// }else {
 
-		if(loading){
-			return null;
-		}
-
 			return (
 				<div className="App">
 					<div className="header-part">

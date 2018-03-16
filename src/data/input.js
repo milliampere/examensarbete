@@ -1,13 +1,10 @@
 export default [
+    { amount: "1", type: "l", name: "mjölk"},
     { amount: "2", type: 'st', name: "aubergine"},
-    { amount: "800", type: "g", name: "potatis"},
     { amount: "20", type: "hg", name: "halloumiost"},
+    { amount: "800", type: "g", name: "potatis"},
     { amount: "2", type: 'port', name: "tomater"},
-    { amount: "4", type: 'hg', name: "champinjonburgare"},
-    { amount: "2", type: "dl", name: "lätt crème fraiche med tacosmak"},
     { amount: "2", type: "msk", name: "olja"},
-    { name: "salt" },
-    { name: "peppar" }
 ]
 
 // testar olika recept
