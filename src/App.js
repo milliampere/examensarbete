@@ -1,16 +1,16 @@
 /*global chrome*/
 import React, { Component } from 'react';
-import Navigation from './components/Navigation'
-import Credits from './components/Credits/Credits';
-import propsdataallFoods from './data/list.json';
-import propsdataallNutrients from './data/nutrientNames.json';
-import filterRiForPersonData from './utils/filterRiForPersonData.js';
-import rawInputArray from './data/input';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import Content from './components/Content';
+import Navigation from './components/Navigation';
+import Credits from './components/Credits/Credits';
 import PersonDataForm from './components/PersonDataForm.js';
+//import propsdataallFoods from './data/list.json'; //ersätt med data från GraphQL
+import propsdataallNutrients from './data/nutrientNames.json'; //ersätt med data från GraphQL
+import rawInputArray from './data/input'; //ersätt med data från chrome extension query...
+import filterRiForPersonData from './utils/filterRiForPersonData.js';
 import './App.css';
-import { graphql, compose } from 'react-apollo'
-import gql from 'graphql-tag'
 
 
 class App extends Component {
@@ -29,31 +29,31 @@ class App extends Component {
 		showPersonDataForm: false,
 	}
 
-	componentDidMount() { //stoppa sen in datan från chorme.onmessage... kolla pluginet
-		chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-			chrome.tabs.sendMessage(
-			  	tabs[0].id,
-			  	{ type: 'reactInit' },
-				(response) => { //arrowfunction isf en vanlig funktion gör att this är komponenten o inte window
-					this.setState({rawInputArray: response.array})
-					this.setState({portions: response.portions})
-				}
-			);
-		});
-		chrome.storage.sync.get(null, (result) => {
-			this.setState({
-				sex: result.sex,
-				isPregnant: result.isPregnant,
-				isBreastfeeding: result.isBreastfeeding,
-				lengthCm: Number(result.lengthCm),
-				weightKg: Number(result.weightKg),
-				ageYear: Number(result.ageYear),
-				PAL: Number(result.PAL),
-				personalGroup: filterRiForPersonData(result.sex, Number(result.ageYear), result.isPregnant, result.isBreastfeeding)
-			});
-		})
-		//this.setState({personalGroup: filterRiForPersonData('woman', 30, false, false)})
-		//this.setState({portions: 4});
+	componentDidMount() {
+		// chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+		// 	chrome.tabs.sendMessage(
+		// 	  	tabs[0].id,
+		// 	  	{ type: 'reactInit' },
+		// 		(response) => {
+		// 			this.setState({rawInputArray: response.array})
+		// 			this.setState({portions: response.portions})
+		// 		}
+		// 	);
+		// });
+		// chrome.storage.sync.get(null, (result) => {
+		// 	this.setState({
+		// 		sex: result.sex,
+		// 		isPregnant: result.isPregnant,
+		// 		isBreastfeeding: result.isBreastfeeding,
+		// 		lengthCm: Number(result.lengthCm),
+		// 		weightKg: Number(result.weightKg),
+		// 		ageYear: Number(result.ageYear),
+		// 		PAL: Number(result.PAL),
+		// 		personalGroup: filterRiForPersonData(result.sex, Number(result.ageYear), result.isPregnant, result.isBreastfeeding)
+		// 	});
+		// })
+		this.setState({personalGroup: filterRiForPersonData('woman', 30, false, false)}) //ta bort i slutversionen
+		this.setState({portions: 4}); //ta bort i slutversionen
 	}
 
 	handleButtonClick = (event) => {
@@ -62,14 +62,12 @@ class App extends Component {
 
 	handlePortionChange = (event) => {
 		const answer = true;
-
 		if (answer) {
 			this.setState({portions: Number(event.target.value)});
-		} else {
-			// Do nothing!
 		}
 	}
 
+	//DENNA ANVÄNDS INTE TILL NÅGOT?! TA BORT???
 	optionsPage = () => {
 		chrome.runtime.openOptionsPage()
 	}
@@ -88,16 +86,15 @@ class App extends Component {
 		})
 		this.setState({personalGroup: filterRiForPersonData(input.sex, input.ageYear, input.isPregnant, input.isBreastfeeding)})
 
-		//Save it using the Chrome extension storage API.
-		chrome.storage.sync.set({
-				sex: input.sex,
-			isPregnant: input.isPregnant,
-			isBreastfeeding: input.isBreastfeeding,
-			lengthCm: Number(input.lengthCm),
-			weightKg: Number(input.weightKg),
-			ageYear: Number(input.ageYear),
-			PAL: Number(input.PAL),
-		});
+		// chrome.storage.sync.set({ //Save it using the Chrome extension storage API.
+		// 	sex: input.sex,
+		// 	isPregnant: input.isPregnant,
+		// 	isBreastfeeding: input.isBreastfeeding,
+		// 	lengthCm: Number(input.lengthCm),
+		// 	weightKg: Number(input.weightKg),
+		// 	ageYear: Number(input.ageYear),
+		// 	PAL: Number(input.PAL),
+		// });
 		this.setState({showPersonDataForm: false})
 	}
 
@@ -111,10 +108,8 @@ class App extends Component {
 
 
 	render() {
-
-/* 		const selectOptions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map((number, index) => {
-			return <option value={number} key={index}>{number}</option>
-		});   ta bort*/
+		const { portions, activeTab, personalGroup, showPersonDataForm } = this.state;
+		const { loading, allFoods } = this.props.data; //props from graphql
 
 		const options = {
 			sex: this.state.sex,
@@ -126,53 +121,42 @@ class App extends Component {
 			PAL: this.state.PAL,
 		}
 
-
- 		if(!this.state.rawInputArray){
-			return (
-				<div className="App">
-					<div className="use-extension-info">
-						<p>Besök någon av följande sidor för att använda pluginet</p>
-						<p>ica.se</p>
-						<p>coop.se</p>
-						<p>koket.se</p>
-					</div>
-				</div>
-			)
-		}else {
+ 		// if(!this.state.rawInputArray){
+		// 	return (
+		// 		<div className="App">
+		//			<h1 className="app-heading">Näringsberäknaren</h1>
+		// 			<div className="use-extension-info">
+		// 				<p>Besök någon av följande sidor för att använda pluginet</p>
+		// 				<p>ica.se</p>
+		// 				<p>coop.se</p>
+		// 				<p>koket.se</p>
+		// 			</div>
+		// 		</div>
+		// 	)
+		// }else {
 
 			return (
 				<div className="App">
 					<div className="header-part">
-						{!this.state.showPersonDataForm &&
+						<h1 className="app-heading">Näringsberäknaren</h1>
+						{!showPersonDataForm &&
 							<Navigation
-								activeTab={this.state.activeTab}
-								allNutrients={propsdataallNutrients}
+								activeTab={activeTab}
+								allNutrients={propsdataallNutrients} //ersätt med data från GraphQL
 								onClick={this.handleButtonClick}
 							/>
 						}
-						{!this.state.showPersonDataForm &&
-							<div>
-
-								<h1 className="app-heading">Näringsberäknaren</h1>
-								<div className="portions-div">
-									<p className="portions-text" >Antal portioner:</p>
-									<select value={this.state.portions} selected={this.state.portions} onChange={this.handlePortionChange}>
-										{selectOptions}
-									</select>
-								</div> ta bort */}
-							</div>
-						}
 					</div>
-					{!this.props.data.loading && !this.state.showPersonDataForm &&
+					{!loading && !showPersonDataForm &&
 						<Content
 							//rawInputArray={this.state.rawInputArray}
 							rawInputArray={rawInputArray}
-							portions={this.state.portions}
-							allNutrients={propsdataallNutrients}
-							activeTab={this.state.activeTab}
+							portions={portions}
+							allNutrients={propsdataallNutrients} //ersätt med data från GraphQL
+							activeTab={activeTab}
 							options={options}
-							personalGroup={this.state.personalGroup}
-							allFoodsData={this.props.data.allFoods}
+							personalGroup={personalGroup}
+							allFoodsData={allFoods}
 							handlePortionChange={this.handlePortionChange}
 						/>
 					}
@@ -181,13 +165,13 @@ class App extends Component {
 						onSubmit={this.onSubmit}
 						options={options}
 						close={this.closePersonData}
-						show={this.state.showPersonDataForm}
-						personalGroup={this.state.personalGroup}
+						show={showPersonDataForm}
+						personalGroup={personalGroup}
 					/>
 					<Credits />
 				</div>
 			);
-		}
+		// }
 	}
 }
 

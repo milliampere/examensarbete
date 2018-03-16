@@ -1,11 +1,12 @@
 import React from 'react';
-import showNutritionHelpFunc from '../../utils/showNutritionHelpFunc.js';
-import {totalEnergyNeed} from '../../utils/optionCalculations.js'
-import ri from '../../data/ri.json'
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import'./TableTotalRow.css';
+import showNutritionHelpFunc from '../../utils/showNutritionHelpFunc.js';
+import {totalEnergyNeed} from '../../utils/optionCalculations.js'
+import ri from '../../data/ri.json' //Ta från databasen
 import precisionRound from '../../utils/precisionRound';
+import'./TableTotalRow.css';
+
 
 const TableTotalRow = (props) => {
 
@@ -16,8 +17,6 @@ const TableTotalRow = (props) => {
     const loading = false;
 
     function getNutritionsTotalsForOneAbbr(abbr, calculatedNutritionResult) {
-
-        //console.log('getNutritionsTotalsForOneAbbr', calculatedNutritionResult)
         if(calculatedNutritionResult.length){
             const nutritionsTotalsForOneAbbr = calculatedNutritionResult.map((oneRow, index) => {
                 if(oneRow.length){
@@ -42,8 +41,6 @@ const TableTotalRow = (props) => {
     }
 
     function standardCalc(value, abbr){
-        //console.log('standardCalc', value)
-
         const { sex, weightKg, lengthCm, ageYear, PAL } = options;
         const total = totalEnergyNeed(sex, weightKg, lengthCm, ageYear, PAL)
 
@@ -51,7 +48,6 @@ const TableTotalRow = (props) => {
             const nutritionObj = data.find((nutrition) => {
                 return nutrition.abbreviation === abbr;
             })
-            //console.log('object personalgroup', nutritionObj[personalGroup])
 
             const recommendedValue = nutritionObj[personalGroup];
             let decimal = 0;
@@ -85,7 +81,7 @@ const TableTotalRow = (props) => {
                 return nutrition.abbreviation === abbr;
             })
             const recommendedValue = nutritionObj[personalGroup];
-            const recommendedUnit = nutritionObj['unitforRI'];
+            //const recommendedUnit = nutritionObj['unitforRI'];
 
             if(recommendedValue){
                 const decimal = value/recommendedValue;
@@ -132,7 +128,9 @@ const TableTotalRow = (props) => {
     return (
         <div className="table-total-row">
             <div className="total-receipt"></div>
-            <div className="total-nutrition-container">{nutritionsTotals}</div>
+            <div className="total-nutrition-container">
+                {nutritionsTotals}
+            </div>
         </div>
     );
 }

@@ -11,7 +11,6 @@ const DropDownMenu = (props) => {
 	}
 
 	let iconColor = '';
-
 	if (changableInput.livsmedelsverketId !== undefined) {
 		iconColor = 'green';
 	}else {
@@ -19,9 +18,7 @@ const DropDownMenu = (props) => {
 	}
 
 	let results;
-
-	// if any matching results
-	if(result.length) {
+	if(result.length) { // if any matching results
 		results = result.map((item, index) => {
 			if(index < 10) {
 				return <li className="dropdown-item" key={index} onClick={(e) => handleChange(item['item'].name, indexInput, 'name', 'selected', item['item'])}>{item['item'].name}</li>

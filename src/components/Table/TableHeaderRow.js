@@ -1,10 +1,8 @@
 import React from 'react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import showNutritionHelpFunc from '../../utils/showNutritionHelpFunc.js';
 //import allNutrients from './data/nutrientNames.json';
-import { graphql, compose } from 'react-apollo';
-import gql from 'graphql-tag';
-
-
 import'./TableHeaderRow.css';
 
 
@@ -16,48 +14,56 @@ const TableHeaderRow = (props) => {
         return <option value={number} key={index}>{number}</option>
     });
 
-    const select = <select value={props.portions} selected={props.portions} onChange={props.handlePortionChange}>
-        {selectOptions}
-    </select>
+    const select =
+        <select value={props.portions} selected={props.portions} onChange={props.handlePortionChange}>
+            {selectOptions}
+        </select>
 
     const inputHeaders = ['Från receptet', 'Mängd', 'Mått', 'Livsmedel'].map((item, index) => {
         if(item === "Från receptet"){
-            return <div className="header-receipt" key={index}>{item} <div className="header-tooltip">({props.portions} port)<span className="header-tooltiptext"><b>Antal portioner</b><br/>Antal portioner hämtas från receptet. Vill du ändra detta, observera att dina eventuella ändringar i kolumnen "mängd" i tabellen kommer att förloras. <br /> {select}</span></div></div>
+            return (
+                <div className="header-receipt" key={index}>{item}
+                    <div className="header-tooltip"> ({props.portions} port)
+                        <span className="header-tooltiptext">
+                            <b>Antal portioner</b>
+                            <br/>Antal portioner hämtas från receptet. Vill du ändra detta, observera att dina eventuella ändringar i kolumnen "mängd" i tabellen kommer att förloras. <br />
+                            {select}
+                        </span>
+                    </div>
+                </div>
+            )
         }
         else {
             return <div className="header-receipt" key={index}>{item}</div>
         }
     })
 
-    if (props.data.loading) {
+    if(props.data.loading) {
         return (
-        <div className="table-header-row">
-            {inputHeaders}
-            <div className="header-nutrition-container"></div>
-        </div>)
+            <div className="table-header-row">
+                {inputHeaders}
+                <div className="header-nutrition-container"></div>
+            </div>
+        )
     }
     else {
-    
-    let headersArray = showNutritionHelpFunc(activeTab);
 
-    //const loading = false
+    let headersArray = showNutritionHelpFunc(activeTab);
+    //const loading = false //SKA DETTA VARA KVAR??
     const allNutrients = props.data.allNutrients; //db
     //const loading = props.data.loading;  //db
-    
+
     let nutritionsHeaders = <div></div>;
 
     //if(!loading){
-
         nutritionsHeaders = headersArray.map((abbr, index) => {
             const oneNutrient = allNutrients.find((nutrient) => {
                 return nutrient.abbreviation === abbr;
             });
-            let shortname = '';
             if(oneNutrient){
-
-                const {name, unit, description, typeOfNutrient:type }= oneNutrient;
+                const { name, unit, description, typeOfNutrient:type } = oneNutrient;
                 let shortname;
-                
+
                 if(type === 'Standard' && name.length > 7){
                     shortname = name.substring(0,7) + "..";
                 }
@@ -73,25 +79,27 @@ const TableHeaderRow = (props) => {
                 else {
                     shortname = name;
                 };
-
                 let tooltiptext = <div><b>{name} ({unit})</b><br />{description}</div>
-
-                return <div className="header-nutrition" key={index}><div className="header-tooltip">{shortname}<span className="header-tooltiptext">{tooltiptext}</span></div></div>
+                return (
+                    <div className="header-nutrition" key={index}>
+                        <div className="header-tooltip">{shortname}
+                            <span className="header-tooltiptext">{tooltiptext}</span>
+                        </div>
+                    </div>
+                )
             }
             else {
                 return <div className="header-nutrition" key={index}></div>
             }
         })
-
-    //} 
-
-    return (
-        <div className="table-header-row">
-            {inputHeaders}
-            <div className="header-nutrition-container">{nutritionsHeaders}</div>
-        </div>
-    );
-    }   
+    //}
+        return (
+            <div className="table-header-row">
+                {inputHeaders}
+                <div className="header-nutrition-container">{nutritionsHeaders}</div>
+            </div>
+        );
+    }
 }
 
 export const allNutrients = gql`query allNutrients {
