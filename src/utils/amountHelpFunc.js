@@ -2,7 +2,6 @@ import precisionRound from './precisionRound';
 
 export default function amountHelpFunc(changableInput, nutrition, conversion) {
 
-
     let convertedAmount = null;
     if(changableInput.type === 'g') {
         convertedAmount = convertAmount(nutrition.value, changableInput);
@@ -13,7 +12,8 @@ export default function amountHelpFunc(changableInput, nutrition, conversion) {
     }
 
     else if(changableInput.type === 'port'){
-        convertedAmount = convertAmount(conversion.gramPerPort, changableInput);
+        debugger;
+        convertedAmount = convertAmount(conversion.gramPerPortion, changableInput);
     }
 
     else if(changableInput.type === 'hg' || changableInput.type === 'kg' || changableInput.type === 'mg'){
