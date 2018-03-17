@@ -1,21 +1,18 @@
 import amountHelpFunc from './amountHelpFunc.js';
 import showNutritionHelpFunc from './showNutritionHelpFunc.js';
-import nutritionForOneFood from '../data/nutritionForOneFood.json';
+//import nutritionForOneFood from '../data/nutritionForOneFood.json';
 
 
 export function findDbResult(data, changableInput) {
 	let dataFromDb = {}
 	if(!data.loading){
-		dataFromDb = data.allFoods.find((food) => {return food.livsmedelsverketId === changableInput.livsmedelsverketId})
-		if(!dataFromDb){
-			dataFromDb = {}
-		}
+		dataFromDb = data.allFoods.find((food) => {
+			return food.livsmedelsverketId === changableInput.livsmedelsverketId;
+		})
 	}
-	else {
-		dataFromDb = {}
-	}
-	return dataFromDb
+	return dataFromDb || {}; //dataFromDb blir 'undefined' i find om påståendet är falskt
 }
+
 
 
 export function  calculateNutritionResultForAllRows(changableInputArray, activeTab, data) {
@@ -26,57 +23,34 @@ export function  calculateNutritionResultForAllRows(changableInputArray, activeT
 }
 
 
-export function calculateNutritionResult(changableInput, activeTab, dataFromDb = {}) {
+export function calculateNutritionResult(changableInput, activeTab, dataFromDb) {
 
 	let nutritionsResult = {
 		array: [],
-		error: false,
+		error: true,
 		errorMess: 'loading'
 	};
 
-	//TOG BORT DENNA O DET VERKA FUNKA?? ANNARS FASTNAR ALLT HÄR...
-	// // don't to the rest if no data or loading
- 	// if(Object.keys(dataFromDb).length === 0){
-	// 	 console.log('wtf!!', Object.keys(dataFromDb))
-	// 	return nutritionsResult;
-	// }
-
 	const nutritionsAbbrArray = showNutritionHelpFunc(activeTab);
-	const conversion = nutritionForOneFood[0].conversion;  // byt till data från databasen
-	//const conversion = dataFromDb.conversion; // från db
+	const conversion = dataFromDb.conversion || {}; //conversion är tomt object om det inte finns inlagt i db = för att slippa error på conversion of 'undefined'
 
-	if(changableInput.type === 'st' && conversion && !conversion.gramPerPiece) {
-		nutritionsResult.error = true;
+	if(changableInput.type === 'st' && !conversion.gramPerPiece) {
 		nutritionsResult.errorMess = 'vi hittar inte vikt/st, skriv in mått i gram istället';
 	}
-	else if((changableInput.type === 'port' || changableInput.type === 'dl') && conversion && !conversion.gramPerPort && !(conversion.hasOwnProperty('gramPerPort'))){
-		nutritionsResult.error = true;
+	else if(changableInput.type === 'dl' && !conversion.gramPerDl){
+		nutritionsResult.errorMess = 'vi hittar inte vikt/dl, skriv in mått i gram istället';
+	}
+	else if(changableInput.type === 'port' && !conversion.gramPerPortion){
 		nutritionsResult.errorMess = 'vi hittar inte vikt/port, skriv in mått i gram istället';
 	}
 	else {
-		nutritionsResult.array = nutritionsAbbrArray.map((abbr, index) => {
-			const nutrition = nutritionForOneFood[0].nutritions.find((nutrient) => {  // byt till data från databasen
-			//const nutrition = dataFromDb.nutritions.find((nutrient) => {   // <--- från db
+		nutritionsResult.array = nutritionsAbbrArray.map((abbr) => {
+			const nutrition = dataFromDb.nutritions.find((nutrient) => {
 				return nutrient.abbreviation === abbr;
 			});
-
 			let convertedAmount = null;
-			if(nutrition){
-				if(changableInput.amount >= 0){
-					if(changableInput.type === 'st') {
-						if(conversion.gramPerPiece){
-							convertedAmount = amountHelpFunc(changableInput, nutrition, conversion);
-						}
-						else {
-							convertedAmount = null;
-						}
-					}
-					else if(changableInput.type === 'port'){
-					}
-					convertedAmount = amountHelpFunc(changableInput, nutrition, conversion);
-				}else {
-					convertedAmount = null;
-				}
+			if(nutrition && changableInput.amount >= 0){
+				convertedAmount = amountHelpFunc(changableInput, nutrition, conversion);
 			}
 			return {
 				abbr: abbr,

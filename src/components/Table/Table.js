@@ -19,21 +19,24 @@ class Table extends Component { //must be a react component to get graphgl data 
 
 		const data = this.props.data; // från db
 
-		let rows= '';
-		if(!this.props.data.loading){
-			rows = rawInputArray.map((rawInput, index) => {
-				let dataFromDb = findDbResult(data, changableInputArray[index]);
-				return <TableRow
-					key={index}
-					rawInput={rawInput}
-					index={index}
-					changableInput={changableInputArray[index]}
-					calculatedNutritionResult={calculateNutritionResult(changableInputArray[index], activeTab, dataFromDb)}
-					dataFromDb={dataFromDb}
-					{...this.props}
-				/>
-			})
+		if(this.props.data.loading){ //if data is loading don't do the rest in this component
+			return null;
 		}
+
+		let rows= '';
+		rows = rawInputArray.map((rawInput, index) => {
+			let dataFromDb = findDbResult(data, changableInputArray[index]);
+			return <TableRow
+				key={index}
+				rawInput={rawInput}
+				index={index}
+				changableInput={changableInputArray[index]}
+				calculatedNutritionResult={calculateNutritionResult(changableInputArray[index], activeTab, dataFromDb)}
+				dataFromDb={dataFromDb}
+				{...this.props}
+			/>
+		})
+
 
 		return (
 			<div className="table">
