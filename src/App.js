@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Content from './components/Content';
-import Navigation from './components/Navigation';
+import Navigation from './components/Navigation/Navigation';
 import Credits from './components/Credits/Credits';
 import PersonDataForm from './components/PersonDataForm.js';
 //import propsdataallFoods from './data/list.json'; //ersätt med data från GraphQL

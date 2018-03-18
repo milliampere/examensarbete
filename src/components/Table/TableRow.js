@@ -1,18 +1,17 @@
 import React from 'react';
-// import { graphql } from 'react-apollo'
-// import gql from 'graphql-tag'
+import PropTypes from 'prop-types';
+import './TableRow.css';
 import DropDownMenu from '../DropDownMenu/DropDownMenu';
 import NutritionsData from './NutritionsData.js';
-import './TableRow.css';
 
 const TableRow = (props) => {
 
     const {
-        rawInput,
         index,
+        rawInput,
         changableInput,
         handleChange,
-        calculatedNutritionResult
+        nutritionsData  // old calculatedNutritionResult
     } = props;
 
     let backgroundColor = 'white';
@@ -21,7 +20,7 @@ const TableRow = (props) => {
     }
 
     let wrongUnit = '';
-    if(calculatedNutritionResult.errorMess === 'vi hittar inte vikt/port, skriv in mått i gram istället') {
+    if(nutritionsData.errorMess === 'vi hittar inte vikt/port, skriv in mått i gram istället') {
         wrongUnit = '#F5D2CB';
     }
 
@@ -52,21 +51,30 @@ const TableRow = (props) => {
                 backgroundColor={backgroundColor}
                 {...props}
             />
-            <NutritionsData calculatedNutritionResult={calculatedNutritionResult.array}/>
+            <NutritionsData calculatedNutritionResult={nutritionsData.array}/>
         </div>
     )
 }
 
-// export const foodListNutritions = gql`
-// query Food {
-//   Food(livsmedelsverketId: 4) {
-//     id
-//     livsmedelsverketId
-//     name
-//     nutritions
-//   }
-// }
-//`
+TableRow.propTypes = {
+    index: PropTypes.number.isRequired,
+    rawInput: PropTypes.object.isRequired,
+    changableInput: PropTypes.shape({
+        //amount: PropTypes.string,   // ibland string, ibland number...
+        livsmedelsverketId: PropTypes.number,   //or null?
+        match: PropTypes.array,
+        name: PropTypes.string,
+        type: PropTypes.string,
+        validUnit: PropTypes.bool
+    }).isRequired,
+    activeTab: PropTypes.string.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    nutritionsData: PropTypes.shape({      // old calculatedNutritionResult
+        array: PropTypes.array.isRequired,
+        error: PropTypes.bool.isRequired,
+        errorMessage: PropTypes.string.isRequired
+    }).isRequired   
+}
 
 export default TableRow;
 

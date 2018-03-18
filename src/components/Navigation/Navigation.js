@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from './Button/Button.js';
+import Button from './../Button/Button.js';
 import './Navigation.css';
 
 const Navigation = (props) => {

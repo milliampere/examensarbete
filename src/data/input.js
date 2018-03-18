@@ -1,10 +1,10 @@
 export default [
     { amount: "1", type: "l", name: "mjölk"},
     { amount: "2", type: 'st', name: "aubergine"},
-    { amount: "20", type: "hg", name: "halloumiost"},
-    { amount: "800", type: "g", name: "potatis"},
+     { amount: "2", type: "hg", name: "halloumiost"}, 
+    /* { amount: "800", type: "g", name: "potatis"},
     { amount: "2", type: 'port', name: "tomater"},
-    { amount: "2", type: "msk", name: "olja"},
+    { amount: "2", type: "msk", name: "olja"}, */
 ]
 
 // testar olika recept
