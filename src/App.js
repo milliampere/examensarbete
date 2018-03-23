@@ -6,9 +6,6 @@ import Content from './components/Content';
 import Navigation from './components/Navigation/Navigation';
 import Credits from './components/Credits/Credits';
 import PersonDataForm from './components/PersonDataForm.js';
-//import propsdataallFoods from './data/list.json'; //ersätt med data från GraphQL
-import propsdataallNutrients from './data/nutrientNames.json'; //ersätt med data från GraphQL
-import rawInputArray from './data/input'; //ersätt med data från chrome extension query...
 import filterRiForPersonData from './utils/filterRiForPersonData.js';
 import './App.css';
 
@@ -21,7 +18,7 @@ class App extends Component {
 		isPregnant: false,
 		isBreastfeeding: false,
 		lengthCm: 170,
-		weightKg: 60,
+		weightKg: 65,
 		ageYear: 30,
 		PAL: 1.65, // physical activity level
 		personalGroup: '',
@@ -30,30 +27,38 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		// chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-		// 	chrome.tabs.sendMessage(
-		// 	  	tabs[0].id,
-		// 	  	{ type: 'reactInit' },
-		// 		(response) => {
-		// 			this.setState({rawInputArray: response.array})
-		// 			this.setState({portions: response.portions})
-		// 		}
-		// 	);
-		// });
-		// chrome.storage.sync.get(null, (result) => {
-		// 	this.setState({
-		// 		sex: result.sex,
-		// 		isPregnant: result.isPregnant,
-		// 		isBreastfeeding: result.isBreastfeeding,
-		// 		lengthCm: Number(result.lengthCm),
-		// 		weightKg: Number(result.weightKg),
-		// 		ageYear: Number(result.ageYear),
-		// 		PAL: Number(result.PAL),
-		// 		personalGroup: filterRiForPersonData(result.sex, Number(result.ageYear), result.isPregnant, result.isBreastfeeding)
-		// 	});
-		// })
-		this.setState({personalGroup: filterRiForPersonData('woman', 30, false, false)}) //ta bort i slutversionen
-		this.setState({portions: 4}); //ta bort i slutversionen
+		chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+			chrome.tabs.sendMessage(
+			  	tabs[0].id,
+			  	{ type: 'reactInit' },
+				(response) => {
+					this.setState({rawInputArray: response.array})
+					this.setState({portions: response.portions})
+				}
+			);
+		});
+		chrome.storage.sync.get(null, (result) => {
+			if(result){
+				const sex = result.sex ? result.sex : 'woman';
+				const isPregnant = result.isPregnant ? result.isPregnant : false;
+				const isBreastfeeding = result.isBreastfeeding ? result.isBreastfeeding : false;
+				const lengthCm = result.lengthCm ? Number(result.lengthCm) : 170;
+				const weightKg = result.weightKg ? Number(result.weightKg) : 65;
+				const ageYear = result.ageYear ? Number(result.ageYear) : 30;
+				const PAL = result.PAL ? Number(result.PAL) : 1.65;
+
+				this.setState({
+					sex,
+					isPregnant,
+					isBreastfeeding,
+					lengthCm,
+					weightKg,
+					ageYear,
+					PAL,
+					personalGroup: filterRiForPersonData(sex, ageYear, isPregnant, isBreastfeeding)
+				});
+			}
+		})
 	}
 
 	handleButtonClick = (event) => {
@@ -65,11 +70,6 @@ class App extends Component {
 		if (answer) {
 			this.setState({portions: Number(event.target.value)});
 		}
-	}
-
-	//DENNA ANVÄNDS INTE TILL NÅGOT?! TA BORT???
-	optionsPage = () => {
-		chrome.runtime.openOptionsPage()
 	}
 
 	onSubmit = (event, input) => {
@@ -86,15 +86,15 @@ class App extends Component {
 		})
 		this.setState({personalGroup: filterRiForPersonData(input.sex, input.ageYear, input.isPregnant, input.isBreastfeeding)})
 
-		// chrome.storage.sync.set({ //Save it using the Chrome extension storage API.
-		// 	sex: input.sex,
-		// 	isPregnant: input.isPregnant,
-		// 	isBreastfeeding: input.isBreastfeeding,
-		// 	lengthCm: Number(input.lengthCm),
-		// 	weightKg: Number(input.weightKg),
-		// 	ageYear: Number(input.ageYear),
-		// 	PAL: Number(input.PAL),
-		// });
+		chrome.storage.sync.set({ //Save it using the Chrome extension storage API.
+			sex: input.sex,
+			isPregnant: input.isPregnant,
+			isBreastfeeding: input.isBreastfeeding,
+			lengthCm: Number(input.lengthCm),
+			weightKg: Number(input.weightKg),
+			ageYear: Number(input.ageYear),
+			PAL: Number(input.PAL),
+		});
 		this.setState({showPersonDataForm: false})
 	}
 
@@ -121,19 +121,19 @@ class App extends Component {
 			PAL: this.state.PAL,
 		}
 
- 		// if(!this.state.rawInputArray){
-		// 	return (
-		// 		<div className="App">
-		//			<h1 className="app-heading">Näringsberäknaren</h1>
-		// 			<div className="use-extension-info">
-		// 				<p>Besök någon av följande sidor för att använda pluginet</p>
-		// 				<p>ica.se</p>
-		// 				<p>coop.se</p>
-		// 				<p>koket.se</p>
-		// 			</div>
-		// 		</div>
-		// 	)
-		// }else {
+ 		if(!this.state.rawInputArray){
+			return (
+				<div className="App">
+					<h1 className="app-heading">Näringsberäknaren</h1>
+					<div className="use-extension-info">
+						<p>Besök någon av följande sidor för att använda pluginet</p>
+						<p>ica.se</p>
+						<p>coop.se</p>
+						<p>koket.se</p>
+					</div>
+				</div>
+			)
+		}else {
 
 			return (
 				<div className="App">
@@ -142,17 +142,15 @@ class App extends Component {
 						{!showPersonDataForm &&
 							<Navigation
 								activeTab={activeTab}
-								allNutrients={propsdataallNutrients} //ersätt med data från GraphQL
 								onClick={this.handleButtonClick}
 							/>
 						}
 					</div>
 					{!loading && !showPersonDataForm &&
 						<Content
-							//rawInputArray={this.state.rawInputArray}
-							rawInputArray={rawInputArray}
+							rawInputArray={this.state.rawInputArray}
+							//rawInputArray={rawInputArray}
 							portions={portions}
-							allNutrients={propsdataallNutrients} //ersätt med data från GraphQL
 							activeTab={activeTab}
 							options={options}
 							personalGroup={personalGroup}
@@ -171,7 +169,7 @@ class App extends Component {
 					<Credits />
 				</div>
 			);
-		// }
+		}
 	}
 }
 

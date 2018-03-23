@@ -72,7 +72,7 @@ const TableTotalRow = (props) => {
                 }
                 decimal = kcalOfTotalGram/neededKcal;
             }
-            return precisionRound((decimal*100),1) + '%';
+            return precisionRound((decimal*100),1);
         }else{
             return '';
         }
@@ -88,7 +88,7 @@ const TableTotalRow = (props) => {
 
             if(recommendedValue){
                 const decimal = value/recommendedValue;
-                return precisionRound((decimal*100),1) + '%';
+                return precisionRound((decimal*100),1);
             }
             else {
                 return null;
@@ -105,33 +105,39 @@ const TableTotalRow = (props) => {
 
         /* Calculate total/result */
         switch(abbr){
-            case 'Ener' : 
-            case 'Prot' : 
-            case 'Fett' : 
-            case 'Fibe' : 
-            case 'Kolh' : 
+            case 'Ener' :
+            case 'Prot' :
+            case 'Fett' :
+            case 'Fibe' :
+            case 'Kolh' :
                 result = standardCalc(getNutritionsTotalsForOneAbbr(abbr, calculatedNutritionResult), abbr);
                 break;
-            default: 
+            default:
                 result = allOtherCalc(getNutritionsTotalsForOneAbbr(abbr, calculatedNutritionResult), abbr);
+        }
+
+        if(isNaN(result)) {
+            result = '';
+        }else {
+            result = result + ' %';
         }
 
         /* Different tooltip texts */
         let tooltiptext;
         switch(abbr){
-            case 'Ener' : 
+            case 'Ener' :
                 tooltiptext = `Den här måltiden ger dig ${result} av den energi du behöver per dag.`
                 break;
             case 'Mfet' :
                 tooltiptext = `Du uppnår ${result} av maximalt dagligt intag. Intaget av mättade fettsyror bör begränsas till mindre än en tiondel av totala energiintaget per dag.`
                 break;
-            case 'Kole' : 
+            case 'Kole' :
                 tooltiptext = `Du uppnår ${result} av maximalt dagligt intag. Intag av kolesterol bör vara under 300 mg per dag.`
                 break;
-            case 'NaCl' : 
+            case 'NaCl' :
                 tooltiptext = `Du uppnår ${result} av maximalt dagligt intag. Intaget av salt bör vara mindre än 6 g per dag. `
                 break;
-            default: 
+            default:
                 tooltiptext = `Den här måltiden ger dig ${result} av rekommenderat dagligt intag.`;
         }
 

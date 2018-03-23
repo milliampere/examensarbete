@@ -24,7 +24,7 @@ const TableHeaderRow = (props) => {
             return (
                 <div className="header-receipt" key={index}>{item}
                     <div className="header-tooltip"> ({props.portions} port)
-                        <span className="header-tooltiptext">
+                        <span className="header-tooltiptext-portions">
                             <b>Antal portioner</b>
                             <br/>Antal portioner hämtas från receptet. Vill du ändra detta, observera att dina eventuella ändringar i kolumnen "mängd" i tabellen kommer att förloras. <br />
                             {select}
@@ -49,13 +49,10 @@ const TableHeaderRow = (props) => {
     else {
 
     let headersArray = showNutritionHelpFunc(activeTab);
-    //const loading = false //SKA DETTA VARA KVAR??
     const allNutrients = props.data.allNutrients; //db
-    //const loading = props.data.loading;  //db
 
     let nutritionsHeaders = <div></div>;
 
-    //if(!loading){
         nutritionsHeaders = headersArray.map((abbr, index) => {
             const oneNutrient = allNutrients.find((nutrient) => {
                 return nutrient.abbreviation === abbr;
@@ -92,7 +89,6 @@ const TableHeaderRow = (props) => {
                 return <div className="header-nutrition" key={index}></div>
             }
         })
-    //}
         return (
             <div className="table-header-row">
                 {inputHeaders}
@@ -115,5 +111,4 @@ export const allNutrients = gql`query allNutrients {
 
 export default graphql(allNutrients)(TableHeaderRow);
 
-//export default TableHeaderRow;
 

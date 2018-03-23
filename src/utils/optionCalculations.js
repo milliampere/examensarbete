@@ -1,11 +1,3 @@
-// const sex = 'woman';
-// const isPregnant = false;
-// const isBreastfeeding = false;
-// const lengthCm = 163;
-// const weightKg = 53;
-// const ageYear = 28;
-// const PAL = 1.4;    // physical activity level
-
 
 export function totalEnergyNeed (sex, weightKg, lengthCm, ageYear, PAL) {
     let BMR;    // basal metabolic rate
