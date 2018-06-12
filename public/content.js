@@ -129,25 +129,39 @@ function useRegex(inputString = '') {
 
 function removeWords(string) {
     const words = [
-        'kokta', 
-        'kokt', 
+        'kokta', 'kokt', 
         'rumstempererat', 
         'kall', 
         'riven', 
         'skalad', 
-        'torkad', 
-        'torkade', 
+        'torkad', 'torkade', 
         'färsk', 
         'port',
+        'mortlade',
+        'flytande', 
+        'strimlad',
+        'finhackad', 'finhackade',
+        'finstrimlad', 'finstrimlade',
+        'tunt',
+        'skivade',
+        'finriven',
+        'till servering',
+        'hackad',
+        'tärnade', 'tärnad',
+        'liten', 
+        'stor',
+        'hyvlad',
     ];
 
     words.forEach((word) => {
-        if(string.includes(word)){
-            console.log("found it");
+        if(string.includes(' ' + word + ' ') || (string.indexOf(word + ' ') === 0) || (string.indexOf(' ' + word) === (string.length - word.length - 1))) {
+            console.log("found it");  
             string = string.replace(word, '');
-            string = string.trim();
         }
     });
+
+    string = string.replace(',', '');
+    string = string.trim();
     return string;
 }
 

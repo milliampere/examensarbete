@@ -28,3 +28,8 @@ A chorme extension that calculates nutritional values of products in a recipe ba
 - Better feedback to the user if an error occurs
 - Add spices and bread to the database (not included today)
 - Make search functionality better
+
+## Development
+
+```npm run build```
+- Go to chrome://extensions and "Load unpacked"

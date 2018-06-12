@@ -74,20 +74,29 @@ function useRegex(inputString = '') {
 
 function removeWords(string) {
     const words = [
-        'kokta', 
-        'kokt', 
+        'kokta', 'kokt', 
         'rumstempererat', 
         'kall', 
         'riven', 
         'skalad', 
-        'torkad', 
-        'torkade', 
+        'torkad', 'torkade', 
         'färsk', 
         'port',
+        'mortlade',
+        'flytande', 
+        'strimlad', 
+        'finstrimlade', 'finstrimlad',
+        'finhackad', 'finhackade',
+        'tunt',
+        'skivade',
+        'finriven',
+        'till servering',
+        'hackad',
+        'tärnade', 'tärnad'
     ];
 
     words.forEach((word) => {
-        if(string.includes(word)){
+        if(string.includes(' ' + word + ' ') || (string.indexOf(word + ' ') === 0) || (string.indexOf(' ' + word) === (string.length - word.length - 1))) {
             console.log("found it");
             string = string.replace(word, '');
             string = string.trim();
@@ -109,5 +118,5 @@ function findPortionsRegex(inputString) {
     return portionsNumber;
 }
 
-//removeWords('kall torkad mjölk skalad');
+console.log(removeWords('kall soltorkad mjölk skalad'));
 //console.log(useRegex('ca 1 msk vaniljsocker'))

@@ -1,29 +1,58 @@
 import Fuse from 'fuse.js';
 
-
 export default function search(name, allFoods){
-    var options = {
+
+    var optionsPerfectMatch = {
         includeScore: true,
         shouldSort: true,
         tokenize: true,
         matchAllTokens: true,
-        threshold: 0.4,
-        distance: 100,
+        threshold: 0,
         maxPatternLength: 32,
-        minMatchCharLength: 1,
         keys: [
             {
-               name: "group",
-               weight: 0.7
-            },
-            {
                 name: "name",
-                weight: 0.3
+                weight: 1
             }
         ]
     };
-    var fuse = new Fuse(allFoods, options); // "allFoods" is the item array
-    var result = fuse.search(name);
+
+    var options = {
+        includeScore: true,
+        shouldSort: true,
+        //tokenize: true,
+        //matchAllTokens: true,
+        threshold: 0.1,
+        //distance: 100,
+        maxPatternLength: 32,
+        //minMatchCharLength: 1,
+        keys: [
+/*             {
+               name: "group",
+               weight: 0.7
+            }, */
+            {
+                name: "name",
+                weight: 1
+            }
+        ]
+    };
+
+    // new fuse 
+    var fusePerfectMatch = new Fuse(allFoods, optionsPerfectMatch); // "allFoods" is the item array
+
+    var perfectMatch = fusePerfectMatch.search(name);
+
+    console.log('perfectMatch', perfectMatch);
+
+    var result = [];
+    if(perfectMatch.length){
+        result = perfectMatch;
+    } else {
+        var fuse = new Fuse(allFoods, options); // "allFoods" is the item array
+        result = fuse.search(name);
+    }
+    
     if(result.length){
         return result;
     }
@@ -31,4 +60,3 @@ export default function search(name, allFoods){
         return []
     }
 }
-
