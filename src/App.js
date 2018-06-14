@@ -112,6 +112,7 @@ class App extends Component {
 
 
 	render() {
+
 		const { portions, activeTab, personalGroup, showPersonDataForm } = this.state;
 		const { loading, allFoods } = this.props.data; //props from graphql
 

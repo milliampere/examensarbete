@@ -14,6 +14,7 @@ const TableRow = (props) => {
         nutritionsData  // old calculatedNutritionResult
     } = props;
 
+
     let backgroundColor = 'white';
     if(index % 2){
         backgroundColor = '#e5e6e8';
@@ -73,7 +74,7 @@ TableRow.propTypes = {
         array: PropTypes.array.isRequired,
         error: PropTypes.bool.isRequired,
         errorMessage: PropTypes.string.isRequired
-    }).isRequired   
+    }).isRequired
 }
 
 export default TableRow;

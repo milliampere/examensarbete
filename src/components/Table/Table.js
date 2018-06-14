@@ -27,7 +27,9 @@ class Table extends Component {
 				amountInGram = convertToGram(amount, unit);
 			}
 			else if(hasConversion(unit, conversion)){
-				amountInGram = useConversion(amount, unit, conversion);
+				amountInGram = useConversion(amount, unit, conversion, hasConversion(unit, dataFromDb.conversion));
+			}
+			if(!isMass(unit) && !hasConversion(unit, conversion)){
 			}
 
 			// skapa array "nutritionData"

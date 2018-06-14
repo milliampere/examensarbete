@@ -52,6 +52,8 @@ li {
     background-color: #F5D2CB;
     color: #000;
     border-radius: 6px;
+    padding: 5px 10px;
+    margin-left: 30px;
 }
 
 .dropdown:hover .input-large-tooltip {

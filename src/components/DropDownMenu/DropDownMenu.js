@@ -31,7 +31,7 @@ const DropDownMenu = (props) => {
 	return (
 		<div className="dropdown" onFocus={(e) => handleFocus(e, indexInput, 'type')}>
 			<span className='fa fa-check icon' style={{color: iconColor}}></span>
-			<div className='input-large-tooltip'>{name === '*' ? 'Vi hittade ingen match, skriv in en annan råvara.' : 'Klicka för fler alternativ eller skriv själv in en annan råvara'}</div>
+			<div className='input-large-tooltip'>{name === '*' ? 'Vi hittade ingen match, skriv in en annan råvara.' : 'Klicka för fler alternativ eller skriv själv in en annan råvara.'}</div>
 			<input className='input-large' style={{backgroundColor: backgroundColor}} type='text' value={name} onChange={(e) => handleChange(e.target.value, indexInput, 'name', 'newInput')}></input>
 			{activeIndex === indexInput &&
 				<div className='dropdown-container'>
