@@ -50,6 +50,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         }
         sendResponse({array, portions});
     }
+
+    if(request.type === 'emailUs')  {
+        var emailUrl = "mailto:nutritioncalculater@gmail.com";
+        chrome.tabs.create({ url: emailUrl }, function(tab) {
+            setTimeout(function() {
+                chrome.tabs.remove(tab.id);
+            }, 500);
+        });
+    }
 });
 
 
@@ -129,16 +138,16 @@ function useRegex(inputString = '') {
 
 function removeWords(string) {
     const words = [
-        'kokta', 'kokt', 
-        'rumstempererat', 
-        'kall', 
-        'riven', 
-        'skalad', 
-        'torkad', 'torkade', 
-        'färsk', 
+        'kokta', 'kokt',
+        'rumstempererat',
+        'kall',
+        'riven',
+        'skalad',
+        'torkad', 'torkade',
+        'färsk',
         'port',
         'mortlade',
-        'flytande', 
+        'flytande',
         'strimlad',
         'finhackad', 'finhackade',
         'finstrimlad', 'finstrimlade',
@@ -148,14 +157,14 @@ function removeWords(string) {
         'till servering',
         'hackad',
         'tärnade', 'tärnad',
-        'liten', 
+        'liten',
         'stor',
         'hyvlad',
     ];
 
     words.forEach((word) => {
         if(string.includes(' ' + word + ' ') || (string.indexOf(word + ' ') === 0) || (string.indexOf(' ' + word) === (string.length - word.length - 1))) {
-            console.log("found it");  
+            console.log("found it");
             string = string.replace(word, '');
         }
     });

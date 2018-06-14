@@ -1,5 +1,14 @@
 @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
 
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
 .dropdown {
     position: relative;
 }
@@ -34,9 +43,21 @@
     padding-right: 30px; /* to give space for span check icon */ /* plugin css adds padding to width, so inout large takes 160px space */
 }
 
-ul {
-    margin: 0;
-    padding: 0;
+.input-large-tooltip {
+    display: none;
+    position: fixed;
+    margin-top: 20px;
+    z-index: 10;
+    width: 140px;
+    background-color: #F5D2CB;
+    color: #000;
+    text-align: center;
+    padding: 5px;
+    border-radius: 6px;
+}
+
+.dropdown:hover .input-large-tooltip {
+    display: inline-block;
 }
 
 .dropdown-item{

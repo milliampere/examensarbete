@@ -1,6 +1,12 @@
 import React from 'react';
 import './DropDownMenu.css';
 
+// let displayToolTip = 'none';
+
+// function onHover() {
+// 	displayToolTip = 'block';
+// }
+
 const DropDownMenu = (props) => {
 
 	const { indexInput, name, handleChange, handleFocus, activeIndex, changableInput, backgroundColor } = props;
@@ -31,7 +37,8 @@ const DropDownMenu = (props) => {
 	return (
 		<div className="dropdown" onFocus={(e) => handleFocus(e, indexInput, 'type')}>
 			<span className='fa fa-check icon' style={{color: iconColor}}></span>
-			<input className='input-large' style={{backgroundColor: backgroundColor}} type='text' value={name} onChange={(e) => handleChange(e.target.value, indexInput, 'name', 'newInput')} ></input>
+			<div className='input-large-tooltip'>Vi hittade ingen match, skriv in en annan råvara.</div>
+			<input className='input-large' style={{backgroundColor: backgroundColor}} type='text' value={name} onChange={(e) => handleChange(e.target.value, indexInput, 'name', 'newInput')}></input>
 			{activeIndex === indexInput &&
 				<div className='dropdown-container'>
 					<div id="myDropdown" className="dropdown-content">
