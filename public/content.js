@@ -64,7 +64,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 function useRegex(inputString = '') {
 
-    inputString = inputString.trim();
+    inputString = inputString.trim().replace(/ *\([^)]*\) */g, ""); //tar bort blankslag och ev text inom parentes
 
     const re1 = /(\d+)\s*(kilo|kg|gram|g|milligram|mg|liter|l|deciliter|dl|centiliter|cl|milliliter|ml|matsked|msk|tesked|tsk|kryddmått|krm|blad|krukor|kruka|koppar|kopp|nypor|nypa|stycken|st|förpackning|förpackningar|förp|klyftor|klyfta|ask)\s(\D+)/;
     const re2 = /\d+\s+\D+/;
@@ -182,14 +182,12 @@ function removeWords(string) {
 
     words.forEach((word) => {
         if(string.includes(' ' + word + ' ') || (string.indexOf(word + ' ') === 0) || (string.indexOf(' ' + word) === (string.length - word.length - 1))) {
-            console.log("found it");
             string = string.replace(word, '');
         }
     });
-
     string = string.replace(',', '');
     string = string.trim();
-    return string;
+    return string.replace(/ *\([^)]*\) */g, ""); //tar bort ev text inom parentes efter ingrediensnamnet
 }
 
 function findPortionsRegex(inputString) {

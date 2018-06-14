@@ -1,6 +1,6 @@
 function useRegex(inputString = '') {
 
-    inputString = inputString.trim();
+    inputString = inputString.trim().replace(/ *\([^)]*\) */g, ""); //tar bort blankslag och ev text inom parentes
 
     const re1 = /(\d+)\s*(kilo|kg|gram|g|milligram|mg|liter|l|deciliter|dl|centiliter|cl|milliliter|ml|matsked|msk|tesked|tsk|kryddmått|krm|blad|krukor|kruka|koppar|kopp|nypor|nypa|stycken|st|förpackning|förpackningar|förp|klyftor|klyfta|ask)\s(\D+)/;
     const re2 = /\d+\s+\D+/;
@@ -91,6 +91,8 @@ function useRegex(inputString = '') {
 }
 
 function removeWords(string) {
+
+    console.log('string', string)
     const words = [
         'kokta', 'kokt',
         'rumstempererat',
@@ -116,9 +118,10 @@ function removeWords(string) {
     words.forEach((word) => {
         if(string.includes(' ' + word + ' ') || (string.indexOf(word + ' ') === 0) || (string.indexOf(' ' + word) === (string.length - word.length - 1))) {
             string = string.replace(word, '');
-            string = string.trim();
         }
     });
+    string = string.replace(',', '');
+    string = string.trim();
     return string;
 }
 
@@ -135,7 +138,6 @@ function findPortionsRegex(inputString) {
     return portionsNumber;
 }
 
-// console.log(removeWords('kall soltorkad mjölk skalad'));
-// console.log(useRegex('1 1/2 dl svarta sesamfrön'))
+//console.log(removeWords('(hej) kall soltorkad mjölk skalad (hola)'));
+//console.log(useRegex('(hej) ca 4 1/4 dl vetemjöl (4 1/4 dl motsvarar ca 255 g)'))
 
-console.log(findPortionsRegex('1'));
