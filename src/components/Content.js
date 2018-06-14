@@ -17,19 +17,19 @@ class Content extends Component {
             const match = search(row.name, allFoodsData);
             if(match.length){
                 return {
-                    ...row, 
-                    name: match[0]['item'].name, 
-                    amount: precisionRound((row.amount/this.props.portions),1).toString(), 
-                    match: match, livsmedelsverketId: match[0]['item'].livsmedelsverketId, 
+                    ...row,
+                    name: match[0]['item'].name,
+                    amount: precisionRound((row.amount/this.props.portions),1).toString(),
+                    match: match, livsmedelsverketId: match[0]['item'].livsmedelsverketId,
                     validUnit: true,
                     validAmount: true,  // not used
                     validMatch: true
                 }
             } else {
-                return {...row, 
-                    name: '*', 
-                    amount: precisionRound((row.amount/this.props.portions),1), 
-                    match: match, 
+                return {...row,
+                    name: '*',
+                    amount: precisionRound((row.amount/this.props.portions),1),
+                    match: match,
                     validUnit: true
                 }
             }
@@ -56,7 +56,7 @@ class Content extends Component {
             let newMatch = search(value, allFoodsData);  // new match, ex newValue="potatis" results in match = ([{item: [name: "potatis rå"]}{etc}])
             this.updateStateItem(index, {name: value, match: newMatch, livsmedelsverketId: null});
         }
-        else if (column === 'type') { // if new volume or type is typed in by user  
+        else if (column === 'type') { // if new volume or type is typed in by user
             this.updateStateItem(index, {[column]: value, validUnit: isValidUnit(value)});
         }
         else {

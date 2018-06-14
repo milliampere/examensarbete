@@ -2,6 +2,8 @@ import Fuse from 'fuse.js';
 
 export default function search(name, allFoods){
 
+    console.log('from Fuse allfoddsdata', allFoods, 'name', name)
+
     var optionsPerfectMatch = {
         includeScore: true,
         shouldSort: true,
@@ -38,7 +40,7 @@ export default function search(name, allFoods){
         ]
     };
 
-    // new fuse 
+    // new fuse
     var fusePerfectMatch = new Fuse(allFoods, optionsPerfectMatch); // "allFoods" is the item array
 
     var perfectMatch = fusePerfectMatch.search(name);
@@ -52,7 +54,7 @@ export default function search(name, allFoods){
         var fuse = new Fuse(allFoods, options); // "allFoods" is the item array
         result = fuse.search(name);
     }
-    
+
     if(result.length){
         return result;
     }
