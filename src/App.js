@@ -106,8 +106,13 @@ class App extends Component {
 		this.setState({showPersonDataForm: false})
 	}
 
+	sendEmail = () => {
+		chrome.extension.getBackgroundPage().sendEmail();
+	}
+
 
 	render() {
+
 		const { portions, activeTab, personalGroup, showPersonDataForm } = this.state;
 		const { loading, allFoods } = this.props.data; //props from graphql
 
@@ -126,10 +131,14 @@ class App extends Component {
 				<div className="App">
 					<h1 className="app-heading">Näringsberäknaren</h1>
 					<div className="use-extension-info">
-						<p>Besök någon av följande sidor för att använda pluginet</p>
+						<h3 style={{fontWeight: 300}}>Besök en receptsida på någon av följande webbplatser för att använda pluginet:</h3>
 						<p>ica.se</p>
 						<p>coop.se</p>
 						<p>koket.se</p>
+						<br></br>
+						<h4 style={{fontWeight: 400}}>Om du ser detta trots att du är inne på en receptsida, testa att uppdatera webbsidan och öppna pluginet igen.<br></br>Om problemt kvarstår:
+							<button className="contact_link" onClick={this.sendEmail}>kontakta oss</button>
+						</h4>
 					</div>
 				</div>
 			)
@@ -166,7 +175,7 @@ class App extends Component {
 						show={showPersonDataForm}
 						personalGroup={personalGroup}
 					/>
-					<Credits />
+					<Credits sendEmail={this.sendEmail} />
 				</div>
 			);
 		}

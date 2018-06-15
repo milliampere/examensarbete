@@ -38,12 +38,9 @@ export default function search(name, allFoods){
         ]
     };
 
-    // new fuse 
+    // new fuse
     var fusePerfectMatch = new Fuse(allFoods, optionsPerfectMatch); // "allFoods" is the item array
-
     var perfectMatch = fusePerfectMatch.search(name);
-
-    console.log('perfectMatch', perfectMatch);
 
     var result = [];
     if(perfectMatch.length){
@@ -52,7 +49,7 @@ export default function search(name, allFoods){
         var fuse = new Fuse(allFoods, options); // "allFoods" is the item array
         result = fuse.search(name);
     }
-    
+
     if(result.length){
         return result;
     }

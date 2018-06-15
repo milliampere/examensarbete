@@ -10,28 +10,27 @@ import {convertToGram} from '../../utils/converter';
 import showNutritionHelpFunc from '../../utils/showNutritionHelpFunc';
 import './Table.css';
 
-class Table extends Component { 
-	
+class Table extends Component {
+
 	getNutritionsData = (index) => {
 		const { changableInputArray, data, activeTab } = this.props;
 		const dataFromDb = findDbResult(data, changableInputArray[index]);
 		let result, amountInGram;
-		const {amount, type:unit, livsmedelsverketId} = changableInputArray[index];   
-	
-		// should calculate? amount, unit and ingredient must be correct 
+		const {amount, type:unit, livsmedelsverketId} = changableInputArray[index];
+
+		// should calculate? amount, unit and ingredient must be correct
 		if(livsmedelsverketId && isValidAmount(amount) && isValidUnit(unit) && (isMass(unit) || hasConversion(unit, dataFromDb.conversion))){
-			console.log("Ja. Mängd, mått, ingrediens (och ev konvertering) finns.");
 			const {conversion, nutritions} = dataFromDb;
 
 			// konvertering
-			console.log('Före konvertering: ', amount, unit);
 			if(isMass(unit)) {
 				amountInGram = convertToGram(amount, unit);
 			}
 			else if(hasConversion(unit, conversion)){
-				amountInGram = useConversion(amount, unit, conversion);	
+				amountInGram = useConversion(amount, unit, conversion, hasConversion(unit, dataFromDb.conversion));
 			}
-			console.log('Efter konvertering', amountInGram, 'g');
+			if(!isMass(unit) && !hasConversion(unit, conversion)){
+			}
 
 			// skapa array "nutritionData"
 			const abbrArray = showNutritionHelpFunc(activeTab);
@@ -39,25 +38,22 @@ class Table extends Component {
 				const foundNutrition = nutritions.find((nutrient) => {
 					return nutrient.abbreviation === abbr;
 				});
-				return (foundNutrition ? 
+				return (foundNutrition ?
 					{ abbr: abbr, value: valuePerAmount(foundNutrition.value, amountInGram) }  // valuePer100g, amountInGram
 					:
 					{ abbr: abbr, value: 0 }
 				);
 			})
-			
+
 			result = { array: nutritionData, error: false , errorMessage: '' }
-			console.log('result', result);
 		}
 		else {
-			console.log("Nej. Mängd, mått, ingrediens och/eller konvertering saknas.");
 			result = { array: [], error: true, errorMessage: 'Mängd, mått och/eller ingrediens är inte ifyllt.' };
-			console.log('result', result);
-		} 
+		}
 
 		return result;
 	}
-	
+
 	getNutritionsDataForAllRows = () => {
 		const { rawInputArray } = this.props;
 		return rawInputArray.map((row, index) => {

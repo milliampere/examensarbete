@@ -21,7 +21,7 @@ const DropDownMenu = (props) => {
 	if(result.length) { // if any matching results
 		results = result.map((item, index) => {
 			if(index < 10) {
-				return <li className="dropdown-item" key={index} onClick={(e) => handleChange(item['item'].name, indexInput, 'name', 'selected', item['item'])}>{item['item'].name}</li>
+				return <li className="dropdown-item" key={index} onClick={(e) => handleChange(item['item'].name[0], indexInput, 'name', 'selected', item['item'])}>{item['item'].name}</li>
 			}else { return null }
 		})
 	}else {
@@ -31,7 +31,8 @@ const DropDownMenu = (props) => {
 	return (
 		<div className="dropdown" onFocus={(e) => handleFocus(e, indexInput, 'type')}>
 			<span className='fa fa-check icon' style={{color: iconColor}}></span>
-			<input className='input-large' style={{backgroundColor: backgroundColor}} type='text' value={name} onChange={(e) => handleChange(e.target.value, indexInput, 'name', 'newInput')} ></input>
+			<div className='input-large-tooltip'>{name === '*' ? 'Vi hittade ingen match, skriv in en annan råvara.' : 'Klicka för fler alternativ eller skriv själv in en annan råvara.'}</div>
+			<input className='input-large' style={{backgroundColor: backgroundColor}} type='text' value={name} onChange={(e) => handleChange(e.target.value, indexInput, 'name', 'newInput')}></input>
 			{activeIndex === indexInput &&
 				<div className='dropdown-container'>
 					<div id="myDropdown" className="dropdown-content">

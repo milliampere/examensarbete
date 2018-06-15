@@ -21,6 +21,19 @@
 }
 
 .credits-box {
+    margin-top: 20px;
     width: 400px;
     text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.contact_button {
+    border: none;
+    color: #6f256f;
+    cursor: pointer;
+    padding: 0;
+    margin: 10px 0;
+    border-bottom: 1px solid #6f256f;
 }

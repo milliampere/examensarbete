@@ -29,3 +29,11 @@
 .portions-text {
     margin: 0 5px 0 0 ;
 }
+
+.contact_link {
+    border: none;
+    color: #6f256f;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: underline;
+}

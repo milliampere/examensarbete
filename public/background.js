@@ -28,3 +28,11 @@ window.addEventListener('load', function() {
       };
     chrome.notifications.create('notify1', opt, function(id) { console.log("Last error:", chrome.runtime.lastError)})
 });
+
+
+function sendEmail() {
+    const emailUrl = "mailto:nutritioncalculater@gmail.com";
+    chrome.tabs.update({
+        url: emailUrl
+    });
+}

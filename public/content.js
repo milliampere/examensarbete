@@ -50,12 +50,21 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         }
         sendResponse({array, portions});
     }
+
+    if(request.type === 'emailUs')  {
+        var emailUrl = "mailto:nutritioncalculater@gmail.com";
+        chrome.tabs.create({ url: emailUrl }, function(tab) {
+            setTimeout(function() {
+                chrome.tabs.remove(tab.id);
+            }, 500);
+        });
+    }
 });
 
 
 function useRegex(inputString = '') {
 
-    inputString = inputString.trim();
+    inputString = inputString.trim().replace(/ *\([^)]*\) */g, ""); //tar bort blankslag och ev text inom parentes
 
     const re1 = /(\d+)\s*(kilo|kg|gram|g|milligram|mg|liter|l|deciliter|dl|centiliter|cl|milliliter|ml|matsked|msk|tesked|tsk|kryddmått|krm|blad|krukor|kruka|koppar|kopp|nypor|nypa|stycken|st|förpackning|förpackningar|förp|klyftor|klyfta|ask)\s(\D+)/;
     const re2 = /\d+\s+\D+/;
@@ -72,20 +81,38 @@ function useRegex(inputString = '') {
     if(inputString.match(re1)){
         //separate amount, type and name
         ingredientArray = inputString.split(/\s(kilo|kg|gram|g|milligram|mg|liter|l|deciliter|dl|centiliter|cl|milliliter|ml|matsked|msk|tesked|tsk|kryddmått|krm|blad|krukor|kruka|koppar|kopp|nypor|nypa|stycken|st|förpackning|förpackningar|förp|klyftor|klyfta|ask)\s/);
-        let ingredientAmount = ingredientArray[0].match(/[^a-z+å+ä+ö]+/)[0];
+        let ingredientAmount = ingredientArray[0].match(/[^a-z+å+ä+ö]+/)[0].trim();
 
-        if(ingredientAmount.match(fraction)){    //calculate fraction
-            let index = (ingredientAmount.match(fraction))['index'];
-            let numerator = Number(ingredientAmount.substring(0,index));
-            let denominator = Number(ingredientAmount.substring(index+1));
-            ingredientObject.amount = numerator/denominator;
+        if(ingredientAmount.match(fraction)){ //calculate fraction
+            let holeNumberBeforeFraction;
+            let fractionNumber;
+
+            //number before fraction ? eg: 1 1/2
+            if(ingredientAmount.indexOf(' ') > -1){
+                console.log('amount', ingredientAmount);
+                holeNumberBeforeFraction = Number(ingredientAmount.split(' ')[0]);
+                fractionNumber = ingredientAmount.split(' ')[1];
+            }
+
+            if(holeNumberBeforeFraction){
+                console.log(holeNumberBeforeFraction);
+                let index = (fractionNumber.match(fraction))['index'];
+                let numerator = Number(fractionNumber.substring(0,index));
+                let denominator = Number(fractionNumber.substring(index+1));
+                ingredientObject.amount = (numerator/denominator) + holeNumberBeforeFraction;
+            }
+            else {
+                let index = (ingredientAmount.match(fraction))['index'];
+                let numerator = Number(ingredientAmount.substring(0,index));
+                let denominator = Number(ingredientAmount.substring(index+1));
+                ingredientObject.amount = numerator/denominator;
+            }
         }
         else {
             ingredientObject.amount = ingredientAmount;//not containing a slash (fraction)
         }
         ingredientObject.type = ingredientArray[1];
         ingredientObject.name = removeWords(ingredientArray[2]);
-
     }
     else if (inputString.match(re2)) {
         //separate amount and name
@@ -129,16 +156,16 @@ function useRegex(inputString = '') {
 
 function removeWords(string) {
     const words = [
-        'kokta', 'kokt', 
-        'rumstempererat', 
-        'kall', 
-        'riven', 
-        'skalad', 
-        'torkad', 'torkade', 
-        'färsk', 
+        'kokta', 'kokt',
+        'rumstempererat',
+        'kall',
+        'riven',
+        'skalad',
+        'torkad', 'torkade',
+        'färsk',
         'port',
         'mortlade',
-        'flytande', 
+        'flytande',
         'strimlad',
         'finhackad', 'finhackade',
         'finstrimlad', 'finstrimlade',
@@ -148,21 +175,19 @@ function removeWords(string) {
         'till servering',
         'hackad',
         'tärnade', 'tärnad',
-        'liten', 
+        'liten',
         'stor',
         'hyvlad',
     ];
 
     words.forEach((word) => {
         if(string.includes(' ' + word + ' ') || (string.indexOf(word + ' ') === 0) || (string.indexOf(' ' + word) === (string.length - word.length - 1))) {
-            console.log("found it");  
             string = string.replace(word, '');
         }
     });
-
     string = string.replace(',', '');
     string = string.trim();
-    return string;
+    return string.replace(/ *\([^)]*\) */g, ""); //tar bort ev text inom parentes efter ingrediensnamnet
 }
 
 function findPortionsRegex(inputString) {
