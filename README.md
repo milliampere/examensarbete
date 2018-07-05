@@ -19,8 +19,8 @@ The plugin is for now working at the following webbpages: ica.se, coop.se, koket
 ## Languages and techniques:
 
 - Java Script
-- React-app
-- GraphQL, databas and api
+- React (create react app)
+- GraphCMS, databas and api
 - Apollo, GraphQl client
 - Chrome extension
 - Chrome api

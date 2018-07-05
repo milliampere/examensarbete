@@ -10,11 +10,9 @@ const DropDownMenu = (props) => {
 		result = changableInput['match'];
 	}
 
-	let iconColor = '';
-	if (changableInput.livsmedelsverketId !== undefined) {
-		iconColor = 'green';
-	}else {
-		iconColor = 'red';
+	let noMatchColor = '';
+	if (!changableInput.livsmedelsverketId) {
+		noMatchColor = '#F5D2CB';
 	}
 
 	let results;
@@ -30,9 +28,9 @@ const DropDownMenu = (props) => {
 
 	return (
 		<div className="dropdown" onFocus={(e) => handleFocus(e, indexInput, 'type')}>
-			<span className='fa fa-check icon' style={{color: iconColor}}></span>
-			<div className='input-large-tooltip'>{name === '*' ? 'Vi hittade ingen match, skriv in en annan råvara.' : 'Klicka för fler alternativ eller skriv själv in en annan råvara.'}</div>
-			<input className='input-large' style={{backgroundColor: backgroundColor}} type='text' value={name} onChange={(e) => handleChange(e.target.value, indexInput, 'name', 'newInput')}></input>
+			{/* <span className='fa fa-check icon' style={{color: iconColor}}></span> */}
+			<div className='input-large-tooltip' style={{backgroundColor: name === '*' ? '#F5D2CB' : '#e5e6e8'}} >{name === '*' ? 'Vi hittade ingen match, skriv in en annan råvara.' : 'Klicka för fler alternativ eller skriv själv in en annan råvara.'}</div>
+			<input className='input-large' style={{backgroundColor: noMatchColor ? noMatchColor : backgroundColor}} type='text' value={name} onChange={(e) => handleChange(e.target.value, indexInput, 'name', 'newInput')}></input>
 			{activeIndex === indexInput &&
 				<div className='dropdown-container'>
 					<div id="myDropdown" className="dropdown-content">

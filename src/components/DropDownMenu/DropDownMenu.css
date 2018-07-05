@@ -11,6 +11,7 @@ li {
 
 .dropdown {
     position: relative;
+    padding-left: 10px;  /* plugin css fixes, plugin adds padding to width..*/
 }
 
 .dropdown:nth-child(2) {
@@ -46,11 +47,9 @@ li {
 .input-large-tooltip {
     display: none;
     position: fixed;
-    margin-top: 20px;
+    margin-top: 18px;
     z-index: 10;
     width: 140px;
-    background-color: #F5D2CB;
-    color: #000;
     border-radius: 6px;
     padding: 5px 10px;
     margin-left: 30px;

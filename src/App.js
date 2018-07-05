@@ -136,7 +136,7 @@ class App extends Component {
 						<p>coop.se</p>
 						<p>koket.se</p>
 						<br></br>
-						<h4 style={{fontWeight: 400}}>Om du ser detta trots att du är inne på en receptsida, testa att uppdatera webbsidan och öppna pluginet igen.<br></br>Om problemt kvarstår:
+						<h4 style={{fontWeight: 400}}>Om du ser detta trots att du är inne på en receptsida, testa att uppdatera webbsidan och öppna pluginet igen.<br></br>Om problemet kvarstår:
 							<button className="contact_link" onClick={this.sendEmail}>kontakta oss</button>
 						</h4>
 					</div>

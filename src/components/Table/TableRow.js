@@ -11,18 +11,25 @@ const TableRow = (props) => {
         rawInput,
         changableInput,
         handleChange,
-        nutritionsData  // old calculatedNutritionResult
+        nutritionsData,  // old calculatedNutritionResult
+        unitErrorMessage,
     } = props;
 
+   const amount = Number(changableInput.amount);
 
     let backgroundColor = 'white';
     if(index % 2){
         backgroundColor = '#e5e6e8';
     }
 
-    let wrongUnit = '';
-    if(nutritionsData.errorMess === 'vi hittar inte vikt/port, skriv in mått i gram istället') {
-        wrongUnit = '#F5D2CB';
+    let wrongUnitColor = '';
+    if(unitErrorMessage !== '') {
+        wrongUnitColor = '#F5D2CB';
+    }
+
+    let wrongAmountColor = '';
+    if(amount === 0){
+        wrongAmountColor = '#F5D2CB';
     }
 
     let rawInputString = `${rawInput.amount || ''} ${rawInput.type || ''} ${rawInput.name || ''}`;
@@ -41,11 +48,15 @@ const TableRow = (props) => {
         raw = <div>{rawInputString}</div>;
     }
 
+
     return (
         <div className="table-row">
             <div className='receipt-row'>{raw}</div>
-            <input className='input-small' style={{backgroundColor: backgroundColor}} type='text' value={changableInput.amount || ''} onChange={(e) => handleChange(e.target.value, index, 'amount')}></input>
-            <input className='input-small' style={{backgroundColor: wrongUnit ? wrongUnit : backgroundColor}} type='text' value={changableInput.type || ''} onChange={(e) => handleChange(e.target.value, index, 'type')}></input>
+            <input className='input-small' style={{backgroundColor: wrongAmountColor ? wrongAmountColor : backgroundColor}} type='text' value={amount || ''} onChange={(e) => handleChange(e.target.value, index, 'amount')}></input>
+            <div className='input-unit'>
+                {unitErrorMessage && <div className='unit-tooltip'>{unitErrorMessage}</div>}
+                <input className='input-small' style={{backgroundColor: wrongUnitColor ? wrongUnitColor : backgroundColor}} type='text' value={changableInput.type || ''} onChange={(e) => handleChange(e.target.value, index, 'type')}></input>
+            </div>
             <DropDownMenu
                 indexInput={index}
                 name={changableInput.name}

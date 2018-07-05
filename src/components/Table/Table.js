@@ -17,19 +17,16 @@ class Table extends Component {
 		const dataFromDb = findDbResult(data, changableInputArray[index]);
 		let result, amountInGram;
 		const {amount, type:unit, livsmedelsverketId} = changableInputArray[index];
+		const {conversion, nutritions} = dataFromDb;
 
 		// should calculate? amount, unit and ingredient must be correct
-		if(livsmedelsverketId && isValidAmount(amount) && isValidUnit(unit) && (isMass(unit) || hasConversion(unit, dataFromDb.conversion))){
-			const {conversion, nutritions} = dataFromDb;
-
+		if(livsmedelsverketId && isValidAmount(amount) && isValidUnit(unit) && (isMass(unit) || hasConversion(unit, conversion))){
 			// konvertering
 			if(isMass(unit)) {
 				amountInGram = convertToGram(amount, unit);
 			}
 			else if(hasConversion(unit, conversion)){
-				amountInGram = useConversion(amount, unit, conversion, hasConversion(unit, dataFromDb.conversion));
-			}
-			if(!isMass(unit) && !hasConversion(unit, conversion)){
+				amountInGram = useConversion(amount, unit, conversion, hasConversion(unit, conversion));
 			}
 
 			// skapa array "nutritionData"
@@ -48,9 +45,13 @@ class Table extends Component {
 			result = { array: nutritionData, error: false , errorMessage: '' }
 		}
 		else {
-			result = { array: [], error: true, errorMessage: 'Mängd, mått och/eller ingrediens är inte ifyllt.' };
-		}
+			let errorMessage = '';
 
+			if(livsmedelsverketId && (isValidUnit(unit) || !isMass(unit) || !hasConversion(unit, conversion))){
+				errorMessage = 'Måttet finns inte inlagt i databasen på detta livsmedel, skriv in mått i gram istället.';
+			}
+			result = { array: [], error: true, errorMessage: errorMessage };
+		}
 		return result;
 	}
 
@@ -60,6 +61,11 @@ class Table extends Component {
 			const nutritionData = this.getNutritionsData(index);
 			return nutritionData.array;
 		})
+	}
+
+	getUnitErrorMessage = (index) => {
+		const nutritionData = this.getNutritionsData(index);
+		return nutritionData.errorMessage;
 	}
 
 	render() {
@@ -92,6 +98,7 @@ class Table extends Component {
 				index={index}
 				changableInput={changableInputArray[index]}
 				nutritionsData={this.getNutritionsData(index)}
+				unitErrorMessage={this.getUnitErrorMessage(index)}
 				{...this.props}
 			/>
 		})

@@ -16,10 +16,32 @@
     padding-left: 5px;
 }
 
+.input-unit {
+    position: relative;
+    width: 31px; /* input has a built in 2px border on each side */
+}
+
 .input-small {
     width: 31px; /* input has a built in 2px border on each side */
-    padding-left: 5px; /* plugin css adds padding to width, so inout large takes 40px space */
+    padding-left: 5px; /* plugin css fixes, plugin adds padding to width..*/
 }
+
+.unit-tooltip {
+    display: none;
+    position: fixed;
+    margin-top: 14px;
+    z-index: 10;
+    width: 140px;
+    background-color: #F5D2CB;
+    border-radius: 6px;
+    padding: 5px 10px;
+    margin-left: 10px;
+}
+
+.input-unit:hover .unit-tooltip {
+    display: inline-block;
+}
+
 
 .type-container {
     position: relative;
