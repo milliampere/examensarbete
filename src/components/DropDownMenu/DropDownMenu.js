@@ -1,6 +1,10 @@
 import React from 'react';
 import './DropDownMenu.css';
 
+const onFocus = (event) => {
+    event.target.select();
+}
+
 const DropDownMenu = (props) => {
 
 	const { indexInput, name, handleChange, handleFocus, activeIndex, changableInput, backgroundColor } = props;
@@ -30,7 +34,7 @@ const DropDownMenu = (props) => {
 		<div className="dropdown" onFocus={(e) => handleFocus(e, indexInput, 'type')}>
 			{/* <span className='fa fa-check icon' style={{color: iconColor}}></span> */}
 			<div className='input-large-tooltip' style={{backgroundColor: name === '*' ? '#F5D2CB' : '#e5e6e8'}} >{name === '*' ? 'Vi hittade ingen match, skriv in en annan råvara.' : 'Klicka för fler alternativ eller skriv själv in en annan råvara.'}</div>
-			<input className='input-large' style={{backgroundColor: noMatchColor ? noMatchColor : backgroundColor}} type='text' value={name} onChange={(e) => handleChange(e.target.value, indexInput, 'name', 'newInput')}></input>
+			<input className='input-large' style={{backgroundColor: noMatchColor ? noMatchColor : backgroundColor}} type='text' value={name} onChange={(e) => handleChange(e.target.value, indexInput, 'name', 'newInput')} onFocus={onFocus}></input>
 			{activeIndex === indexInput &&
 				<div className='dropdown-container'>
 					<div id="myDropdown" className="dropdown-content">

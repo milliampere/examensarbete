@@ -90,37 +90,9 @@ export default class PersonDataForm extends Component {
 
     render() {
 
-        let gender = this.props.options.sex;
-		let pregnantOrBreastfeeding = '';
-		if(this.props.options.sex === 'woman'){
-            gender = 'Kvinna'
-			if(this.props.options.isPregnant){
-				pregnantOrBreastfeeding = "(gravid)"
-			}
-			else if(this.props.options.isBreastfeeding){
-				pregnantOrBreastfeeding = "(ammande)"
-			}
-        }
-
-        let basedOnPerson = null;
-        if(gender && this.props.options.ageYear) {
-            basedOnPerson = `${gender} ${this.props.options.ageYear}år ${pregnantOrBreastfeeding}`;
-        }
-
-
         return (
             <div>
-                {!this.props.show &&
-                    <div className="persondata-container">
-                        {basedOnPerson &&
-                            <p className="persondata-info">Nu visas datan baserat på: {basedOnPerson} </p>
-                        }
-                        {!basedOnPerson &&
-                            <p>För att se resultat av rekommenderat intag:</p>
-                        }
-                        <button className="button-link" onClick={this.props.onClick}>Ändra persondata här!</button>
-                    </div>
-                }
+
                 {this.props.show &&
                     <div className="person-data-form-container">
                         <form className="person-data-form" onSubmit={(e) => this.props.onSubmit(e, {...this.state})}>

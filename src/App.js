@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import Content from './components/Content';
 import Navigation from './components/Navigation/Navigation';
 import Credits from './components/Credits/Credits';
+import Help from './components/Help/Help';
 import PersonDataForm from './components/PersonDataForm.js';
 import filterRiForPersonData from './utils/filterRiForPersonData.js';
 import './App.css';
@@ -24,6 +25,8 @@ class App extends Component {
 		personalGroup: '',
 		activeTab: 'standard',
 		showPersonDataForm: false,
+		showHelp: false,
+		showCredits: false,
 	}
 
 	componentDidMount() {
@@ -110,10 +113,24 @@ class App extends Component {
 		chrome.extension.getBackgroundPage().sendEmail();
 	}
 
+	handleHelpClick = () => {
+        this.setState(prevState => ({
+			showHelp: !prevState.showHelp,
+			showCredits: false,
+		}));
+	}
+
+	handleCreditsClick = () => {
+        this.setState(prevState => ({
+			showCredits: !prevState.showCredits,
+			showHelp: false,
+		}));
+    }
+
 
 	render() {
 
-		const { portions, activeTab, personalGroup, showPersonDataForm } = this.state;
+		const { portions, activeTab, personalGroup, showPersonDataForm, showHelp, showCredits } = this.state;
 		const { loading, allFoods } = this.props.data; //props from graphql
 
 		const options = {
@@ -125,6 +142,23 @@ class App extends Component {
 			ageYear: this.state.ageYear,
 			PAL: this.state.PAL,
 		}
+
+		let gender = options.sex;
+		let pregnantOrBreastfeeding = '';
+		if(options.sex === 'woman'){
+            gender = 'Kvinna'
+			if(options.isPregnant){
+				pregnantOrBreastfeeding = "(gravid)"
+			}
+			else if(options.isBreastfeeding){
+				pregnantOrBreastfeeding = "(ammande)"
+			}
+        }
+
+        let basedOnPerson = null;
+        if(gender && options.ageYear) {
+            basedOnPerson = `${gender} ${options.ageYear}år ${pregnantOrBreastfeeding}`;
+        }
 
  		if(!this.state.rawInputArray){
 			return (
@@ -168,14 +202,32 @@ class App extends Component {
 						/>
 					}
 					<PersonDataForm
-						onClick={this.changePersonData}
+						// onClick={this.changePersonData}
 						onSubmit={this.onSubmit}
 						options={options}
 						close={this.closePersonData}
 						show={showPersonDataForm}
 						personalGroup={personalGroup}
 					/>
-					<Credits sendEmail={this.sendEmail} />
+					<div className="info-part-buttons">
+						{!showPersonDataForm &&
+							<div className="persondata-container">
+								{basedOnPerson && <p className="persondata-info">Nu visas datan baserat på: {basedOnPerson} </p>}
+								{!basedOnPerson && <p>För att se resultat av rekommenderat intag:</p>}
+								<button className="button-link" onClick={this.changePersonData}>Ändra persondata här!</button>
+							</div>
+						}
+						{!showPersonDataForm &&
+							<div className="info-part-buttons-end">
+								<button onClick={this.handleHelpClick} className="help-button" style={{backgroundColor: showHelp ?  '#6f256f' : '#336B87'}}>{showHelp ? 'Dölj Hjälp & info' : 'Visa Hjälp & info'}</button>
+								<button onClick={this.handleCreditsClick} className="credits-button" style={{backgroundColor: showCredits ?  '#6f256f' : '#336B87'}}>{showCredits ? 'Dölj Credits' : 'Visa Credits'}</button>
+							</div>
+						}
+					</div>
+					<div className="info-part">
+						{showHelp && !showPersonDataForm && <Help sendEmail={this.sendEmail} />}
+						{showCredits && !showPersonDataForm && <Credits sendEmail={this.sendEmail} />}
+					</div>
 				</div>
 			);
 		}

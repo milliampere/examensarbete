@@ -46,6 +46,7 @@
 
 .persondata-container {
     display: flex;
+    align-items: baseline;
 }
 
 .person-data-form-container {

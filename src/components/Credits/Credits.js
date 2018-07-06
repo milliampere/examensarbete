@@ -3,29 +3,20 @@ import './Credits.css';
 
 class Credits extends Component {
 
-    state = {
-        showCredits: false
+    componentDidMount() {
+		window.scrollTo(0,document.body.scrollHeight);
     }
 
-    handleClick = () => {
-        this.setState(prevState => ({
-            showCredits: !prevState.showCredits
-        }));
+    componentWillUnmount() {
+        window.scrollTo(0,0);
     }
 
     render() {
-
-        const {showCredits} = this.state;
-
         return (
             <div className="credits">
-                <button onClick={this.handleClick} className="credits-button" style={{backgroundColor: showCredits ?  '#6f256f' : '#336B87'}}>{showCredits ? 'Dölj information' : 'Visa information'}</button>
-                {showCredits &&
-                <div className="credits-box">
-                    <p>Näringsinformation kommer från Livsmedelsverkets livsmedelsdatabas (version 2017-12-15). </p>
-                    <img src={ require('../../assets/graphcms.svg') } alt='graphCms logo' className="credits-graphcms-logo"/>
-                    <button className="contact_button" onClick={this.props.sendEmail}>Kontakta oss</button>
-                </div>}
+                <p>Datan kommer från Livsmedelsverkets livsmedelsdatabas (version 2017-12-15) och publikationen Nordiska näringsrekommendationer.</p>
+                <img src={ require('../../assets/graphcms.svg') } alt='graphCms logo' className="credits-graphcms-logo"/>
+                <button className="contact_button" onClick={this.props.sendEmail}>Kontakta oss</button>
             </div>
         );
     }

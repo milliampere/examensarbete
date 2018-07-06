@@ -4,6 +4,10 @@ import './TableRow.css';
 import DropDownMenu from '../DropDownMenu/DropDownMenu';
 import NutritionsData from './NutritionsData.js';
 
+const handleFocus = (event) => {
+    event.target.select();
+}
+
 const TableRow = (props) => {
 
     const {
@@ -52,10 +56,10 @@ const TableRow = (props) => {
     return (
         <div className="table-row">
             <div className='receipt-row'>{raw}</div>
-            <input className='input-small' style={{backgroundColor: wrongAmountColor ? wrongAmountColor : backgroundColor}} type='text' value={amount || ''} onChange={(e) => handleChange(e.target.value, index, 'amount')}></input>
+            <input className='input-small' style={{backgroundColor: wrongAmountColor ? wrongAmountColor : backgroundColor}} type='text' value={amount || ''} onChange={(e) => handleChange(e.target.value, index, 'amount')} onFocus={handleFocus}></input>
             <div className='input-unit'>
                 {unitErrorMessage && <div className='unit-tooltip'>{unitErrorMessage}</div>}
-                <input className='input-small' style={{backgroundColor: wrongUnitColor ? wrongUnitColor : backgroundColor}} type='text' value={changableInput.type || ''} onChange={(e) => handleChange(e.target.value, index, 'type')}></input>
+                <input className='input-small' style={{backgroundColor: wrongUnitColor ? wrongUnitColor : backgroundColor}} type='text' value={changableInput.type || ''} onChange={(e) => handleChange(e.target.value, index, 'type')} onFocus={handleFocus}></input>
             </div>
             <DropDownMenu
                 indexInput={index}

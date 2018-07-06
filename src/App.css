@@ -37,3 +37,40 @@
     font-size: 12px;
     text-decoration: underline;
 }
+
+.info-part-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.info-part-buttons-end {
+    justify-content: flex-end;
+}
+
+.help-button {
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    background-color: #336B87;
+    max-width: 150px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.credits-button {
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    background-color: #336B87;
+    max-width: 150px;
+    cursor: pointer;
+ }
+
+.info-part {
+    margin-top: 30px;
+}

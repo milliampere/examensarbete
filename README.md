@@ -11,7 +11,7 @@ see also the repo for processing of data: https://github.com/ninasjoberg/examens
 
 ## Functionality:
 
-A chorme extension that calculates nutritional values of products in a recipe based on personal data such as age, sex and physical activity. The data is taken from Livsmedelsverkets' food databas and from Nordiska näringsrekommendationers' nutrition databas.
+A chorme extension that calculates nutritional values of products in a recipe based on personal data such as age, sex and physical activity. The data is taken from 'Livsmedelsverkets' food databas and from their publication 'Nordiska näringsrekommendationer' (info about nutritional recommendations).
 
 The plugin is for now working at the following webbpages: ica.se, coop.se, koket.se Make sure to visit a recipe to be able to use the plugin.
 
