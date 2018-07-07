@@ -30,9 +30,9 @@ The plugin is for now working at the following webbpages: ica.se, coop.se, koket
 
 ## Suggestions for future functionality / improvements:
 
-- Better feedback to the user if an error occurs
 - Add spices and bread to the database (not included today)
 - Make search functionality better
+- Make sure users who has the plugin gets updates when we make changes to the plugin.
 
 
 ## Development
