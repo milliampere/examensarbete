@@ -1,4 +1,4 @@
-function useRegex(inputString = '') {
+export default function useRegex(inputString = '') {
 
     inputString = inputString.trim().replace(/ *\([^)]*\) */g, ""); //tar bort blankslag och ev text inom parentes
 
@@ -52,7 +52,7 @@ function useRegex(inputString = '') {
     }
     else if (inputString.match(re2)) {
         //separate amount and name
-        index = inputString.search(/\d\s+\D/);
+        let index = inputString.search(/\d\s+\D/);
         ingredientObject.amount = inputString.substring(0,index+1);
         let ingredientAmount = ingredientObject['amount'].match(/[^a-z+å+ä+ö]+/)[0]
 
@@ -92,7 +92,7 @@ function useRegex(inputString = '') {
 
 function removeWords(string) {
 
-    console.log('string', string)
+    //console.log('string', string)
     const words = [
         'kokta', 'kokt',
         'rumstempererat',
@@ -128,7 +128,8 @@ function removeWords(string) {
 function findPortionsRegex(inputString) {
     inputString.trim();
     var r = /\d+/;
-    regexResult = inputString.match(r);
+    let regexResult = inputString.match(r);
+    let portionsNumber;
 
     if(regexResult === null) {
         return 1; // default if no number is found
@@ -140,4 +141,5 @@ function findPortionsRegex(inputString) {
 
 //console.log(removeWords('(hej) kall soltorkad mjölk skalad (hola)'));
 //console.log(useRegex('(hej) ca 4 1/4 dl vetemjöl (4 1/4 dl motsvarar ca 255 g)'))
+
 

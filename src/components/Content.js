@@ -12,6 +12,19 @@ class Content extends Component {
     }
 
     componentDidMount() {
+
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.portions !== this.props.portions){
+            this.updateStateAmounts(this.props.rawInputArray, nextProps.portions);
+        }
+        if(nextProps.rawInputArray !== this.props.rawInputArray){
+            this.populateFields();
+        }
+    }
+
+    populateFields = () => {
         const { allFoodsData } = this.props;
         const initialChangableInputArray = this.props.rawInputArray.map((row) => { //Put raw input into input fields.
             const match = search(row.name, allFoodsData);
@@ -36,13 +49,6 @@ class Content extends Component {
         })
         this.setState({changableInputArray: initialChangableInputArray});
     }
-
-    componentWillReceiveProps(nextProps){
-        if(nextProps.portions !== this.props.portions){
-            this.updateStateAmounts(this.props.rawInputArray, nextProps.portions);
-        }
-    }
-
 
     handleChange = (value, index, column, type, item) => {
         const { allFoodsData } = this.props;

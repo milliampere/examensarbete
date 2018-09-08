@@ -14,7 +14,7 @@ class Table extends Component {
 
 	getNutritionsData = (index) => {
 		const { changableInputArray, data, activeTab } = this.props;
-		const dataFromDb = findDbResult(data, changableInputArray[index]);
+		const dataFromDb = findDbResult(data.allFoods, data.loading, changableInputArray[index]);
 		let result, amountInGram;
 		const {amount, type:unit, livsmedelsverketId} = changableInputArray[index];
 		const {conversion, nutritions} = dataFromDb;
@@ -102,6 +102,8 @@ class Table extends Component {
 				{...this.props}
 			/>
 		})
+
+
 
 		return (
 			<div className="table">

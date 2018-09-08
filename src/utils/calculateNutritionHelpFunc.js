@@ -1,8 +1,10 @@
 
-export function findDbResult(data, changableInput) {
+export function findDbResult(data, loading, changableInput) {
 	let dataFromDb = {}
-	if(!data.loading){
-		dataFromDb = data.allFoods.find((food) => {
+
+console.log(data, changableInput);
+	if(!data.loading && changableInput){
+		dataFromDb = data.find((food) => {
 			return food.livsmedelsverketId === changableInput.livsmedelsverketId;
 		})
 	}

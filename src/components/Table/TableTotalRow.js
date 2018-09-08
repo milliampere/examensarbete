@@ -5,6 +5,8 @@ import showNutritionHelpFunc from '../../utils/showNutritionHelpFunc.js';
 import {totalEnergyNeed} from '../../utils/optionCalculations.js'
 import ri from '../../data/ri.json' //Ta från databasen
 import precisionRound from '../../utils/precisionRound';
+import Highcharts from 'highcharts';
+import ReactHighcharts from 'react-highcharts';
 import'./TableTotalRow.css';
 
 
@@ -144,12 +146,86 @@ const TableTotalRow = (props) => {
         return <div className="total-nutrition" key={index}><div className="total-tooltip">{result}<span className="total-tooltiptext">{tooltiptext}</span></div></div>;
     })
 
+    const getTotalsForDiagram = abbrArray.map((abbr, index) => {
+        let result = 0;
+
+        /* Calculate total/result */
+        switch(abbr){
+            case 'Ener' :
+            case 'Prot' :
+            case 'Fett' :
+            case 'Fibe' :
+            case 'Kolh' :
+                result = standardCalc(getNutritionsTotalsForOneAbbr(abbr, calculatedNutritionResult), abbr);
+                break;
+            default:
+                result = allOtherCalc(getNutritionsTotalsForOneAbbr(abbr, calculatedNutritionResult), abbr);
+        }
+
+        if(isNaN(result)) {
+            result = '';
+        }
+        return [abbr, result*3]
+    });
+
+    const config = {
+        /* HighchartsConfig */
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Näringsämnen'
+        },
+        xAxis: {
+            type: 'category',
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        },
+        yAxis: {
+            min: 0,
+            max: 100,
+            title: {
+                text: 'Procent'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            pointFormat: 'Av dagligt intag: <b>{point.y:.1f} %</b>'
+        },
+        series: [{
+            name: 'Nutritions',
+            data: getTotalsForDiagram,
+            dataLabels: {
+                enabled: true,
+                rotation: -90,
+                color: '#FFFFFF',
+                align: 'right',
+                format: '{point.y:.1f}', // one decimal
+                y: 10, // 10 pixels down from the top
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        }]
+    };
+
     return (
-        <div className="table-total-row">
-            <div className="total-receipt"></div>
-            <div className="total-nutrition-container">
-                {renderTotals}
+        <div>
+            <div className="table-total-row">
+                <div className="total-receipt"></div>
+                <div className="total-nutrition-container">
+                    {renderTotals}
+                </div>
             </div>
+            <ReactHighcharts config = {config}></ReactHighcharts>
         </div>
     );
 }

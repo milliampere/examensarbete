@@ -8,6 +8,8 @@ import Credits from './components/Credits/Credits';
 import Help from './components/Help/Help';
 import PersonDataForm from './components/PersonDataForm.js';
 import filterRiForPersonData from './utils/filterRiForPersonData.js';
+import useRegex from './utils/regex.js';
+import mockFoodList from './data/mockFoodList.json';
 import './App.css';
 
 
@@ -27,41 +29,46 @@ class App extends Component {
 		showPersonDataForm: false,
 		showHelp: false,
 		showCredits: false,
+		textarea: '2 st tomat \n 1 st morot',
+		rawInputArray: [],
 	}
 
 	componentDidMount() {
-		chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-			chrome.tabs.sendMessage(
-			  	tabs[0].id,
-			  	{ type: 'reactInit' },
-				(response) => {
-					this.setState({rawInputArray: response.array})
-					this.setState({portions: response.portions})
-				}
-			);
-		});
-		chrome.storage.sync.get(null, (result) => {
-			if(result){
-				const sex = result.sex ? result.sex : 'woman';
-				const isPregnant = result.isPregnant ? result.isPregnant : false;
-				const isBreastfeeding = result.isBreastfeeding ? result.isBreastfeeding : false;
-				const lengthCm = result.lengthCm ? Number(result.lengthCm) : 170;
-				const weightKg = result.weightKg ? Number(result.weightKg) : 65;
-				const ageYear = result.ageYear ? Number(result.ageYear) : 30;
-				const PAL = result.PAL ? Number(result.PAL) : 1.65;
+		this.setState({personalGroup: filterRiForPersonData(this.state.sex, this.state.ageYear, this.state.isPregnant, this.state.isBreastfeeding)});
 
-				this.setState({
-					sex,
-					isPregnant,
-					isBreastfeeding,
-					lengthCm,
-					weightKg,
-					ageYear,
-					PAL,
-					personalGroup: filterRiForPersonData(sex, ageYear, isPregnant, isBreastfeeding)
-				});
-			}
-		})
+		// chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+		// 	chrome.tabs.sendMessage(
+		// 	  	tabs[0].id,
+		// 	  	{ type: 'reactInit' },
+		// 		(response) => {
+		// 			this.setState({rawInputArray: response.array})
+		// 			this.setState({portions: response.portions})
+		// 		}
+		// 	);
+		// });
+		// chrome.storage.sync.get(null, (result) => {
+		// 	if(result){
+		// 		const sex = result.sex ? result.sex : 'woman';
+		// 		const isPregnant = result.isPregnant ? result.isPregnant : false;
+		// 		const isBreastfeeding = result.isBreastfeeding ? result.isBreastfeeding : false;
+		// 		const lengthCm = result.lengthCm ? Number(result.lengthCm) : 170;
+		// 		const weightKg = result.weightKg ? Number(result.weightKg) : 65;
+		// 		const ageYear = result.ageYear ? Number(result.ageYear) : 30;
+		// 		const PAL = result.PAL ? Number(result.PAL) : 1.65;
+
+		// 		this.setState({
+		// 			sex,
+		// 			isPregnant,
+		// 			isBreastfeeding,
+		// 			lengthCm,
+		// 			weightKg,
+		// 			ageYear,
+		// 			PAL,
+		// 			personalGroup: filterRiForPersonData(sex, ageYear, isPregnant, isBreastfeeding)
+		// 		});
+		// 	}
+		// })
+
 	}
 
 	handleButtonClick = (event) => {
@@ -89,15 +96,15 @@ class App extends Component {
 		})
 		this.setState({personalGroup: filterRiForPersonData(input.sex, input.ageYear, input.isPregnant, input.isBreastfeeding)})
 
-		chrome.storage.sync.set({ //Save it using the Chrome extension storage API.
-			sex: input.sex,
-			isPregnant: input.isPregnant,
-			isBreastfeeding: input.isBreastfeeding,
-			lengthCm: Number(input.lengthCm),
-			weightKg: Number(input.weightKg),
-			ageYear: Number(input.ageYear),
-			PAL: Number(input.PAL),
-		});
+		// chrome.storage.sync.set({ //Save it using the Chrome extension storage API.
+		// 	sex: input.sex,
+		// 	isPregnant: input.isPregnant,
+		// 	isBreastfeeding: input.isBreastfeeding,
+		// 	lengthCm: Number(input.lengthCm),
+		// 	weightKg: Number(input.weightKg),
+		// 	ageYear: Number(input.ageYear),
+		// 	PAL: Number(input.PAL),
+		// });
 		this.setState({showPersonDataForm: false})
 	}
 
@@ -127,11 +134,31 @@ class App extends Component {
 		}));
     }
 
+	handleTextarea = (event) => {
+		this.setState({textarea: event.target.value});
+	}
+
+	handleTextareaButton = () => {
+
+		const rawInputText = this.state.textarea; 
+		const rawInputTextArray = rawInputText.split(/\n/g);
+		
+		const rawInputArray = rawInputTextArray.map((text) => {
+				return useRegex(text);
+		});
+
+		console.log(rawInputArray);
+
+		this.setState({rawInputArray: rawInputArray});
+	}
+
 
 	render() {
 
 		const { portions, activeTab, personalGroup, showPersonDataForm, showHelp, showCredits } = this.state;
-		const { loading, allFoods } = this.props.data; //props from graphql
+		//const { loading, allFoods } = this.props.data; //props from graphql
+		const allFoods = mockFoodList.data.allFoods;
+		const loading = false;
 
 		const options = {
 			sex: this.state.sex,
@@ -189,6 +216,11 @@ class App extends Component {
 							/>
 						}
 					</div>
+					<div>
+						<textarea value={this.state.textarea} onChange={this.handleTextarea} cols="50" rows="10"></textarea>
+						<button onClick={this.handleTextareaButton}>Hämta</button>
+					</div>
+
 					{!loading && !showPersonDataForm &&
 						<Content
 							rawInputArray={this.state.rawInputArray}
@@ -234,16 +266,16 @@ class App extends Component {
 	}
 }
 
-export const allFoods = gql`query allFoods {
-	allFoods{
-		id
-		name
-		group
-		euroFirName
-		livsmedelsverketId
-	}
-}`
+// export const allFoods = gql`query allFoods {
+// 	allFoods{
+// 		id
+// 		name
+// 		group
+// 		euroFirName
+// 		livsmedelsverketId
+// 	}
+// }`
 
-export default graphql(allFoods)(App);
+//export default graphql(allFoods)(App);
 
-//export default App;
+export default App;
